@@ -1,6 +1,6 @@
 <mat-grid-list [cols]="cols">   
   <mat-grid-tile [colspan]="1" *ngFor="let recipe of (recipes | async)?.results">
-    <mat-card class="dashboard-card">
+    <mat-card appearance="outlined" class="dashboard-card">
       <a routerLink="/recipe/{{ recipe.id }}">
         <mat-card-header>
           <mat-card-title title="{{ recipe.title }}">

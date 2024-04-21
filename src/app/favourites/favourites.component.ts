@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { FavouritesService } from '../core/services/favourites.service'
 

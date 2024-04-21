@@ -5,7 +5,7 @@
   </div>
   <div fxLayout="row [wrap]" fxLayoutGap="16px grid">  
     <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let favourite of (favourites)">
-      <mat-card class="card">
+      <mat-card appearance="outlined" class="card">
           <a routerLink="/recipe/{{ favourite.id }}">
             <mat-card-header>
               <mat-card-title title="{{ favourite.title }}">

@@ -10,7 +10,7 @@
 <div fxLayout="column">
   <h3>Ingredients:</h3>
   <div *ngFor="let data of recipe">
-    <mat-card class="recipe-ingredients-item">
+    <mat-card appearance="outlined" class="recipe-ingredients-item">
       {{ data.amount }} {{ data.measures.metric.unitShort }} {{ data.name }}
     </mat-card>
   </div>

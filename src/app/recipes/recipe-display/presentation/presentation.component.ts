@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { MatLegacySnackBar as MatSnackBar } from '@angular/material/legacy-snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Recipe } from 'src/app/shared/models/recipe.model';
 import { FavouritesService } from '../../../core/services/favourites.service';
