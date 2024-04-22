@@ -50,7 +50,7 @@ import { PresentationComponent } from './recipe-display/presentation/presentatio
     MatIconModule,
     MatButtonModule,
     LayoutModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MatListModule,
     MatSnackBarModule,
     MatInputModule,

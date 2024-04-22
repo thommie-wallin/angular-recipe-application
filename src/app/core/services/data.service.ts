@@ -4,7 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { CoreModule } from '../core.module';
-import { environment } from 'src/environments/environment';
+import { environment } from 'environments/environment';
 import { Recipe } from '../../shared/models/recipe.model';
 
 @Injectable({

@@ -37,7 +37,7 @@ import { HomeComponent } from './home/home.component';
     SharedModule,
     RecipesModule,
     LayoutModule,
-    FlexLayoutModule,
+    // FlexLayoutModule,
     MatToolbarModule,
     MatButtonModule,
     MatSidenavModule,
