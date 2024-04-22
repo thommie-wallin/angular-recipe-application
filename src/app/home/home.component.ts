@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -8,8 +9,13 @@ import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  /** Based on the screen size, switch from standard to one column per row */
-  cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
+  cards$;
+
+  constructor(private breakpointObserver: BreakpointObserver) {}
+
+  ngOnInit(): void {
+    /** Based on the screen size, switch from standard to one column per row */
+    this.cards$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
       if (matches) {
         return [
@@ -26,6 +32,5 @@ export class HomeComponent {
       ];
     })
   );
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  };
 }

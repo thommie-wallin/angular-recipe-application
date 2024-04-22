@@ -22,6 +22,7 @@ import { SharedModule } from  './shared/shared.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -48,8 +49,9 @@ import { HomeComponent } from './home/home.component';
     MatMenuModule,
     MatListModule,
     MatSnackBarModule,
+    CommonModule,
   ],
   providers: [],
-  // bootstrap: [AppComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

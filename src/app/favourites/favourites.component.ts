@@ -10,7 +10,7 @@ import { FavouritesService } from '../core/services/favourites.service'
   styleUrls: ['./favourites.component.css']
 })
 export class FavouritesComponent implements OnInit {
-  favourites = this.favouritesService.getFavourites();
+  favourites; 
 
   constructor(
     private favouritesService: FavouritesService,
@@ -18,6 +18,7 @@ export class FavouritesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.favourites = this.favouritesService.getFavourites();
   }
 
   clearOneFavourite(recipe) {

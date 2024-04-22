@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-import { ExtendedIngredient } from 'src/app/shared/models/extendedingredient.model';
+import { ExtendedIngredient } from 'app/shared/models/extendedingredient.model';
 
 @Component({
   selector: 'app-ingredients',

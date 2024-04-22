@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-
-import { Step } from 'src/app/shared/interfaces';
+import { Step } from 'app/shared/interfaces';
 
 @Component({
   selector: 'app-instructions',

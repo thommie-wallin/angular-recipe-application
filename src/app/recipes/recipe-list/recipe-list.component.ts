@@ -2,8 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
-import { Recipe } from 'src/app/shared/models/recipe.model';
+import { Recipe } from 'app/shared/models/recipe.model';
 import { FavouritesService } from '../../core/services/favourites.service';
 
 @Component({
