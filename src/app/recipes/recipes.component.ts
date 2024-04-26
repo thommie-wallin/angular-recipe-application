@@ -15,6 +15,7 @@ export class RecipesComponent implements OnInit {
   mealtype: string = '';
   allergene: string = '';
   diet: string = '';
+  api: string = 'spoonacular'
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols : number;
@@ -60,6 +61,11 @@ export class RecipesComponent implements OnInit {
       }
     });
   }
+
+  receiveAPISelectMessage($event) {
+    this.api = $event;
+    console.log(this.api);
+  };
 
   // Receive selected value from mealtype-select-component
   receiveMealTypeMessage($event) {

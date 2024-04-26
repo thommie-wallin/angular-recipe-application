@@ -6,7 +6,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './api-select.component.css'
 })
 export class ApiSelectComponent {
-  selected: string = 'None';
+  selected: string = 'spoonacular';
 
   @Output() messageEvent = new EventEmitter<string>();
 

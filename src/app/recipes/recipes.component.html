@@ -3,7 +3,7 @@
   
     <mat-grid-list [cols]="cols" rowHeight="3:1">
       <mat-grid-tile [colspan]="1">
-        <app-api-select></app-api-select>
+        <app-api-select (messageEvent)="receiveAPISelectMessage($event)"></app-api-select>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1">
         <app-mealtype-select (messageEvent)="receiveMealTypeMessage($event)"></app-mealtype-select>
