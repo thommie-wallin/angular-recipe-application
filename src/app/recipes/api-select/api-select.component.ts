@@ -10,10 +10,8 @@ export class ApiSelectComponent {
 
   @Output() messageEvent = new EventEmitter<string>();
 
-  constructor() {};
-
   // Send selected value to parent
   sendMessage(selected) {
     this.messageEvent.emit(this.selected)
-  }
-}
+  };
+};

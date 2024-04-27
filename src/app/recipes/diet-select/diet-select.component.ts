@@ -1,11 +1,11 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-diet-select',
   templateUrl: './diet-select.component.html',
   styleUrls: ['./diet-select.component.css']
 })
-export class DietSelectComponent implements OnInit {
+export class DietSelectComponent {
 
   selected: string = 'None';
 
@@ -14,11 +14,5 @@ export class DietSelectComponent implements OnInit {
   // Send selected value to parent
   sendMessage(selected) {
     this.messageEvent.emit(this.selected)
-  }
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
-
-}
+  };
+};
