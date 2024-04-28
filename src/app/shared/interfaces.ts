@@ -54,3 +54,7 @@ export interface Metric {
 
 export interface WinePairing {
 }
+
+export interface RecipeAPI {
+  name: string;
+};

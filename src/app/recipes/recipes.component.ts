@@ -4,6 +4,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { DataService } from '../core/services/data.service';
 // import { ResponseTest } from '../shared/interfaces';
 import { Recipe } from 'app/shared/models/recipe.model';
+import { RecipeAPI } from 'app/shared/interfaces';
 
 @Component({
   selector: 'app-recipes',
@@ -15,7 +16,7 @@ export class RecipesComponent implements OnInit {
   mealtype: string = '';
   allergene: string = '';
   diet: string = '';
-  api: string = 'spoonacular'
+  api: RecipeAPI = { name: 'spoonacular' };
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols : number;
@@ -63,8 +64,8 @@ export class RecipesComponent implements OnInit {
   }
 
   receiveAPISelectMessage($event) {
-    this.api = $event;
-    console.log(this.api);
+    this.api.name = $event;
+    console.log(this.api.name);
   };
 
   // Receive selected value from mealtype-select-component
@@ -84,8 +85,8 @@ export class RecipesComponent implements OnInit {
     // If selected value is not 'None'
     if (this.allergene !== 'None') {
       this.recipes = this.dataService.getRecipesBySelected(this.mealtype, this.allergene, this.diet);
-    }
-  }
+    };
+  };
 
   // Receive selected value from diet-select-component
   receiveDietMessage($event) {

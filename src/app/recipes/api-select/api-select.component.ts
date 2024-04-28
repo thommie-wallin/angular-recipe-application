@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { RecipeAPI } from 'app/shared/interfaces';
 
 @Component({
   selector: 'app-api-select',
@@ -6,12 +7,12 @@ import { Component, EventEmitter, Output } from '@angular/core';
   styleUrl: './api-select.component.css'
 })
 export class ApiSelectComponent {
-  selected: string = 'spoonacular';
+  selected: RecipeAPI = { name: 'spoonacular' };
 
   @Output() messageEvent = new EventEmitter<string>();
 
   // Send selected value to parent
-  sendMessage(selected) {
-    this.messageEvent.emit(this.selected)
+  sendMessage(selected: string) {
+    this.messageEvent.emit(selected)
   };
 };

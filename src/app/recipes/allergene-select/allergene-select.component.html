@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill">
   <mat-label>Intolerances</mat-label>
-  <mat-select [(value)]="selected" (selectionChange)="sendMessage($event)">
+  <mat-select [(value)]="selected" (selectionChange)="sendMessage($event.value)">
     <mat-option value="None">None</mat-option>
     <mat-option value="Gluten">Gluten</mat-option>
     <mat-option value="Peanut">Peanut</mat-option>

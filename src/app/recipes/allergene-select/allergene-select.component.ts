@@ -11,7 +11,7 @@ export class AllergeneSelectComponent {
   @Output() messageEvent = new EventEmitter<string>();
 
   // Send selected value to parent
-  sendMessage(selected) {
-    this.messageEvent.emit(this.selected)
+  sendMessage(selected: string) {
+    this.messageEvent.emit(selected)
   };
 };

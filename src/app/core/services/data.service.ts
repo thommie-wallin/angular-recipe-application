@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
-
 import { CoreModule } from '../core.module';
 import { environment } from 'environments/environment';
 import { Recipe } from '../../shared/models/recipe.model';
@@ -11,11 +9,10 @@ import { Recipe } from '../../shared/models/recipe.model';
   providedIn: CoreModule,
 })
 export class DataService {
-
   private apiKey: string = `${environment.spoonacularApiKey}`;
   baseUrl: string = `https://api.spoonacular.com/recipes/`;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {};
 
   getRecipesBySelected(mealType: string, allergene: string, diet: string) : Observable<any> {
     // If mealtype not empty string
@@ -30,7 +27,7 @@ export class DataService {
     if (diet) {
       url += `diet=${diet}&`
     }
-    return this.http.get<any>(`${this.baseUrl}complexSearch?${url}number=20&instructionsRequired=true`, {
+    return this.http.get<any>(`${this.baseUrl}complexSearch?${url}number=4&instructionsRequired=true`, {
       params: new HttpParams()
       .append('apiKey', this.apiKey)
     })
