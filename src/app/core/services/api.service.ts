@@ -1,6 +1,8 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CoreModule } from '../core.module';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: CoreModule,
@@ -8,5 +10,11 @@ import { CoreModule } from '../core.module';
 export class ApiService {
   private readonly baseUrl: string;
 
-  constructor(private http: HttpClient) {};
-}
+  constructor(private httpClient: HttpClient) {};
+
+  getRecipesBySelection() {
+    // return this.httpClient.get()
+  };
+
+  getRecipeById() {};
+};
