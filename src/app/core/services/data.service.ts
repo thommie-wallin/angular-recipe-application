@@ -15,6 +15,8 @@ export class DataService {
 
   constructor(private http: HttpClient, private apiService: ApiService) {};
 
+  //! Create a new service for another api or create function in this service for other api
+
   getRecipesBySelected(mealType: string, allergene: string, diet: string) : Observable<Recipe> {
     // If mealtype not empty string
     let url: string = '';
