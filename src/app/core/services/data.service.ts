@@ -17,6 +17,8 @@ export class DataService {
 
   //! Create a new service for another api or create function in this service for other api
 
+  //! Move complexity to recipe component instead of data service and send endpoint from there instead. 
+
   getRecipesBySelected(mealType: string, allergene: string, diet: string) : Observable<Recipe> {
     // If mealtype not empty string
     let url: string = '';
