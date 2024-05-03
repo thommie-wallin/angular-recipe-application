@@ -6,6 +6,13 @@ import { DataService } from '../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { RecipeAPI } from 'app/shared/interfaces';
 
+type Selected = {
+  mealType: string,
+  allergene: string,
+  diet: string,
+  api: string,
+}
+
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
@@ -13,10 +20,14 @@ import { RecipeAPI } from 'app/shared/interfaces';
 })
 export class RecipesComponent implements OnInit {
   recipes: Observable<Recipe>;
-  mealtype: string = '';
+  mealType: string = '';
   allergene: string = '';
   diet: string = '';
+
   api: RecipeAPI = { name: 'spoonacular' };
+  spoonacularUrl: string = `https://api.spoonacular.com/recipes/`;
+
+  selectCategory: Selected = {mealType: '', allergene: '', diet: '', api: 'spoonacular'};
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols : number;
@@ -65,36 +76,45 @@ export class RecipesComponent implements OnInit {
 
   receiveAPISelectMessage($event) {
     this.api.name = $event;
-    console.log(this.api.name);
+    this.selectCategory.api = $event;
+    console.log(this.selectCategory);
   };
 
   // Receive selected value from mealtype-select-component
   receiveMealTypeMessage($event) {
-    this.mealtype = $event
+    this.mealType = $event
+    this.selectCategory.mealType = $event;
+    console.log(this.selectCategory);
 
     // If selected value is not 'None'
-    if (this.mealtype !== 'None') {
-      this.recipes = this.dataService.getRecipesBySelected(this.mealtype, this.allergene, this.diet);
-    }
+    // if (this.mealType !== 'None') {
+    //   this.recipes = this.dataService.getRecipesBySelected(this.mealType, this.allergene, this.diet);
+    // }
   }
 
   // Receive selected value from allergene-select-component
   receiveAllergeneMessage($event) {
     this.allergene = $event
-
+    this.selectCategory.allergene = $event;
+console.log(this.selectCategory);
     // If selected value is not 'None'
-    if (this.allergene !== 'None') {
-      this.recipes = this.dataService.getRecipesBySelected(this.mealtype, this.allergene, this.diet);
-    };
+    // if (this.allergene !== 'None') {
+    //   this.recipes = this.dataService.getRecipesBySelected(this.mealType, this.allergene, this.diet);
+    // };
   };
 
   // Receive selected value from diet-select-component
   receiveDietMessage($event) {
     this.diet = $event
-
+    this.selectCategory.diet = $event;
+console.log(this.selectCategory, $event);
     // If selected value is not 'None'
-    if (this.diet !== 'None') {
-      this.recipes = this.dataService.getRecipesBySelected(this.mealtype, this.allergene, this.diet);
-    }
-  }
+    // if (this.diet !== 'None') {
+    //   this.recipes = this.dataService.getRecipesBySelected(this.mealType, this.allergene, this.diet);
+    // }
+  };
+
+  fetchRecipes() {
+
+  };
 }
