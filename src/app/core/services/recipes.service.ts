@@ -15,21 +15,21 @@ export class RecipesService {
   spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
   private spoonacularApiKey: string = `${environment.spoonacularApiKey}`;
 
-  constructor(private dataService: DataService) {};
+  constructor(private dataService: DataService, apiService: ApiService) {};
 
   // 
 
-  // getRecipes(mealType: string, allergene: string, diet: string, apiSelect: RecipeAPI): Observable<Recipe> {
+  // getRecipes(): Observable<Recipe> {
     
 
   //   if (apiSelect.name === 'spoonacular') {
       
 
-  //     // return this.apiService.get(url, { 
-  //     //   params: new HttpParams()
-  //     //   .append('apiKey',this.spoonacularApiKey) 
-  //     // });
-  //     this.dataService.getRecipesBySelected()
+  //     return this.apiService.get(url, { 
+  //       params: new HttpParams()
+  //       .append('apiKey',this.spoonacularApiKey) 
+  //     });
+  //     // this.dataService.getRecipesBySelected()
   //   } else {
 
   //   }

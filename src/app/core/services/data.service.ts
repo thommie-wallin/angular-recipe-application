@@ -1,15 +1,57 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CoreModule } from '../core.module';
 import { environment } from 'environments/environment';
 import { Recipe } from '../../shared/models/recipe.model';
 import { ApiService } from './api.service';
 
+type Selected = {
+  mealType: string,
+  allergene: string,
+  diet: string,
+  api: string,
+}
+
 @Injectable({
   providedIn: CoreModule,
 })
 export class DataService {
+  private _selectedSubject$ = new BehaviorSubject<Selected>({mealType: '', allergene: '', diet: '', api: 'spoonacular'});
+  public selected$: Observable<Selected> = this._selectedSubject$;
+
+  getSelected() {
+    return this._selectedSubject$;
+  };
+
+  updateSelected(newSelected: Selected) {
+    this._selectedSubject$.next(newSelected);
+    console.log(this._selectedSubject$);
+  };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   private apiKey: string = `${environment.spoonacularApiKey}`;
   baseUrl: string = `https://api.spoonacular.com/recipes/`;
 

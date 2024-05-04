@@ -77,14 +77,14 @@ export class RecipesComponent implements OnInit {
   receiveAPISelectMessage($event) {
     this.api.name = $event;
     this.selectCategory.api = $event;
-    console.log(this.selectCategory);
+    // console.log(this.selectCategory);
   };
 
   // Receive selected value from mealtype-select-component
   receiveMealTypeMessage($event) {
     this.mealType = $event
     this.selectCategory.mealType = $event;
-    console.log(this.selectCategory);
+    // console.log(this.selectCategory);
 
     // If selected value is not 'None'
     // if (this.mealType !== 'None') {
@@ -96,7 +96,7 @@ export class RecipesComponent implements OnInit {
   receiveAllergeneMessage($event) {
     this.allergene = $event
     this.selectCategory.allergene = $event;
-console.log(this.selectCategory);
+// console.log(this.selectCategory);
     // If selected value is not 'None'
     // if (this.allergene !== 'None') {
     //   this.recipes = this.dataService.getRecipesBySelected(this.mealType, this.allergene, this.diet);
@@ -107,7 +107,7 @@ console.log(this.selectCategory);
   receiveDietMessage($event) {
     this.diet = $event
     this.selectCategory.diet = $event;
-console.log(this.selectCategory, $event);
+// console.log(this.selectCategory, $event);
     // If selected value is not 'None'
     // if (this.diet !== 'None') {
     //   this.recipes = this.dataService.getRecipesBySelected(this.mealType, this.allergene, this.diet);
@@ -115,6 +115,6 @@ console.log(this.selectCategory, $event);
   };
 
   fetchRecipes() {
-
+    
   };
 }
