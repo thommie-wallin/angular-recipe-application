@@ -17,16 +17,15 @@ type Selected = {
   providedIn: CoreModule,
 })
 export class DataService {
-  private _selectedSubject$ = new BehaviorSubject<Selected>({mealType: '', allergene: '', diet: '', api: 'spoonacular'});
-  public selected$: Observable<Selected> = this._selectedSubject$;
+  private _selectedSubject$ = new BehaviorSubject<Selected>({mealType: 'none', allergene: 'none', diet: 'none', api: 'spoonacular'});
+  private selected$ = this._selectedSubject$ as Observable<Selected>;
 
   getSelected() {
-    return this._selectedSubject$;
+    return this.selected$;
   };
 
   updateSelected(newSelected: Selected) {
     this._selectedSubject$.next(newSelected);
-    console.log(this._selectedSubject$);
   };
 
 
@@ -59,34 +58,32 @@ export class DataService {
 
   //! Create a new service for another api or create function in this service for other api
 
-  //! Move complexity to recipe component instead of data service and send endpoint from there instead. 
+  // getRecipesBySelected(mealType: string, allergene: string, diet: string) : Observable<Recipe> {
+  //   // If mealtype not empty string
+  //   let url: string = '';
 
-  getRecipesBySelected(mealType: string, allergene: string, diet: string) : Observable<Recipe> {
-    // If mealtype not empty string
-    let url: string = '';
+  //   if (allergene) {
+  //     url += `intolerances=${allergene}&`
+  //   }
+  //   if (mealType) {
+  //     url += `type=${mealType}&`
+  //   }
+  //   if (diet) {
+  //     url += `diet=${diet}&`
+  //   }
 
-    if (allergene) {
-      url += `intolerances=${allergene}&`
-    }
-    if (mealType) {
-      url += `type=${mealType}&`
-    }
-    if (diet) {
-      url += `diet=${diet}&`
-    }
+  //   return this.apiService.get(
+  //     `${this.baseUrl}complexSearch?${url}number=4&instructionsRequired=true`, { 
+  //       params: new HttpParams()
+  //       .append('apiKey',this.apiKey) 
+  //     }
+  //   );
 
-    return this.apiService.get(
-      `${this.baseUrl}complexSearch?${url}number=4&instructionsRequired=true`, { 
-        params: new HttpParams()
-        .append('apiKey',this.apiKey) 
-      }
-    );
-
-    // return this.http.get<any>(`${this.baseUrl}complexSearch?${url}number=4&instructionsRequired=true`, {
-    //   params: new HttpParams()
-    //   .append('apiKey', this.apiKey)
-    // })
-  };
+  //   // return this.http.get<any>(`${this.baseUrl}complexSearch?${url}number=4&instructionsRequired=true`, {
+  //   //   params: new HttpParams()
+  //   //   .append('apiKey', this.apiKey)
+  //   // })
+  // };
 
   getRecipe(id: number) : Observable<Recipe> {
     return this.apiService.get(

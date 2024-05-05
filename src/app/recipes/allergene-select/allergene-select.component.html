@@ -1,9 +1,9 @@
 <mat-form-field appearance="fill">
   <mat-label>Intolerances</mat-label>
-  <mat-select [(value)]="selected" (selectionChange)="sendMessage($event.value)">
-    <mat-option value="None">None</mat-option>
-    <mat-option value="Gluten">Gluten</mat-option>
-    <mat-option value="Peanut">Peanut</mat-option>
-    <mat-option value="Dairy">Dairy</mat-option>
+  <mat-select [(value)]="selected.allergene" (selectionChange)="changeSelected($event.value)">
+    <mat-option value="none">None</mat-option>
+    <mat-option value="gluten">Gluten</mat-option>
+    <mat-option value="peanut">Peanut</mat-option>
+    <mat-option value="dairy">Dairy</mat-option>
   </mat-select>
 </mat-form-field>

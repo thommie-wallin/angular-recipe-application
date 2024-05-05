@@ -57,10 +57,6 @@ export interface Metric {
 export interface WinePairing {
 }
 
-export interface RecipeAPI {
-  name: string;
-};
-
 // Default type for HttpCLient options
 export interface Options {
   headers?: HttpHeaders | {
@@ -77,4 +73,11 @@ export interface Options {
   transferCache?: {
     includeHeaders?: string[];
   } | boolean;
+};
+
+export interface Selected {
+  mealType: string,
+  allergene: string,
+  diet: string,
+  api: string,
 };

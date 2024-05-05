@@ -4,36 +4,41 @@ import { HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { Recipe } from 'app/shared/models/recipe.model';
-import { RecipeAPI } from 'app/shared/interfaces';
 import { CoreModule } from '../core.module';
-import { DataService } from './data.service';
 
 @Injectable({
   providedIn: CoreModule,
 })
 export class RecipesService {
-  spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
+  private spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
   private spoonacularApiKey: string = `${environment.spoonacularApiKey}`;
 
-  constructor(private dataService: DataService, apiService: ApiService) {};
+  constructor(private apiService: ApiService) {};
 
-  // 
+  getSelectedRecipes(selectedCategories): Observable<Recipe> {
+    if (selectedCategories.api === 'spoonacular') {
 
-  // getRecipes(): Observable<Recipe> {
-    
+      // Add selectedCategories to endpoint search
+      let url: string = '';
 
-  //   if (apiSelect.name === 'spoonacular') {
-      
+      if (selectedCategories.allergene !== 'none') {
+        url += `intolerances=${selectedCategories.allergene}&`
+      }
+      if (selectedCategories.mealType !== 'none') {
+        url += `type=${selectedCategories.mealType}&`
+      }
+      if (selectedCategories.diet !== 'none') {
+        url += `diet=${selectedCategories.diet}&`
+      }
 
-  //     return this.apiService.get(url, { 
-  //       params: new HttpParams()
-  //       .append('apiKey',this.spoonacularApiKey) 
-  //     });
-  //     // this.dataService.getRecipesBySelected()
-  //   } else {
+      if (url.length !== 0) {
+        return this.apiService.get(`${this.spoonacularBaseUrl}complexSearch?${url}number=4&instructionsRequired=true`, { 
+          params: new HttpParams()
+          .append('apiKey',this.spoonacularApiKey) 
+        });
+      };
+    } else if (selectedCategories.api === 'edamam') {
 
-  //   }
-
-    
-  // };
+    };
+  };
 };

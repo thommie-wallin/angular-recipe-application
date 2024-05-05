@@ -1,8 +1,6 @@
 <mat-form-field appearance="fill">
   <mat-label>Recipe API</mat-label>
-  <mat-select 
-    [(value)]="selected.api" 
-  (selectionChange)="changeSelected($event.value)">
+  <mat-select [(value)]="selected.api" (selectionChange)="changeSelected($event.value)">
     <mat-option value="spoonacular">Spoonacular</mat-option>
     <mat-option value="edamam">Edamam</mat-option>
   </mat-select>

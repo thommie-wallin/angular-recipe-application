@@ -1,4 +1,6 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { DataService } from 'app/core/services/data.service';
+import { Selected } from 'app/shared/interfaces';
 
 @Component({
   selector: 'app-mealtype-select',
@@ -6,12 +8,12 @@ import { Component, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./mealtype-select.component.css']
 })
 export class MealtypeSelectComponent {
-  selected: string = 'None';
+  @Input() selected: Selected;
 
-  @Output() messageEvent = new EventEmitter<string>();
+  constructor(private dataService: DataService) {};
 
-  // Send selected value to parent
-  sendMessage(selected: string) {
-    this.messageEvent.emit(selected)
+  changeSelected(selectedValue) {
+    const newSelected = {...this.selected, mealType: selectedValue}
+    this.dataService.updateSelected(newSelected);
   };
 };
