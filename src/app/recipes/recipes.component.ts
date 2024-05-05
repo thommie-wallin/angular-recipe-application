@@ -25,7 +25,7 @@ export class RecipesComponent implements OnInit {
     xs: 1
   }
 
-  constructor(private dataService: DataService, private breakpointObserver: BreakpointObserver, private recipeService: RecipesService) {}
+  constructor(private dataService: DataService, private recipeService: RecipesService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.dataService.getSelected().subscribe((selectedCategories) => {

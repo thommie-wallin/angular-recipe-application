@@ -51,10 +51,10 @@ export class DataService {
 
 
 
-  private apiKey: string = `${environment.spoonacularApiKey}`;
-  baseUrl: string = `https://api.spoonacular.com/recipes/`;
+  // private apiKey: string = `${environment.spoonacularApiKey}`;
+  // baseUrl: string = `https://api.spoonacular.com/recipes/`;
 
-  constructor(private http: HttpClient, private apiService: ApiService) {};
+  // constructor(private http: HttpClient, private apiService: ApiService) {};
 
   //! Create a new service for another api or create function in this service for other api
 
@@ -85,17 +85,17 @@ export class DataService {
   //   // })
   // };
 
-  getRecipe(id: number) : Observable<Recipe> {
-    return this.apiService.get(
-      `${this.baseUrl}${id}/information`, { 
-        params: new HttpParams()
-        .append('apiKey',this.apiKey) 
-      }
-    );
+  // getRecipe(id: number) : Observable<Recipe> {
+  //   return this.apiService.get(
+  //     `${this.baseUrl}${id}/information`, { 
+  //       params: new HttpParams()
+  //       .append('apiKey',this.apiKey) 
+  //     }
+  //   );
 
-    // return this.http.get<Recipe>(`${this.baseUrl}${id}/information`, {
-    //   params: new HttpParams()
-    //   .append('apiKey', this.apiKey)
-    // })
-  };
+  //   // return this.http.get<Recipe>(`${this.baseUrl}${id}/information`, {
+  //   //   params: new HttpParams()
+  //   //   .append('apiKey', this.apiKey)
+  //   // })
+  // };
 };

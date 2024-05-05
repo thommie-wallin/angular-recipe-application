@@ -5,6 +5,7 @@ import { environment } from 'environments/environment';
 import { Observable } from 'rxjs';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { CoreModule } from '../core.module';
+import { Selected } from 'app/shared/interfaces';
 
 @Injectable({
   providedIn: CoreModule,
@@ -15,7 +16,7 @@ export class RecipesService {
 
   constructor(private apiService: ApiService) {};
 
-  getSelectedRecipes(selectedCategories): Observable<Recipe> {
+  getSelectedRecipes(selectedCategories: Selected): Observable<Recipe> {
     if (selectedCategories.api === 'spoonacular') {
 
       // Add selectedCategories to endpoint search
@@ -37,6 +38,19 @@ export class RecipesService {
           .append('apiKey',this.spoonacularApiKey) 
         });
       };
+    } else if (selectedCategories.api === 'edamam') {
+
+    };
+  };
+
+  getOneRecipe(id: number, selectedCategories: Selected) : Observable<Recipe> {
+    if (selectedCategories.api === 'spoonacular') {
+      return this.apiService.get(
+        `${this.spoonacularBaseUrl}${id}/information`, { 
+          params: new HttpParams()
+          .append('apiKey',this.spoonacularApiKey) 
+        }
+      );
     } else if (selectedCategories.api === 'edamam') {
 
     };

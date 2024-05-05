@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DataService } from '../../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
+import { Selected } from 'app/shared/interfaces';
+import { RecipesService } from 'app/core/services/recipes.service';
 
 @Component({
   selector: 'app-recipe-display',
@@ -13,14 +15,16 @@ export class RecipeDisplayComponent {
   recipeId;
   recipe$: Observable<Recipe>;
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {}
+  constructor(private dataService: DataService, private recipeService: RecipesService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.getRecipe();
-  }
+    this.dataService.getSelected().subscribe((selectedCategories) => {
+      this.getRecipe(selectedCategories);
+    });
+  };
 
-  getRecipe(): void {
+  getRecipe(selectedCategories: Selected): void {
     this.recipeId = this.route.snapshot.paramMap.get('id');
-    this.recipe$ = this.dataService.getRecipe(this.recipeId);
-  }
-}
+    this.recipe$ = this.recipeService.getOneRecipe(this.recipeId, selectedCategories);
+  };
+};
