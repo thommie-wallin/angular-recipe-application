@@ -14,6 +14,10 @@ export class RecipesService {
   private spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
   private spoonacularApiKey: string = `${environment.spoonacularApiKey}`;
 
+  private edamamBaseUrl: string = `https://api.edamam.com/api/recipes/v2`;
+  private edamamApiKey: string = `${environment.edamamApiKey}`;
+  private edamamApiId: string = `${environment.edamamApiId}`;
+
   constructor(private apiService: ApiService) {};
 
   getSelectedRecipes(selectedCategories: Selected): Observable<Recipe> {
@@ -39,7 +43,16 @@ export class RecipesService {
         });
       };
     } else if (selectedCategories.api === 'edamam') {
+      let url: string = '';
 
+      if (url.length !== 0) {
+        return this.apiService.get(`${this.edamamBaseUrl}complexSearch?${url}number=4&instructionsRequired=true`, { 
+          params: new HttpParams()
+          .append('app_key',this.edamamApiKey)
+          .append('app_id', this.edamamApiId)
+          .append('type', 'public')
+        });
+      };
     };
   };
 

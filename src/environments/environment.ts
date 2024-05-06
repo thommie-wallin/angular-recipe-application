@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   spoonacularApiKey: process.env.SPOONACULAR_API_KEY,
+  edamamApiKey: process.env.EDAMAM_API_KEY,
+  edamamApiId: process.env.EDAMAM_API_ID,
 };
 
 /*
