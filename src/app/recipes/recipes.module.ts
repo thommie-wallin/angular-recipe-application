@@ -25,6 +25,8 @@ import { InstructionsComponent } from './recipe-display/instructions/instruction
 import { IngredientsComponent } from './recipe-display/ingredients/ingredients.component';
 import { PresentationComponent } from './recipe-display/presentation/presentation.component';
 import { ApiSelectComponent } from './api-select/api-select.component';
+import { SharedModule } from 'app/shared/shared.module';
+import { FormFieldComponent } from 'app/shared/components/form-field/form-field.component';
 
 
 
@@ -57,6 +59,7 @@ import { ApiSelectComponent } from './api-select/api-select.component';
     MatSnackBarModule,
     MatInputModule,
     MatDividerModule,
+    SharedModule,
   ]
 })
 export class RecipesModule { }

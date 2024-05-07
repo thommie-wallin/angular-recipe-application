@@ -20,7 +20,7 @@ export class RecipesService {
 
   constructor(private apiService: ApiService) {};
 
-  getSelectedRecipes(selectedCategories: Selected): Observable<Recipe> {
+  getSelectedRecipes(selectedCategories: Selected): Observable<any> {
     if (selectedCategories.api === 'spoonacular') {
 
       // Add selectedCategories to endpoint search
@@ -43,18 +43,48 @@ export class RecipesService {
         });
       };
     } else if (selectedCategories.api === 'edamam') {
-      let url: string = '';
+      // let url: string = '';
 
-      if (url.length !== 0) {
-        return this.apiService.get(`${this.edamamBaseUrl}complexSearch?${url}number=4&instructionsRequired=true`, { 
-          params: new HttpParams()
-          .append('app_key',this.edamamApiKey)
-          .append('app_id', this.edamamApiId)
-          .append('type', 'public')
-        });
-      };
+      // if (selectedCategories.allergene !== 'none') {
+      //   url += `health=${selectedCategories.allergene}&`
+      // }
+      // if (selectedCategories.mealType !== 'none') {
+      //   url += `dishType=${selectedCategories.mealType}&`
+      // }
+      // if (selectedCategories.diet !== 'none') {
+      //   url += `health=${selectedCategories.diet}&`
+      // }
+
+      // if (url.length !== 0) {
+      //   return this.apiService.get(`${this.edamamBaseUrl}?dishType=Desserts&`, { 
+      //     params: new HttpParams()
+      //     .append('app_key',this.edamamApiKey)
+      //     .append('app_id', this.edamamApiId)
+      //     .append('type', 'public')
+      //   });
+      // };
+
+      return this.apiService.get(`${this.edamamBaseUrl}?${'dishType=Desserts&'}type=public`, { 
+        params: new HttpParams()
+        // .append('type', 'public')
+        .append('app_id', this.edamamApiId)
+        .append('app_key', this.edamamApiKey)
+      })
+      // .subscribe(data => {
+      //   console.log(data);
+        
+      // })
     };
   };
+
+  // testEdamam() {
+  //   return this.apiService.get(`${this.edamamBaseUrl}?dishType=Desserts&`, { 
+  //       params: new HttpParams()
+  //       .append('app_key',this.edamamApiKey)
+  //       .append('app_id', this.edamamApiId)
+  //       .append('type', 'public')
+  //     });
+  // }
 
   getOneRecipe(id: number, selectedCategories: Selected) : Observable<Recipe> {
     if (selectedCategories.api === 'spoonacular') {

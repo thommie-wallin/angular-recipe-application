@@ -1,6 +1,8 @@
 import { Component, Input, } from '@angular/core';
 import { DataService } from 'app/core/services/data.service';
+import { RecipesService } from 'app/core/services/recipes.service';
 import { Selected } from 'app/shared/interfaces';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-api-select',
@@ -10,7 +12,7 @@ import { Selected } from 'app/shared/interfaces';
 export class ApiSelectComponent {
   @Input() selected: Selected;
 
-  constructor(private dataService: DataService) {};
+  constructor(private dataService: DataService, private recipeService: RecipesService) {};
 
   changeSelected(selectedValue) {
     const newSelected = {...this.selected, api: selectedValue}

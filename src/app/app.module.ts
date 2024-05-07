@@ -23,6 +23,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
+import { RecipesComponent } from './recipes/recipes.component';
 
 @NgModule({
   declarations: [

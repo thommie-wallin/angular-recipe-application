@@ -5,6 +5,7 @@ import { DataService } from '../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
+import { SPOONACULAR_MEAL_TYPES } from 'app/shared/constants/ui';
 
 @Component({
   selector: 'app-recipes',
@@ -12,8 +13,13 @@ import { RecipesService } from 'app/core/services/recipes.service';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
-  recipes: Observable<Recipe>;
+  // recipes: Observable<Recipe>;
+  recipes: Observable<any>;
   selected: Selected;
+
+  // mealTypes = SPOONACULAR_MEAL_TYPES;
+  // labelTest = 'Label Test';
+  
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols: number;
@@ -30,7 +36,7 @@ export class RecipesComponent implements OnInit {
   ngOnInit(): void {
     this.dataService.getSelected().subscribe((selectedCategories) => {
       this.selected = selectedCategories;
-      this.fetchRecipes(this.selected);
+      // this.fetchRecipes(selectedCategories);
     });
     
     // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 
@@ -66,6 +72,24 @@ export class RecipesComponent implements OnInit {
   }
 
   fetchRecipes(selectedCategories) {
-    this.recipes = this.recipeService.getSelectedRecipes(selectedCategories)
+    // this.recipes = this.recipeService.getSelectedRecipes(selectedCategories);
+    // console.log(this.recipes);
+    
+    // this.recipeService.getSelectedRecipes(selectedCategories)
+    // .subscribe({
+    //   next: (data) => {
+    //       this.recipes = data;
+    //       console.log(data);
+          
+    //   },
+    //   error: (error) => {
+    //       console.log(error)
+    //   },
+    //   complete: () => {
+    //       console.log('complete')
+    //   }
+    // })
+    
+    
   };
 }

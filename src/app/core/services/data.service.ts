@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { CoreModule } from '../core.module';
@@ -20,16 +20,22 @@ export class DataService {
   private _selectedSubject$ = new BehaviorSubject<Selected>({mealType: 'none', allergene: 'none', diet: 'none', api: 'spoonacular'});
   private selected$ = this._selectedSubject$ as Observable<Selected>;
 
+  count = signal(0);
+
   getSelected() {
     return this.selected$;
   };
 
   updateSelected(newSelected: Selected) {
     this._selectedSubject$.next(newSelected);
+    this.count.update(value => value + 1);
+    console.log('The count is: ' + this.count());
   };
 
 
-
+  
+  // Signals are getter functions - calling them reads their value.
+  
 
 
 
