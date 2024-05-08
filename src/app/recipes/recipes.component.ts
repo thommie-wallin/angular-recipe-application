@@ -17,8 +17,8 @@ export class RecipesComponent implements OnInit {
   recipes: Observable<any>;
   selected: Selected;
 
-  // mealTypes = SPOONACULAR_MEAL_TYPES;
-  // labelTest = 'Label Test';
+  mealTypes = SPOONACULAR_MEAL_TYPES;
+  labelTest = 'meal type';
   
 
   // Angular Material Grid list: Columns per viewportsize in media queries.

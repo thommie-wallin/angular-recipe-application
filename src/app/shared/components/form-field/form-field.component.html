@@ -1,5 +1,5 @@
 <mat-form-field appearance="fill">
-  <mat-label>{{ label }}</mat-label>
+  <mat-label>{{ label | titlecase }}</mat-label>
   <mat-select [(value)]="selected" (selectionChange)="changeSelected($event.value)">
     @for (item of items; track $index) {
       <mat-option value="{{ item }}">{{ item | titlecase }}</mat-option>

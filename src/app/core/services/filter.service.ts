@@ -1,18 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { CoreModule } from '../core.module';
+import { FormControl } from '@angular/forms';
 
-// export interface FilterState {
-//   articles: Article[];
-//   filter: string | null;
-//   error: string | null;
-//   status: "loading" | "success" | "error";
-//   currentPage: number;
-// }
+export interface FilterState {
+  api: string,
+  mealType: string,
+  diet: string,
+  allergene: string,
+};
 
 @Injectable({
   providedIn: CoreModule
 })
 export class FilterService {
+  private state = signal<FilterState>({
+    api: 'spoonacular',
+    mealType: 'none', 
+    diet: 'none',
+    allergene: 'none',
+  });
 
-  constructor() {};
+  updateFilter(selected: object) {
+    this.state.update((state) => ({
+      ...state,
+      selected
+    }))
+    console.log(this.state());
+    
+  };
 }
