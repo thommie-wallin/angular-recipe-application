@@ -1,4 +1,5 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { CoreModule } from '../core.module';
 import { FormControl } from '@angular/forms';
 
@@ -7,6 +8,7 @@ export interface FilterState {
   mealType: string,
   diet: string,
   allergene: string,
+  filter: string | null,
 };
 
 @Injectable({
@@ -18,12 +20,29 @@ export class FilterService {
     mealType: 'none', 
     diet: 'none',
     allergene: 'none',
+    filter: null,
   });
 
-  updateFilter(selected: object) {
+  filterControl = new FormControl();
+  filter$ = this.filterControl.valueChanges;
+
+  filter = computed(() => this.state().filter);
+
+  constructor() {
+    this.filter$.pipe(takeUntilDestroyed()).subscribe((filter) =>
+      console.log(filter)
+      
+      // this.state.update((state) => ({
+      //   ...state,
+      //   filter: filter === "" ? null : filter,
+      // }))
+    );
+  };
+
+  updateFilter(selected) {
     this.state.update((state) => ({
       ...state,
-      selected
+      mealType: 'test',
     }))
     console.log(this.state());
     

@@ -1,6 +1,11 @@
 <div class="grid-container">
   <h1 class="mat-h1">Recipes</h1>
     <mat-grid-list [cols]="cols" rowHeight="3:1">
+      <!-- @for (category of categories; track $index) {
+        <mat-grid-tile [colspan]="1">
+          <app-form-field [categoryName]="categories[0][0]" [label]="categories[0][1]" [selected]="selected" ></app-form-field>
+        </mat-grid-tile>
+      } -->
       <mat-grid-tile [colspan]="1">
         <app-api-select [selected]="selected"></app-api-select>
       </mat-grid-tile>
@@ -14,7 +19,7 @@
         <app-diet-select [selected]="selected"></app-diet-select>
       </mat-grid-tile>
       <mat-grid-tile [colspan]="1">
-        <app-form-field [label]="labelTest" [selected]="selected" [items]="mealTypes"></app-form-field>
+        <app-form-field  [control]="service.filterControl" [label]="labels.api" [selected]="selected" [items]="mealTypes"></app-form-field>
       </mat-grid-tile>
     </mat-grid-list>
     <div class="list-content">

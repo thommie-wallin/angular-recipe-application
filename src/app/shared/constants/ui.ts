@@ -1,4 +1,9 @@
 // Recipe select constants
+// export const SELECT_CATEGORIES = ['api', 'mealType', 'diet', 'allergene'];
+// export const CATEGORIES = { api: 'api', mealType: 'mealType', diet: 'diet', allergene: 'allergene' };
+
+export const CATEGORIES_LABELS = { api: 'Recipe API', mealType: 'Meal type', diet: 'Diet', allergene: 'Allergene'};
+
 export const RECIPE_API = ['spoonacular', 'edamam'];
 
 export const SPOONACULAR_MEAL_TYPES = ['none', 'appetizer', 'main course', 'dessert'];
@@ -8,3 +13,23 @@ export const SPOONACULAR_ALLERGENES = ['none', 'egg', 'peanut', 'dairy'];
 export const EDAMAM_DISH_TYPES = ['none', 'starter', 'main course', 'desserts'];
 export const EDAMAM_HEALTH_LABELS = ['none', 'gluten-free', 'vegetarian', 'vegan'];
 export const EDAMAM_ALLERGENES = ['none','egg-free', 'peanut-free', 'dairy-free'];
+
+// export const CATEGORIES = ['api', 'Recipe API', ['mealType', 'Meal type'], ['diet', 'Diet'], ['allergene', 'Allergene']];
+
+export const FORM_FIELDS = [ 
+  {
+    name: 'mealType', 
+    categoriesSpoonacular: SPOONACULAR_MEAL_TYPES,
+    categoriesEdamam: EDAMAM_DISH_TYPES,
+  },
+  {
+    name: 'diet', 
+    categoriesSpoonacular: SPOONACULAR_MEAL_TYPES,
+    categoriesEdamam: EDAMAM_DISH_TYPES,
+  },
+  {
+    name: 'allergene',
+    categoriesSpoonacular: SPOONACULAR_MEAL_TYPES,
+    categoriesEdamam: EDAMAM_DISH_TYPES,
+  },
+];
