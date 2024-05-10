@@ -5,7 +5,7 @@ import { DataService } from '../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
-import { CATEGORIES, CATEGORIES_LABELS, SPOONACULAR_MEAL_TYPES } from 'app/shared/constants/ui';
+import { CATEGORIES_LABELS, SPOONACULAR_MEAL_TYPES } from 'app/shared/constants/ui';
 import { FilterService } from 'app/core/services/filter.service';
 
 @Component({
@@ -20,7 +20,7 @@ export class RecipesComponent implements OnInit {
 
   mealTypes = SPOONACULAR_MEAL_TYPES;
   // label = 'mealType';
-  categories = CATEGORIES;
+  // categories = CATEGORIES;
   labels = CATEGORIES_LABELS;
 
   service = inject(FilterService);
