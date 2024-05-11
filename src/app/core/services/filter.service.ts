@@ -8,7 +8,7 @@ export interface FilterState {
   mealType: string,
   diet: string,
   allergene: string,
-  filter: string | null,
+  // filter: string | null,
 };
 
 @Injectable({
@@ -20,13 +20,17 @@ export class FilterService {
     mealType: 'none', 
     diet: 'none',
     allergene: 'none',
-    filter: null,
+    // filter: null,
   });
 
   filterControl = new FormControl();
   filter$ = this.filterControl.valueChanges;
 
-  filter = computed(() => this.state().filter);
+  api = computed(() => this.state().api);
+  mealType = computed(() => this.state().mealType);
+  diet = computed(() => this.state().diet);
+  allergene = computed(() => this.state().allergene);
+  // filter = computed(() => this.state().filter);
 
   constructor() {
     this.filter$.pipe(takeUntilDestroyed()).subscribe((filter) =>
@@ -42,7 +46,7 @@ export class FilterService {
   updateFilter(selected) {
     this.state.update((state) => ({
       ...state,
-      mealType: 'test',
+      ...selected,
     }))
     console.log(this.state());
     

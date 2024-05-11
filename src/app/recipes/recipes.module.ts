@@ -27,6 +27,7 @@ import { PresentationComponent } from './recipe-display/presentation/presentatio
 import { ApiSelectComponent } from './api-select/api-select.component';
 import { SharedModule } from 'app/shared/shared.module';
 import { FormFieldComponent } from 'app/shared/components/form-field/form-field.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 
 
@@ -43,6 +44,7 @@ import { FormFieldComponent } from 'app/shared/components/form-field/form-field.
     IngredientsComponent,
     PresentationComponent,
     ApiSelectComponent,
+    CategoriesComponent,
   ],
   imports: [
     CommonModule,

@@ -1,1 +1,29 @@
-<p>categories works!</p>
+<mat-grid-list [cols]="cols" rowHeight="3:1">
+  <mat-grid-tile [colspan]="1">
+    <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
+  </mat-grid-tile>
+
+  <!-- @for (category of categories; track $index) {
+    <mat-grid-tile [colspan]="1">
+      <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.categoriesSpoonacular"></app-form-field>
+    </mat-grid-tile>
+  } -->
+
+
+
+  <!-- <mat-grid-tile [colspan]="1">
+    <app-api-select [selected]="selected"></app-api-select>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+    <app-mealtype-select [selected]="selected"></app-mealtype-select>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+    <app-allergene-select [selected]="selected"></app-allergene-select>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+    <app-diet-select [selected]="selected"></app-diet-select>
+  </mat-grid-tile>
+  <mat-grid-tile [colspan]="1">
+    <app-form-field  [control]="service.filterControl" [label]="labels.api" [selected]="selected" [items]="mealTypes"></app-form-field>
+  </mat-grid-tile> -->
+</mat-grid-list>
