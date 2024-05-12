@@ -23,25 +23,29 @@ export class FilterService {
     // filter: null,
   });
 
-  filterControl = new FormControl();
-  filter$ = this.filterControl.valueChanges;
+  // filterControl = new FormControl();
+  // filter$ = this.filterControl.valueChanges;
 
   api = computed(() => this.state().api);
-  mealType = computed(() => this.state().mealType);
-  diet = computed(() => this.state().diet);
-  allergene = computed(() => this.state().allergene);
+  // mealType = computed(() => this.state().mealType);
+  // diet = computed(() => this.state().diet);
+  // allergene = computed(() => this.state().allergene);
   // filter = computed(() => this.state().filter);
 
   constructor() {
-    this.filter$.pipe(takeUntilDestroyed()).subscribe((filter) =>
-      console.log(filter)
+    // this.filter$.pipe(takeUntilDestroyed()).subscribe((filter) =>
+    //   console.log(filter)
       
-      // this.state.update((state) => ({
-      //   ...state,
-      //   filter: filter === "" ? null : filter,
-      // }))
-    );
+    //   // this.state.update((state) => ({
+    //   //   ...state,
+    //   //   filter: filter === "" ? null : filter,
+    //   // }))
+    // );
   };
+
+  // getFilter() {
+
+  // };
 
   updateFilter(selected) {
     this.state.update((state) => ({

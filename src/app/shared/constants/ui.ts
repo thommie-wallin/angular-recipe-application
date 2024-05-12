@@ -26,19 +26,19 @@ export const CATEGORY_FORM_FIELDS = [
   {
     name: 'mealType', 
     label: CATEGORY_LABELS.mealType,
-    categoriesSpoonacular: SPOONACULAR_MEAL_TYPES,
-    categoriesEdamam: EDAMAM_DISH_TYPES,
+    spoonacular: SPOONACULAR_MEAL_TYPES,
+    edamam: EDAMAM_DISH_TYPES,
   },
   {
     name: 'diet', 
     label: CATEGORY_LABELS.diet,
-    categoriesSpoonacular: SPOONACULAR_DIETS,
-    categoriesEdamam: EDAMAM_HEALTH_LABELS,
+    spoonacular: SPOONACULAR_DIETS,
+    edamam: EDAMAM_HEALTH_LABELS,
   },
   {
     name: 'allergene',
     label: CATEGORY_LABELS.allergene,
-    categoriesSpoonacular: SPOONACULAR_ALLERGENES,
-    categoriesEdamam: EDAMAM_ALLERGENES,
+    spoonacular: SPOONACULAR_ALLERGENES,
+    edamam: EDAMAM_ALLERGENES,
   },
 ];

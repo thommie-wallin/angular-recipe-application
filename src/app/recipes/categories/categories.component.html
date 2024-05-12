@@ -3,11 +3,21 @@
     <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
   </mat-grid-tile>
 
-  <!-- @for (category of categories; track $index) {
-    <mat-grid-tile [colspan]="1">
-      <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.categoriesSpoonacular"></app-form-field>
-    </mat-grid-tile>
-  } -->
+  
+
+  @if (filterService.api() === 'spoonacular') {
+    @for (category of categories; track $index) {
+      <mat-grid-tile [colspan]="1">
+        <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.spoonacular"></app-form-field>
+      </mat-grid-tile>
+    }
+  } @else if (filterService.api() === 'edamam') {
+    @for (category of categories; track $index) {
+      <mat-grid-tile [colspan]="1">
+        <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.edamam"></app-form-field>
+      </mat-grid-tile>
+    }
+  }
 
 
 
