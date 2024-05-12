@@ -1,7 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, inject } from '@angular/core';
 import { FilterService } from 'app/core/services/filter.service';
-import { API_FORM_FIELD, CATEGORY_FORM_FIELDS, RECIPE_API } from 'app/shared/constants/ui';
+import { API_FORM_FIELD, CATEGORY_FORM_FIELDS } from 'app/shared/constants/ui';
 
 @Component({
   selector: 'app-categories',
@@ -9,12 +9,9 @@ import { API_FORM_FIELD, CATEGORY_FORM_FIELDS, RECIPE_API } from 'app/shared/con
   styleUrl: './categories.component.css'
 })
 export class CategoriesComponent implements OnInit {
-  filterService = inject(FilterService);
+  protected filterService = inject(FilterService);
   api = API_FORM_FIELD;
   categories = CATEGORY_FORM_FIELDS;
-  // apiItems = RECIPE_API;
-  // apiSelected = this.filterService.api();
-
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols: number;
@@ -27,15 +24,10 @@ export class CategoriesComponent implements OnInit {
   };
 
   constructor(
-    private breakpointObserver: BreakpointObserver, 
-    // private filterService: FilterService,
+    private breakpointObserver: BreakpointObserver,
   ) {};
 
   ngOnInit(): void {
-    // this.apiSelected = this.filterService.api();
-    
-    
-
     // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 
     // The breakpointobserver utility with the observe method evaluate default media queries from the breakpoint system 
     // which will emit when one of them changes its boolean value. If a media query emits a boolean value of true, the different

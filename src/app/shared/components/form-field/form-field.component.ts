@@ -12,7 +12,6 @@ import { Selected } from 'app/shared/interfaces';
 export class FormFieldComponent {
   @Input() categoryName: string;
   @Input() label: string;
-  
   @Input() items: string[];
   selected: string;
   // @Input() apiSelected: string;
