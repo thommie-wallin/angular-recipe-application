@@ -3,9 +3,15 @@
     <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
   </mat-grid-tile>
 
+  @for (category of categories; track $index) {
+    <mat-grid-tile [colspan]="1">
+      <app-form-field [categoryName]="category.key" [label]="category.label" [items]="category.options"></app-form-field>
+    </mat-grid-tile>
+  }
+
   
 
-  @if (filterService.api() === 'spoonacular') {
+  <!-- @if (filterService.api() === 'spoonacular') {
     @for (category of categories; track $index) {
       <mat-grid-tile [colspan]="1">
         <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.spoonacular"></app-form-field>
@@ -17,8 +23,17 @@
         <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.edamam"></app-form-field>
       </mat-grid-tile>
     }
-  }
+  } -->
 
+  <!-- <mat-grid-tile [colspan]="1">
+    <app-form-field [category]="categories$ | async"></app-form-field>
+  </mat-grid-tile> -->
+
+  <!-- @for (category of categories$ | async; track $index) {
+    <mat-grid-tile [colspan]="1">
+      <app-form-field [categoryName]="category.name" [label]="category.label" [items]="category.edamam"></app-form-field>
+    </mat-grid-tile>
+  } -->
 
 
   <!-- <mat-grid-tile [colspan]="1">

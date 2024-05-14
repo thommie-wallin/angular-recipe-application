@@ -7,4 +7,13 @@
       <mat-option value="">No items</mat-option>
     }
   </mat-select>
+
+  <!-- <mat-label>{{ category.label }}</mat-label>
+  <mat-select [(value)]="selected" (selectionChange)="changeSelected($event.value)">
+    @for (option of category.options; track $index) {
+      <mat-option value="{{ option.key }}">{{ option.value| titlecase }}</mat-option>
+    } @empty {
+      <mat-option value="">No items</mat-option>
+    }
+  </mat-select> -->
 </mat-form-field>

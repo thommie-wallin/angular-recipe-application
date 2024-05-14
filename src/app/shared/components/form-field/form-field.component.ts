@@ -3,6 +3,7 @@ import { FormControl } from '@angular/forms';
 import { DataService } from 'app/core/services/data.service';
 import { FilterService } from 'app/core/services/filter.service';
 import { Selected } from 'app/shared/interfaces';
+import { Category } from 'app/shared/models/category.model';
 
 @Component({
   selector: 'app-form-field',
@@ -10,6 +11,7 @@ import { Selected } from 'app/shared/interfaces';
   styleUrl: './form-field.component.css'
 })
 export class FormFieldComponent {
+  // @Input() category!: Category<string>;
   @Input() categoryName: string;
   @Input() label: string;
   @Input() items: string[];
@@ -23,6 +25,8 @@ export class FormFieldComponent {
   ngOnInit() {
     // Make first category option selected
     this.selected = this.items[0];
+    // console.log(this.category);
+    
   };
 
   changeSelected(selectedValue) {

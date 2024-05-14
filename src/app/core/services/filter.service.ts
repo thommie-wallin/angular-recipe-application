@@ -19,9 +19,13 @@ export class FilterService {
     allergene: 'none',
   });
 
+  // selectors (readonly)
   api = computed(() => this.state().api);
+  mealType = computed(() => this.state().mealType);
+  diet = computed(() => this.state().diet);
+  allergene = computed(() => this.state().allergene);
 
-  // Update filter state and reset selected categories when switching API:s.
+  // Update filter state or reset selected categories when switching API:s.
   updateFilter(selected) {
     if (Object.hasOwn(selected, 'api')) {
       this.state.update(() => ({
@@ -36,6 +40,6 @@ export class FilterService {
         ...selected,
       }));
     };
-    console.log(this.state());
+    // console.log(this.state());
   };
 }
