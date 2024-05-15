@@ -3,7 +3,7 @@
     <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
   </mat-grid-tile>
 
-  @for (category of categories; track $index) {
+  @for (category of filterService.getFilterCategories(); track $index) {
     <mat-grid-tile [colspan]="1">
       <app-form-field [categoryName]="category.key" [label]="category.label" [items]="category.options"></app-form-field>
     </mat-grid-tile>

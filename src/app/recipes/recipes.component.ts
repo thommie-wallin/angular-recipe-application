@@ -23,7 +23,7 @@ export class RecipesComponent implements OnInit {
   // categories = CATEGORIES;
   // labels = CATEGORIES_LABELS;
 
-  service = inject(FilterService);
+  // filterService = inject(FilterService);
   
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
@@ -36,7 +36,7 @@ export class RecipesComponent implements OnInit {
   //   xs: 1
   // }
 
-  constructor(private filterService: FilterService, private dataService: DataService, private recipeService: RecipesService, private breakpointObserver: BreakpointObserver) {}
+  constructor(private dataService: DataService, private recipeService: RecipesService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.dataService.getSelected().subscribe((selectedCategories) => {

@@ -22,11 +22,15 @@ export class FormFieldComponent {
 
   constructor(private dataService: DataService, private filterService: FilterService) {};
 
-  ngOnInit() {
-    // Make first category option selected
-    this.selected = this.items[0];
-    // console.log(this.category);
+  // ngOnInit() {
+  //   // Make first category option selected
+  //   // this.selected = this.items[0];
+  //   // console.log(this.items[0]);
     
+  // };
+
+  ngOnChanges() {
+    this.selected = this.items[0];
   };
 
   changeSelected(selectedValue) {

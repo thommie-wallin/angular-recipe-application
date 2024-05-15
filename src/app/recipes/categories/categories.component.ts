@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { CategoriesService } from 'app/core/services/categories.service';
 import { FilterService } from 'app/core/services/filter.service';
 import { API_FORM_FIELD, CATEGORY_FORM_FIELDS } from 'app/shared/constants/ui';
@@ -17,7 +17,9 @@ export class CategoriesComponent implements OnInit {
   // categories = CATEGORY_FORM_FIELDS;
 
   categoryService = inject(CategoriesService);
-  categories;
+  // categories = input.required<[]>();
+
+  recipeApi;
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols: number;
@@ -37,8 +39,11 @@ export class CategoriesComponent implements OnInit {
   };
 
   ngOnInit(): void {
-    this.categories = this.categoryService.getCategories();
-    console.log(this.categories);
+    // this.categories = this.categoryService.getCategories();
+    // console.log(this.categories);
+
+    // this.recipeApi = this.filterService.api()
+    // console.log(this.recipeApi);
     
 
     // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 

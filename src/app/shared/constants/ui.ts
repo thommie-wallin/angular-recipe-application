@@ -39,3 +39,12 @@ export const CATEGORY_FORM_FIELDS = [
     edamam: EDAMAM_ALLERGENES,
   },
 ];
+
+// export const SPOONACULAR_FILTER_CATEGORIES = [
+//   mealType: {
+//     name: 'mealType', 
+//     label: CATEGORY_LABELS.mealType,
+//     spoonacular: SPOONACULAR_MEAL_TYPES,
+//   },
+// ];
+// export const EDAMAM_FILTER_CATEGORIES = [];
