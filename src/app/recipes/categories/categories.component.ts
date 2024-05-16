@@ -1,10 +1,7 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnInit, inject, input } from '@angular/core';
-import { CategoriesService } from 'app/core/services/categories.service';
+import { Component, OnInit, inject } from '@angular/core';
 import { FilterService } from 'app/core/services/filter.service';
-import { API_FORM_FIELD, CATEGORY_FORM_FIELDS } from 'app/shared/constants/ui';
-import { Category } from 'app/shared/models/category.model';
-import { Observable } from 'rxjs';
+import { API_FORM_FIELD } from 'app/shared/constants/ui';
 
 @Component({
   selector: 'app-categories',
@@ -14,12 +11,6 @@ import { Observable } from 'rxjs';
 export class CategoriesComponent implements OnInit {
   protected filterService = inject(FilterService);
   api = API_FORM_FIELD;
-  // categories = CATEGORY_FORM_FIELDS;
-
-  categoryService = inject(CategoriesService);
-  // categories = input.required<[]>();
-
-  recipeApi;
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols: number;
@@ -31,20 +22,9 @@ export class CategoriesComponent implements OnInit {
     xs: 1
   };
 
-  constructor(
-    private breakpointObserver: BreakpointObserver,
-    // private categoryService: CategoriesService,
-  ) {
-    // this.categories$ = categoryService.getCategories();
-  };
+  constructor(private breakpointObserver: BreakpointObserver) {};
 
   ngOnInit(): void {
-    // this.categories = this.categoryService.getCategories();
-    // console.log(this.categories);
-
-    // this.recipeApi = this.filterService.api()
-    // console.log(this.recipeApi);
-    
 
     // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 
     // The breakpointobserver utility with the observe method evaluate default media queries from the breakpoint system 

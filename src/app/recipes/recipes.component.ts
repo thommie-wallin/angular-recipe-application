@@ -1,11 +1,10 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { DataService } from '../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
-import { SPOONACULAR_MEAL_TYPES } from 'app/shared/constants/ui';
 import { FilterService } from 'app/core/services/filter.service';
 
 @Component({
@@ -18,7 +17,7 @@ export class RecipesComponent implements OnInit {
   recipes: Observable<any>;
   selected: Selected;
 
-  mealTypes = SPOONACULAR_MEAL_TYPES;
+  // mealTypes = SPOONACULAR_MEAL_TYPES;
   // label = 'mealType';
   // categories = CATEGORIES;
   // labels = CATEGORIES_LABELS;

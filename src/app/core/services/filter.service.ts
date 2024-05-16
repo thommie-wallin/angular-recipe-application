@@ -1,13 +1,18 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { CoreModule } from '../core.module';
-import { CATEGORY_FORM_FIELDS, CATEGORY_LABELS, EDAMAM_ALLERGENES, EDAMAM_DISH_TYPES, EDAMAM_HEALTH_LABELS, SPOONACULAR_ALLERGENES, SPOONACULAR_DIETS, SPOONACULAR_MEAL_TYPES } from 'app/shared/constants/ui';
-import { Category } from 'app/shared/models/category.model';
+import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 
 export interface FilterState {
   api: string,
   mealType: string,
   diet: string,
   allergene: string,
+};
+
+export interface FilterCategory {
+  key: string,
+  label: string,
+  options: string[],
 };
 
 @Injectable({
@@ -27,24 +32,22 @@ export class FilterService {
   diet = computed(() => this.state().diet);
   allergene = computed(() => this.state().allergene);
 
+  // Get corresponding categories when switching API.
   getFilterCategories = computed(() => {
-    const categories = [
-      new Category(
-        'mealType', 
-        CATEGORY_LABELS.mealType,
-        this.api() === 'spoonacular' ? SPOONACULAR_MEAL_TYPES : EDAMAM_DISH_TYPES
-      ),
-      new Category(
-        'diet', 
-        CATEGORY_LABELS.diet,
-        this.api() === 'spoonacular' ? SPOONACULAR_DIETS : EDAMAM_HEALTH_LABELS
-      ),
-      new Category(
-        'allergene', 
-        CATEGORY_LABELS.allergene,
-        this.api() === 'spoonacular' ? SPOONACULAR_ALLERGENES : EDAMAM_ALLERGENES
-      ),
-    ];
+    let categories: FilterCategory[];
+
+    switch (this.api()) {
+      case SPOONACULAR_KEY_NAME:
+        categories = SPOONACULAR_FILTER_CATEGORIES;
+        break;
+      case EDAMAM_KEY_NAME:
+        categories = EDAMAM_FILTER_CATEGORIES;
+        break;
+      default:
+        categories = null;
+        break;
+    };
+    
     return categories;
   });
 

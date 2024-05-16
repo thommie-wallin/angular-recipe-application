@@ -1,50 +1,47 @@
-// Recipe form field labels
-export const CATEGORY_LABELS = { api: 'Recipe API', mealType: 'Meal type', diet: 'Diet', allergene: 'Allergene'};
 
-// Recipe form field option lists
-export const RECIPE_API_TYPES = ['spoonacular', 'edamam'];
-
-export const SPOONACULAR_MEAL_TYPES = ['none', 'appetizer', 'main course', 'dessert'];
-export const SPOONACULAR_DIETS = ['none', 'gluten free', 'vegetarian', 'vegan'];
-export const SPOONACULAR_ALLERGENES = ['none', 'egg', 'peanut', 'dairy'];
-
-export const EDAMAM_DISH_TYPES = ['none', 'starter', 'main course', 'desserts'];
-export const EDAMAM_HEALTH_LABELS = ['none', 'gluten-free', 'vegetarian', 'vegan'];
-export const EDAMAM_ALLERGENES = ['none','egg-free', 'peanut-free', 'dairy-free'];
-
-// Recipe form field category objects
-export const API_FORM_FIELD = {
-  name: 'api',
-  label: CATEGORY_LABELS.api,
-  categories: RECIPE_API_TYPES,
-};
-
-export const CATEGORY_FORM_FIELDS = [ 
+// Spoonacular Recipe API
+export const SPOONACULAR_KEY_NAME = 'spoonacular';
+export const SPOONACULAR_FILTER_CATEGORIES = [
   {
-    name: 'mealType', 
-    label: CATEGORY_LABELS.mealType,
-    spoonacular: SPOONACULAR_MEAL_TYPES,
-    edamam: EDAMAM_DISH_TYPES,
+    key: 'mealType', 
+    label: 'Meal type',
+    options: ['none', 'main course', 'side dish', 'dessert', 'appetizer', 'salad', 'bread', 'breakfast', 'soup', 'beverage', 'sauce', 'marinade', 'fingerfood', 'snack', 'drink'],
   },
   {
-    name: 'diet', 
-    label: CATEGORY_LABELS.diet,
-    spoonacular: SPOONACULAR_DIETS,
-    edamam: EDAMAM_HEALTH_LABELS,
+    key: 'diet', 
+    label: 'Diet',
+    options: ['none', 'gluten free', 'ketogenic', 'vegetarian', 'lacto-vegetarian', 'ovo-vegetarian', 'vegan', 'pescetarian', 'paleo', 'primal'],
   },
   {
-    name: 'allergene',
-    label: CATEGORY_LABELS.allergene,
-    spoonacular: SPOONACULAR_ALLERGENES,
-    edamam: EDAMAM_ALLERGENES,
+    key: 'intolerances',
+    label: 'Intolerances',
+    options: ['none', 'dairy', 'egg', 'gluten', 'grain', 'peanut', 'seafood', 'sesame', 'shellfish', 'soy', 'sulfite', 'tree nut', 'wheat'],
   },
 ];
 
-// export const SPOONACULAR_FILTER_CATEGORIES = [
-//   mealType: {
-//     name: 'mealType', 
-//     label: CATEGORY_LABELS.mealType,
-//     spoonacular: SPOONACULAR_MEAL_TYPES,
-//   },
-// ];
-// export const EDAMAM_FILTER_CATEGORIES = [];
+// Edamam Recipe API
+export const EDAMAM_KEY_NAME = 'edamam';
+export const EDAMAM_FILTER_CATEGORIES = [
+  {
+    key: 'dishType', 
+    label: 'Dish type',
+    options: ['none', 'biscuits and cookies', 'bread', 'cereals', 'condiments and sauces', 'desserts', 'drinks', 'main course', 'pancake', 'preps', 'preserve', 'salad', 'sandwiches', 'side dish', 'soup', 'starter', 'sweets'],
+  },
+  {
+    key: 'health', 
+    label: 'Health',
+    options: ['none', 'alcohol-cocktail', 'alcohol-free', 'celery-free', 'crustacean-free', 'dairy-free', 'DASH', 'egg-free', 'fish-free', 'fodmap-free','gluten-free', 'immuno-supportive', 'keto-friendly', 'kidney-friendly', 'kosher', 'low-fat-abs', 'low-potassium', 'low-sugar', 'lupine-free', 'mediterranean', 'mollusk-free', 'mustard-free', 'no-oil-added', 'paleo', 'peanut-free', 'pescatarian', 'pork-free', 'red-meat-free', 'sesame-free', 'shellfish-free', 'soy-free', 'sugar-conscious', 'sulfite-free', 'tree-nut-free', 'vegan', 'vegetarian', 'wheat-free'],
+  },
+  {
+    key: 'diet',
+    label: 'Diet',
+    options: ['none', 'balanced', 'high-fiber', 'high-protein', 'low-carb', 'low-fat', 'low-sodium'],
+  },
+];
+
+// Recipe API
+export const API_FORM_FIELD = {
+  name: 'api',
+  label: 'Recipe API',
+  categories: [SPOONACULAR_KEY_NAME, EDAMAM_KEY_NAME],
+};
