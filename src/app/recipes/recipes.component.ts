@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { DataService } from '../core/services/data.service';
@@ -13,6 +13,7 @@ import { FilterService } from 'app/core/services/filter.service';
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
+  private filterService = inject(FilterService);
   // recipes: Observable<Recipe>;
   recipes: Observable<any>;
   selected: Selected;

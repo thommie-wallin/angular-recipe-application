@@ -1,12 +1,13 @@
 import { Injectable, computed, signal } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
+import { toObservable } from '@angular/core/rxjs-interop';
 
 export interface FilterState {
   api: string,
   mealType: string,
   diet: string,
-  allergene: string,
+  intolerances: string,
 };
 
 export interface FilterCategory {
@@ -23,14 +24,16 @@ export class FilterService {
     api: 'spoonacular',
     mealType: 'none', 
     diet: 'none',
-    allergene: 'none',
+    intolerances: 'none',
   });
+
+  state$ = toObservable(this.state);
 
   // selectors (readonly)
   api = computed(() => this.state().api);
   mealType = computed(() => this.state().mealType);
   diet = computed(() => this.state().diet);
-  allergene = computed(() => this.state().allergene);
+  allergene = computed(() => this.state().intolerances);
 
   // Get corresponding categories when switching API.
   getFilterCategories = computed(() => {
@@ -58,7 +61,7 @@ export class FilterService {
         ...selected,
         mealType: 'none', 
         diet: 'none',
-        allergene: 'none',
+        intolerances: 'none',
       }));
     } else {
       this.state.update((state) => ({
@@ -66,6 +69,6 @@ export class FilterService {
         ...selected,
       }));
     };
-    console.log(this.state());
+    // console.log(this.state());
   };
 }
