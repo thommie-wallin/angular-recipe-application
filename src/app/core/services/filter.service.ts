@@ -4,10 +4,7 @@ import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIE
 import { toObservable } from '@angular/core/rxjs-interop';
 
 export interface FilterState {
-  api: string,
-  mealType: string,
-  diet: string,
-  intolerances: string,
+  [index: string]: string; 
 };
 
 export interface FilterCategory {
@@ -20,20 +17,15 @@ export interface FilterCategory {
   providedIn: CoreModule
 })
 export class FilterService {
-  private state = signal<FilterState>({
-    api: 'spoonacular',
-    mealType: 'none', 
-    diet: 'none',
-    intolerances: 'none',
-  });
-
+  private state = signal<FilterState>(null);
   state$ = toObservable(this.state);
 
   // selectors (readonly)
   api = computed(() => this.state().api);
-  mealType = computed(() => this.state().mealType);
-  diet = computed(() => this.state().diet);
-  allergene = computed(() => this.state().intolerances);
+
+  constructor() {
+    this.setFilter({api: SPOONACULAR_KEY_NAME}, SPOONACULAR_FILTER_CATEGORIES)
+  };
 
   // Get corresponding categories when switching API.
   getFilterCategories = computed(() => {
@@ -50,25 +42,46 @@ export class FilterService {
         categories = null;
         break;
     };
-    
+
     return categories;
   });
 
   // Update filter state or reset selected categories when switching API:s.
   updateFilter(selected) {
     if (Object.hasOwn(selected, 'api')) {
-      this.state.update(() => ({
-        ...selected,
-        mealType: 'none', 
-        diet: 'none',
-        intolerances: 'none',
-      }));
+
+      switch (selected.api) {
+        case SPOONACULAR_KEY_NAME:
+          this.setFilter(selected, SPOONACULAR_FILTER_CATEGORIES)
+          break;
+        case EDAMAM_KEY_NAME:
+          this.setFilter(selected, EDAMAM_FILTER_CATEGORIES)
+          break;
+        default:
+          this.state.update((state) => ({
+            ...state,
+            ...selected,
+          }));
+          break;
+      };
+
     } else {
       this.state.update((state) => ({
         ...state,
         ...selected,
       }));
     };
-    // console.log(this.state());
+    console.log(this.state());
+  };
+
+  setFilter(keyName, categories) {
+    this.state.set(keyName)
+
+    for (const category of categories) {
+      this.state.update((state) => ({
+        ...state,
+        [category.key]: 'none',
+      }))
+    };
   };
 }

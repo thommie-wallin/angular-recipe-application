@@ -73,10 +73,11 @@ export class RecipesService {
     // private apiService: ApiService
   ) {
     this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) =>
-      {console.log(filter)
+      {
+        // console.log(filter)
       this.state.update((state) => ({
         ...state,
-        filter: filter,
+        // filter: filter,
       }))}
     );
 
