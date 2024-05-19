@@ -71,7 +71,7 @@ export class FilterService {
         ...selected,
       }));
     };
-    console.log(this.state());
+    // console.log(this.state());
   };
 
   setFilter(keyName, categories) {

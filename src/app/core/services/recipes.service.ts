@@ -1,8 +1,8 @@
-import { Injectable, inject, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Observable, Subject } from 'rxjs';
+import { Observable, Subject, of } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { Recipe } from 'app/shared/models/recipe.model';
 import { CoreModule } from '../core.module';
@@ -11,8 +11,8 @@ import { FilterService, FilterState } from './filter.service';
 import { retry, switchMap } from 'rxjs/operators';
 
 export interface RecipeState {
-  recipes: Recipe[];
-  recipe: Recipe;
+  recipeList: Recipe[];
+  recipeDetail: Recipe;
   filter: FilterState;
   error: string | null;
   status: "loading" | "success" | "error";
@@ -26,12 +26,16 @@ export class RecipesService {
   private filterService = inject(FilterService);
 
   private state = signal<RecipeState>({
-    recipes: [],
-    recipe: null,
+    recipeList: [],
+    recipeDetail: null,
     filter: null,
     error: null,
     status: "loading",
   });
+
+  // selectors
+  recipeList = computed(() => this.state().recipeList);
+  recipeDetail = computed(() => this.state().recipeDetail);
 
   private spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
   private spoonacularApiKey: string = `${environment.spoonacularApiKey}`;
@@ -50,47 +54,58 @@ export class RecipesService {
     
   }
 
-  // fetchRecipesWithFilter = this.filterService.state$.pipe(
-  //     // startWith(1),
-  //     switchMap((page) =>
-  //       this.currentApi$
-        
-        
-  //       // this.apiService.getArticlesByPage(page).pipe(
-  //       //   retry({
-  //       //     // delay: (err) => {
-  //       //     //   this.error$.next(err);
-  //       //     //   return this.retry$;
-  //       //     // },
-  //       //   })
-  //       // )
-  //     )
-  //   )
+  // recipesForList$ = this.filterService.state$.pipe(
+    
+  // )
 
   // filter$ = this.filterService.state$;
+
+  recipesForList$ = this.filterService.state$.pipe(
+    // startWith(1),
+    switchMap((page) => of(page)
+      
+      // this.apiService.getArticlesByPage(page).pipe(
+      //   retry({
+      //     delay: (err) => {
+      //       this.error$.next(err);
+      //       return this.retry$;
+      //     },
+      //   })
+      // )
+    )
+  )
+  // .subscribe(res => console.log(res));
 
   constructor(
     // private apiService: ApiService
   ) {
-    this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) =>
-      {
-        // console.log(filter)
-      this.state.update((state) => ({
-        ...state,
-        // filter: filter,
-      }))}
-    );
+    // this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) => {
+    //     const valuesArr = Object.values(filter).splice(1).find((el) => el !== 'none');
 
-    // this.currentApi$
-    //   .pipe(takeUntilDestroyed())
-    //   .subscribe((currentPage) =>
-    //     this.state.update((state) => ({
-    //       ...state,
-    //       currentPage,
-    //       status: "loading",
-    //       articles: [],
-    //     }))
-    //   );
+    //     if (valuesArr !== undefined) {
+    //       this.state.update((state) => ({
+    //         ...state,
+    //         filter: filter,
+    //       }))
+    //     } else {
+    //       this.state.update((state) => ({
+    //         ...state,
+    //         filter: null,
+    //       }))
+    //     };
+    //     // console.log(this.state())
+    //   }
+      
+    // );
+
+    // reducers
+    // this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((recipes) =>
+    //   this.state.update((state) => ({
+    //     ...state,
+    //     recipes,
+    //     status: "success",
+    //   }))
+    // );
   };
 
   getSelectedRecipes(selectedCategories: Selected) {
