@@ -22,6 +22,7 @@ export class FilterService {
 
   // selectors (readonly)
   api = computed(() => this.state().api);
+  // filterChange = computed(() => this.state);
 
   constructor() {
     this.setFilter({api: SPOONACULAR_KEY_NAME}, SPOONACULAR_FILTER_CATEGORIES)

@@ -6,6 +6,7 @@ import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
 import { FilterService } from 'app/core/services/filter.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-recipes',
@@ -14,6 +15,7 @@ import { FilterService } from 'app/core/services/filter.service';
 })
 export class RecipesComponent implements OnInit {
   private filterService = inject(FilterService);
+  protected recipeService = inject(RecipesService);
   // recipes: Observable<Recipe>;
   recipes: Observable<any>;
   selected: Selected;
@@ -36,13 +38,20 @@ export class RecipesComponent implements OnInit {
   //   xs: 1
   // }
 
-  constructor(private dataService: DataService, private recipeService: RecipesService, private breakpointObserver: BreakpointObserver) {}
+  constructor(private dataService: DataService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit(): void {
     this.dataService.getSelected().subscribe((selectedCategories) => {
       this.selected = selectedCategories;
       // this.fetchRecipes(selectedCategories);
     });
+
+    this.filterService.state$.subscribe((filterState) => {
+      this.recipeService.fetchRecipeList(filterState);
+    })
+    
+    
+    // this.recipeService.filteredRecipes()
   }
 
   fetchRecipes(selectedCategories) {
