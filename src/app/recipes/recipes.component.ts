@@ -7,6 +7,7 @@ import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
 import { FilterService } from 'app/core/services/filter.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RecipeDataService } from 'app/services/recipe-data.service';
 
 @Component({
   selector: 'app-recipes',
@@ -16,6 +17,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 export class RecipesComponent implements OnInit {
   private filterService = inject(FilterService);
   protected recipeService = inject(RecipesService);
+  private recipeDataService = inject(RecipeDataService);
   // recipes: Observable<Recipe>;
   recipes: Observable<any>;
   selected: Selected;
@@ -47,7 +49,7 @@ export class RecipesComponent implements OnInit {
     });
 
     this.filterService.state$.subscribe((filterState) => {
-      this.recipeService.fetchRecipeList(filterState);
+      // this.recipeService.fetchRecipeList(filterState);
     })
     
     

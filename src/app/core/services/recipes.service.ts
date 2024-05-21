@@ -10,7 +10,7 @@ import { Selected } from 'app/shared/interfaces';
 import { FilterService, FilterState } from './filter.service';
 import { filter, retry, switchMap, tap } from 'rxjs/operators';
 import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
-import { SpoonacularService } from './api/spoonacular.service';
+import { SpoonacularService } from '../../services/spoonacular.service';
 
 export interface RecipeState {
   recipeList: Recipe[];
@@ -163,50 +163,50 @@ export class RecipesService {
   constructor(
     // private apiService: ApiService
   ) {
-    this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) => {
-        // Check if a value, other than the 'api'-property, changes from 'none'.
-        const filterValuesArr = Object.values(filter).splice(1).find((el) => el !== 'none');
+    // this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) => {
+    //     // Check if a value, other than the 'api'-property, changes from 'none'.
+    //     const filterValuesArr = Object.values(filter).splice(1).find((el) => el !== 'none');
 
-        if (filterValuesArr !== undefined) {
-          switch (filter.api) {
-            case SPOONACULAR_KEY_NAME:
-              this.spoonacularService.getRecipesList(filter)
-              // .subscribe(
-              //   (res) => console.log(res)
+    //     if (filterValuesArr !== undefined) {
+    //       switch (filter.api) {
+    //         case SPOONACULAR_KEY_NAME:
+    //           this.spoonacularService.getRecipesList(filter)
+    //           // .subscribe(
+    //           //   (res) => console.log(res)
                 
-              // );
-              // this.state.update((state) => ({
-              //   ...state,
-              //   recipeList: recipe,
-              // }))
-              // categories = SPOONACULAR_FILTER_CATEGORIES;
-              break;
-            case EDAMAM_KEY_NAME:
-              // categories = EDAMAM_FILTER_CATEGORIES;
-              break;
-            default:
-              // categories = null;
-              break;
-          };
-        }
+    //           // );
+    //           // this.state.update((state) => ({
+    //           //   ...state,
+    //           //   recipeList: recipe,
+    //           // }))
+    //           // categories = SPOONACULAR_FILTER_CATEGORIES;
+    //           break;
+    //         case EDAMAM_KEY_NAME:
+    //           // categories = EDAMAM_FILTER_CATEGORIES;
+    //           break;
+    //         default:
+    //           // categories = null;
+    //           break;
+    //       };
+    //     }
 
 
-        // if (valuesArr !== undefined) {
-        //   this.state.update((state) => ({
-        //     ...state,
-        //     filter: filter,
-        //   }))
-        // } 
-        // else {
-        //   this.state.update((state) => ({
-        //     ...state,
-        //     filter: null,
-        //   }))
-        // };
-        // console.log(filter)
-      }
+    //     // if (valuesArr !== undefined) {
+    //     //   this.state.update((state) => ({
+    //     //     ...state,
+    //     //     filter: filter,
+    //     //   }))
+    //     // } 
+    //     // else {
+    //     //   this.state.update((state) => ({
+    //     //     ...state,
+    //     //     filter: null,
+    //     //   }))
+    //     // };
+    //     // console.log(filter)
+    //   }
       
-    );
+    // );
 
     // reducers
     // this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((recipes) =>
