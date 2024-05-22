@@ -1,16 +1,18 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiService } from './api.service';
-import { HttpParams } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
 import { Observable, Subject, iif, of } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-import { Recipe } from 'app/shared/models/recipe.model';
+// import { Recipe } from 'app/shared/models/recipe.model';
 import { CoreModule } from '../core.module';
 import { Selected } from 'app/shared/interfaces';
 import { FilterService, FilterState } from './filter.service';
-import { filter, retry, switchMap, tap } from 'rxjs/operators';
+import { catchError, filter, retry, switchMap, tap } from 'rxjs/operators';
 import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { SpoonacularService } from '../../services/spoonacular.service';
+import { RecipeDataService } from 'app/services/recipe-data.service';
+import { Recipe } from 'app/shared/interfaces/recipe.interface';
 
 export interface RecipeState {
   recipeList: Recipe[];
@@ -24,6 +26,7 @@ export interface RecipeState {
   providedIn: CoreModule,
 })
 export class RecipesService {
+  private recipeDataService = inject(RecipeDataService);
   private apiService = inject(ApiService);
   private spoonacularService = inject(SpoonacularService)
   private filterService = inject(FilterService);
@@ -88,8 +91,8 @@ export class RecipesService {
   // api$ = this.filterService.api();
 
   // sources
-  // retry$ = new Subject<void>();
-  // error$ = new Subject<Error>();
+  retry$ = new Subject();
+  error$ = new Subject();
   // currentPage$ = new Subject<number>();
 
   // recipesForList$ = this.filterService.state$.pipe(takeUntilDestroyed()).pipe((filterState) => {
@@ -120,42 +123,17 @@ export class RecipesService {
   //   }
   // })
 
-  // recipesForList$ = this.filterService.state$.pipe(
-  //   // tap(state => console.log(state))
-  //   // switchMap(filterState => {
-  //   //   //   switch (filterState.api) {
-  //   //   //     case SPOONACULAR_KEY_NAME:
-  //   //   //     this.spoonacularService.getRecipesList(filterState)
-  //   //   //     break;
-  //   //   //   case EDAMAM_KEY_NAME:
-          
-  //   //   //     break;
-  //   //   //   default:
-  //   //   //     of(this.recipeList())
-  //   //   //     break;
-  //   //   // }
-  //   //   // }
-  //   //   return of(filterState)
-  //   // })
-  //   // switchMap((filterState) => {
-    
-  //     // startWith(1),
-  //     // switchMap(state => state.api
+  
 
-  //       // switch (state.api) {
-  //       //   case SPOONACULAR_KEY_NAME:
-  //       //     this.spoonacularService.getRecipesList(state).pipe(
-              
-  //       //     )
-  //       //     break;
-  //       //   case EDAMAM_KEY_NAME:
-            
-  //       //     break;
-  //       //   default:
-  //       //     of(this.recipeList())
-  //       //     break;
-  //       // }
-  // )
+  recipesForList$ = this.filterService.state$.pipe(
+    switchMap(filterState => this.recipeDataService.getRecipesList(filterState)),
+    retry(2),
+    catchError(error => {
+      // console.log("Error while fetching data...");
+      this.error$.next(error)
+      throw error;
+    }),
+  )
   // .subscribe(res => console.log(res));
 
   // filter$ = this.filterService.state$;
@@ -209,15 +187,15 @@ export class RecipesService {
     // );
 
     // reducers
-    // this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((recipes) =>
-    //   console.log(recipes)
+    this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((data) =>
+      console.log(data)
       
-    //   // this.state.update((state) => ({
-    //   //   ...state,
-    //   //   recipes,
-    //   //   status: "success",
-    //   // }))
-    // );
+      // this.state.update((state) => ({
+      //   ...state,
+      //   recipeList: data,
+      //   status: "success",
+      // }))
+    );
 
     // this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) => {
     //   // Check if a value, other than the 'api'-property, changes from 'none'.

@@ -4,6 +4,7 @@ import { RecipeFactoryService } from './recipe-factory.service';
 import { SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { Observable } from 'rxjs';
 import { Recipe } from 'app/shared/interfaces/recipe.interface';
+import { FilterState } from 'app/core/services/filter.service';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +22,7 @@ export class RecipeDataService {
     this.apiService = this.factory.getApiService(apiName);
   };
 
-  getRecipesList(query: string): Observable<Recipe[]> {
+  getRecipesList(query: FilterState): Observable<Recipe[]> {
     return this.apiService.getRecipesList(query);
   };
 

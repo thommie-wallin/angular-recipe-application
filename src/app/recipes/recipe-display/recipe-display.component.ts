@@ -25,6 +25,6 @@ export class RecipeDisplayComponent {
 
   getRecipe(selectedCategories: Selected): void {
     this.recipeId = this.route.snapshot.paramMap.get('id');
-    this.recipe$ = this.recipeService.getOneRecipe(this.recipeId, selectedCategories);
+    // this.recipe$ = this.recipeService.getOneRecipe(this.recipeId, selectedCategories);
   };
 };

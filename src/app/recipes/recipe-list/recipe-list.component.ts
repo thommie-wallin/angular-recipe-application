@@ -43,6 +43,9 @@ export class RecipeListComponent implements OnInit {
       // this.fetchRecipes(selectedCategories);
     });
 
+    
+    
+
     // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 
     // The breakpointobserver utility with the observe method evaluate default media queries from the breakpoint system 
     // which will emit when one of them changes its boolean value. If a media query emits a boolean value of true, the different
@@ -74,6 +77,10 @@ export class RecipeListComponent implements OnInit {
       }
     });
   }
+
+  ngOnChanges() {
+    console.log(this.recipes);
+  };
 
   fetchRecipes(selectedCategories) {
     // this.recipes = this.recipeService.getSelectedRecipes(selectedCategories);

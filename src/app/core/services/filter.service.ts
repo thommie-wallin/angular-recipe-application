@@ -1,7 +1,9 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { toObservable } from '@angular/core/rxjs-interop';
+import { RecipeDataService } from 'app/services/recipe-data.service';
+import { filter, tap } from 'rxjs/operators';
 
 export interface FilterState {
   [index: string]: string; 
@@ -17,15 +19,21 @@ export interface FilterCategory {
   providedIn: CoreModule
 })
 export class FilterService {
+  private recipeDataService = inject(RecipeDataService);
   private state = signal<FilterState>(null);
-  state$ = toObservable(this.state);
+  private selectedApi = signal(SPOONACULAR_KEY_NAME)
+
+  state$ = toObservable(this.state).pipe(
+    // Only emit item if any filterState source property is not 'none'.
+    filter(state => Object.values(state).find((el) => el !== 'none') !== undefined)
+  );
 
   // selectors (readonly)
-  api = computed(() => this.state().api);
+  api = computed(() => this.selectedApi());
   // filterChange = computed(() => this.state);
 
   constructor() {
-    this.setFilter({api: SPOONACULAR_KEY_NAME}, SPOONACULAR_FILTER_CATEGORIES)
+    this.setFilter(SPOONACULAR_FILTER_CATEGORIES)
   };
 
   // Get corresponding categories when switching API.
@@ -50,20 +58,22 @@ export class FilterService {
   // Update filter state or reset selected categories when switching API:s.
   updateFilter(selected) {
     if (Object.hasOwn(selected, 'api')) {
+      // Change selected API.
+      this.selectedApi.set(selected.api);
 
+      // Change selected API in data service.
+      this.recipeDataService.switchApi(selected.api);
+
+      // Change filter categories depending on selected API.
       switch (selected.api) {
         case SPOONACULAR_KEY_NAME:
-          this.setFilter(selected, SPOONACULAR_FILTER_CATEGORIES)
+          this.setFilter(SPOONACULAR_FILTER_CATEGORIES)
           break;
         case EDAMAM_KEY_NAME:
-          this.setFilter(selected, EDAMAM_FILTER_CATEGORIES)
+          this.setFilter(EDAMAM_FILTER_CATEGORIES)
           break;
         default:
-          this.state.update((state) => ({
-            ...state,
-            ...selected,
-          }));
-          break;
+          throw new Error('Unsupported API');
       };
 
     } else {
@@ -75,8 +85,9 @@ export class FilterService {
     // console.log(this.state());
   };
 
-  setFilter(keyName, categories) {
-    this.state.set(keyName)
+  setFilter(categories) {
+    // Reset state
+    this.state.set(null);
 
     for (const category of categories) {
       this.state.update((state) => ({

@@ -2,6 +2,6 @@
   <h1 class="mat-h1">Recipes</h1>
     <app-categories></app-categories>
     <div class="list-content">
-      <app-recipe-list [recipes]="recipes"></app-recipe-list>
+      <app-recipe-list [recipes]="recipeService.recipeList()"></app-recipe-list>
     </div>
 </div>
