@@ -7,6 +7,14 @@ import { RecipeList } from 'app/models/recipe-list.model';
 })
 export class EdamamAdapter {
 
+  adaptToRecipes(apiResponse: any): RecipeList[] {
+    return apiResponse.hits.recipe.map(recipe => ({ 
+      id: recipe.uri.split('#recipe_').pop(), 
+      title: recipe.label, 
+      imageUrl: recipe.image, 
+    }));
+  };
+
   adaptToRecipe(apiResponse: any): Recipe {
     return {
       id: apiResponse.id,
@@ -20,13 +28,5 @@ export class EdamamAdapter {
       thumbnailUrl: apiResponse.images.THUMBNAIL.url,
       sourceUrl: apiResponse.url,
     };
-  };
-
-  adaptToRecipes(apiResponse: any): RecipeList[] {
-    return apiResponse.hits.recipe.map(recipe => ({ 
-      id: recipe.uri.split('#recipe_').pop(), 
-      title: recipe.label, 
-      imageUrl: recipe.image, 
-    }));
   };
 };
