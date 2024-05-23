@@ -1,7 +1,7 @@
 export interface Recipe {
-  id: string;
+  id: number;
   title: string;
-  ingredients: string[];
+  ingredients: Ingredients[];
   instructions: string;
   instructionSteps: string[];
   totalTime: number;
@@ -9,4 +9,10 @@ export interface Recipe {
   imageUrl: string;
   thumbnailUrl: string;
   sourceUrl: string;
+}
+
+interface Ingredients {
+  name: string;
+  quantity: number;
+  unit: string;
 }
