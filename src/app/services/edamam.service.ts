@@ -26,17 +26,18 @@ export class EdamamService implements RecipeApiInterface {
       };
     };
 
-    console.log('edamam', query);
+    //? Append field to get specific values, must specifically add all the fields in a array if using it.
 
     return this.apiService.get(`${this.baseUrl}?`, { 
       params: filterParams
+      // .append('field', 'totalTime')
+      .append('type', 'public')
       .append('app_key',this.apiKey)
       .append('app_id', this.apiId)
-      .append('type', 'public')
     });
 
     // Implement the API call
-    return of([]);
+    // return of([]);
   }
 
   getRecipeDetails(id: string): Observable<Recipe> {
