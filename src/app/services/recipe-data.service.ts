@@ -3,8 +3,8 @@ import { RecipeApiInterface } from './recipe-api.interface';
 import { RecipeFactoryService } from './recipe-factory.service';
 import { SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { Observable } from 'rxjs';
-import { Recipe } from 'app/shared/interfaces/recipe.interface';
 import { FilterState } from 'app/core/services/filter.service';
+import { Recipe, RecipeDetail } from 'app/models/recipe.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,7 @@ export class RecipeDataService {
     return this.apiService.getRecipesList(query);
   };
 
-  getRecipeDetails(id: string): Observable<Recipe> {
+  getRecipeDetails(id: string): Observable<RecipeDetail> {
     return this.apiService.getRecipeDetails(id);
   };
 };

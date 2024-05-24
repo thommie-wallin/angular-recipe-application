@@ -1,8 +1,8 @@
 import { FilterState } from "app/core/services/filter.service";
-import { Recipe } from "app/shared/interfaces/recipe.interface";
+import { Recipe, RecipeDetail } from "app/models/recipe.model";
 import { Observable } from "rxjs";
 
 export interface RecipeApiInterface {
   getRecipesList(query: FilterState): Observable<Recipe[]>;
-  getRecipeDetails(id: string): Observable<Recipe>;
+  getRecipeDetails(id: string): Observable<RecipeDetail>;
 };

@@ -4,14 +4,17 @@ import { environment } from 'environments/environment';
 import { HttpParams } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { RecipeApiInterface } from './recipe-api.interface';
-import { Recipe } from 'app/shared/interfaces/recipe.interface';
 import { FilterState } from 'app/core/services/filter.service';
+import { SpoonacularAdapter } from './adapters/spoonacular.adapter';
+import { map } from 'rxjs/operators';
+import { Recipe, RecipeDetail } from 'app/models/recipe.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SpoonacularService implements RecipeApiInterface {
   private apiService = inject(ApiService);
+  private adapter = inject(SpoonacularAdapter);
   private baseUrl: string = `${environment.spoonacularBaseUrl}`;
   private apiKey: string = `${environment.spoonacularApiKey}`;
 
@@ -25,18 +28,20 @@ export class SpoonacularService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get(`${this.baseUrl}complexSearch?`, { 
+    return this.apiService.get<any[]>(`${this.baseUrl}complexSearch?`, { 
       params: filterParams
       .append('number', 4)
       .append('instructionsRequired', true)
       .append('apiKey',this.apiKey) 
-    });
+    }).pipe(
+      map(response => this.adapter.adaptToRecipeList(response))
+    );
     
     // Implement the API call
     // return of([]);
   };
 
-  getRecipeDetails(id: string): Observable<Recipe> {
+  getRecipeDetails(id: string): Observable<RecipeDetail> {
     // Implement the API call
     return of(null);
   };
