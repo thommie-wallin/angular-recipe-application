@@ -1,23 +1,22 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { ApiService } from './api.service';
-import { HttpErrorResponse, HttpParams } from '@angular/common/http';
+import { HttpParams } from '@angular/common/http';
 import { environment } from 'environments/environment';
-import { Observable, Subject, iif, of } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
-// import { Recipe } from 'app/shared/models/recipe.model';
 import { CoreModule } from '../core.module';
 import { Selected } from 'app/shared/interfaces';
 import { FilterService, FilterState } from './filter.service';
-import { catchError, filter, retry, switchMap, tap } from 'rxjs/operators';
+import { catchError, retry, switchMap } from 'rxjs/operators';
 import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { SpoonacularService } from '../../services/spoonacular.service';
 import { RecipeDataService } from 'app/services/recipe-data.service';
-import { Recipe } from 'app/shared/interfaces/recipe.interface';
+import { Recipe, RecipeDetail } from 'app/models/recipe.model';
 
 export interface RecipeState {
   recipeList: Recipe[];
-  recipeDetail: Recipe;
-  filter: FilterState;
+  recipeDetail: RecipeDetail;
+  // filter: FilterState;
   error: string | null;
   status: "loading" | "success" | "error";
 };
@@ -34,7 +33,7 @@ export class RecipesService {
   private state = signal<RecipeState>({
     recipeList: [],
     recipeDetail: null,
-    filter: null,
+    // filter: null,
     error: null,
     status: "loading",
   });
@@ -42,14 +41,14 @@ export class RecipesService {
   // selectors
   recipeList = computed(() => this.state().recipeList);
   recipeDetail = computed(() => this.state().recipeDetail);
-  filter = computed(() => this.state().filter);
+  // filter = computed(() => this.state().filter);
 
   private spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
   private spoonacularApiKey: string = `${environment.spoonacularApiKey}`;
 
-  private edamamBaseUrl: string = `https://api.edamam.com/api/recipes/v2`;
-  private edamamApiKey: string = `${environment.edamamApiKey}`;
-  private edamamApiId: string = `${environment.edamamApiId}`;
+  // private edamamBaseUrl: string = `https://api.edamam.com/api/recipes/v2`;
+  // private edamamApiKey: string = `${environment.edamamApiKey}`;
+  // private edamamApiId: string = `${environment.edamamApiId}`;
 
   // filteredRecipes = computed(() => {
   //   const filter = this.filter();
@@ -188,13 +187,13 @@ export class RecipesService {
 
     // reducers
     this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((data) =>
-      console.log(data)
+      // console.log(data)
       
-      // this.state.update((state) => ({
-      //   ...state,
-      //   recipeList: data,
-      //   status: "success",
-      // }))
+      this.state.update((state) => ({
+        ...state,
+        recipeList: data,
+        status: "success",
+      }))
     );
 
     // this.filterService.state$.pipe(takeUntilDestroyed()).subscribe((filter) => {
@@ -299,32 +298,32 @@ export class RecipesService {
   //     });
   // }
 
-  fetchRecipeList(filterState) {
-    // Check if a value, other than the 'api'-property, changes from 'none'.
-    const filterValuesArr = Object.values(filterState).splice(1).find((el) => el !== 'none');
+  // fetchRecipeList(filterState) {
+  //   // Check if a value, other than the 'api'-property, changes from 'none'.
+  //   const filterValuesArr = Object.values(filterState).splice(1).find((el) => el !== 'none');
 
-    if (filterValuesArr !== undefined) {
-      switch (filterState.api) {
-        case SPOONACULAR_KEY_NAME:
-          this.spoonacularService.getRecipesList(filterState)
-          .subscribe((res) => console.log(res));
-          //? Create a uniform interface way of presenting list of recipes. Then send them to recipe-list component.
+  //   if (filterValuesArr !== undefined) {
+  //     switch (filterState.api) {
+  //       case SPOONACULAR_KEY_NAME:
+  //         this.spoonacularService.getRecipesList(filterState)
+  //         .subscribe((res) => console.log(res));
+  //         //? Create a uniform interface way of presenting list of recipes. Then send them to recipe-list component.
 
-          // this.state.update((state) => ({
-          //   ...state,
-          //   recipeList: recipe,
-          // }))
-          // categories = SPOONACULAR_FILTER_CATEGORIES;
-          break;
-        case EDAMAM_KEY_NAME:
-          // categories = EDAMAM_FILTER_CATEGORIES;
-          break;
-        default:
-          // categories = null;
-          break;
-      };
-    }
-  };
+  //         // this.state.update((state) => ({
+  //         //   ...state,
+  //         //   recipeList: recipe,
+  //         // }))
+  //         // categories = SPOONACULAR_FILTER_CATEGORIES;
+  //         break;
+  //       case EDAMAM_KEY_NAME:
+  //         // categories = EDAMAM_FILTER_CATEGORIES;
+  //         break;
+  //       default:
+  //         // categories = null;
+  //         break;
+  //     };
+  //   }
+  // };
 
   getOneRecipe(id: number, selectedCategories: Selected) : Observable<Recipe> {
     if (selectedCategories.api === 'spoonacular') {

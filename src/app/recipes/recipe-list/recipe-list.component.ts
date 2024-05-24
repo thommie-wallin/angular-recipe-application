@@ -1,12 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, inject, input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Recipe } from 'app/shared/models/recipe.model';
 import { FavouritesService } from '../../core/services/favourites.service';
-import { RecipesService } from 'app/core/services/recipes.service';
-import { DataService } from 'app/core/services/data.service';
-import { Selected } from 'app/shared/interfaces';
+import { Recipe } from 'app/models/recipe.model';
 
 @Component({
   selector: 'app-recipe-list',
@@ -14,9 +10,10 @@ import { Selected } from 'app/shared/interfaces';
   styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
-  @Input() recipes: Observable<any>;
-  recipe$: Observable<any>;
-  
+  private breakpointObserver = inject(BreakpointObserver);
+  private favouritesService = inject(FavouritesService);
+  private _snackBar = inject(MatSnackBar);
+  recipeList = input<Recipe[]>();
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
   cols : number;
@@ -26,26 +23,9 @@ export class RecipeListComponent implements OnInit {
     md: 3,
     sm: 2,
     xs: 1
-  }
-
-  constructor(
-    private breakpointObserver: BreakpointObserver, 
-    private favouritesService: FavouritesService,
-    private _snackBar: MatSnackBar,
-    private dataService: DataService,
-    private recipeService: RecipesService,
-
-  ) { }
+  };
 
   ngOnInit(): void {
-    this.dataService.getSelected().subscribe((selectedCategories) => {
-      // this.selected = selectedCategories;
-      // this.fetchRecipes(selectedCategories);
-    });
-
-    
-    
-
     // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 
     // The breakpointobserver utility with the observe method evaluate default media queries from the breakpoint system 
     // which will emit when one of them changes its boolean value. If a media query emits a boolean value of true, the different
@@ -76,30 +56,6 @@ export class RecipeListComponent implements OnInit {
         }
       }
     });
-  }
-
-  ngOnChanges() {
-    console.log(this.recipes);
-  };
-
-  fetchRecipes(selectedCategories) {
-    // this.recipes = this.recipeService.getSelectedRecipes(selectedCategories);
-    // console.log(this.recipes);
-    
-    // this.recipeService.getSelectedRecipes(selectedCategories)
-    // .subscribe({
-    //   next: (data) => {
-    //       this.recipes = data;
-    //       console.log(data);
-          
-    //   },
-    //   error: (error) => {
-    //       console.log(error)
-    //   },
-    //   complete: () => {
-    //       console.log('complete')
-    //   }
-    // })
   };
 
   addToFavourites(recipe) {  
@@ -107,5 +63,5 @@ export class RecipeListComponent implements OnInit {
     this._snackBar.open('Recipe added to favourites.', 'OK', {
       duration: 3000
     });
-  }
-}
+  };
+};
