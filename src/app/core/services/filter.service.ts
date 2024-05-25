@@ -3,7 +3,7 @@ import { CoreModule } from '../core.module';
 import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { RecipeDataService } from 'app/services/recipe-data.service';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 
 export interface FilterState {
   [index: string]: string; 
@@ -23,10 +23,13 @@ export class FilterService {
   private state = signal<FilterState>(null);
   private selectedApi = signal(SPOONACULAR_KEY_NAME)
 
+  // Observables
   state$ = toObservable(this.state).pipe(
     // Only emit item if any filterState source property is not 'none'.
     filter(state => Object.values(state).find((el) => el !== 'none') !== undefined)
   );
+  
+  selectedApi$ = toObservable(this.selectedApi);
 
   // selectors (readonly)
   api = computed(() => this.selectedApi());

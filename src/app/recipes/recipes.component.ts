@@ -17,8 +17,6 @@ import { RecipeDataService } from 'app/services/recipe-data.service';
 export class RecipesComponent implements OnInit {
   private filterService = inject(FilterService);
   protected recipeService = inject(RecipesService);
-  private recipeDataService = inject(RecipeDataService);
-  // recipes: Observable<Recipe>;
   recipes: Observable<any>;
   selected: Selected;
 
