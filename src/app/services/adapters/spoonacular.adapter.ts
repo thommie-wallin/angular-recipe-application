@@ -8,7 +8,7 @@ export class SpoonacularAdapter {
 
   adaptToRecipe(apiResponse: any): Recipe {
     return { 
-      id: apiResponse.id, 
+      id: apiResponse.id.toString(), 
       title: apiResponse.title, 
       imageUrl: apiResponse.image, 
     };

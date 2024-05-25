@@ -28,12 +28,11 @@ export class FilterService {
     // Only emit item if any filterState source property is not 'none'.
     filter(state => Object.values(state).find((el) => el !== 'none') !== undefined)
   );
-  
+
   selectedApi$ = toObservable(this.selectedApi);
 
   // selectors (readonly)
   api = computed(() => this.selectedApi());
-  // filterChange = computed(() => this.state);
 
   constructor() {
     this.setFilter(SPOONACULAR_FILTER_CATEGORIES)

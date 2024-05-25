@@ -1,11 +1,11 @@
 export interface Recipe {
-  id: number;
+  id: string;
   title: string;
   imageUrl: string;
 };
 
 export interface RecipeDetail {
-  id: number;
+  id: string;
   title: string;
   ingredients: Ingredients[];
   instructions: string;
