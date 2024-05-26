@@ -18,11 +18,14 @@ export class RecipeDisplayComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private recipeDataService = inject(RecipeDataService);
 
-  // recipeId: string = this.route.snapshot.paramMap.get('id');
-  recipeId: string;
+  recipeId: string = this.route.snapshot.paramMap.get('id');
 
-  // recipeDetail: RecipeDetail;
-  recipeDetail$: Observable<RecipeDetail>;
+  //? Send observable from route 
+
+  // recipeId: string;
+
+  recipeDetail: RecipeDetail;
+  // recipeDetail$: Observable<RecipeDetail>;
 
 
   // recipe$: Observable<Recipe>;
@@ -34,14 +37,14 @@ export class RecipeDisplayComponent implements OnInit {
   // ) {}
 
   ngOnInit(): void {
-    this.recipeId = this.route.snapshot.paramMap.get('id');
+    // this.recipeId = this.route.snapshot.paramMap.get('id');
 
     // this.recipeDataService.getRecipeDetails(this.recipeId).subscribe(data => {
     //   this.recipeDetail = data;
     //   console.log(data);
     // });
 
-    this.recipeDataService.getRecipeDetails(this.recipeId);
+    // this.recipeDataService.getRecipeDetails(this.recipeId);
     
     // console.log(this.recipeDetail);
     
