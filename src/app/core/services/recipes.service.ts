@@ -13,7 +13,7 @@ import { Recipe, RecipeDetail } from 'app/models/recipe.model';
 
 export interface RecipeState {
   recipeList: Recipe[];
-  recipeDetail: RecipeDetail;
+  // recipeDetail: RecipeDetail;
   error: string | null;
   status: "loading" | "success" | "error";
 };
@@ -28,14 +28,14 @@ export class RecipesService {
 
   private state = signal<RecipeState>({
     recipeList: [],
-    recipeDetail: null,
+    // recipeDetail: null,
     error: null,
     status: "loading",
   });
 
   // selectors
   recipeList = computed(() => this.state().recipeList);
-  recipeDetail = computed(() => this.state().recipeDetail);
+  // recipeDetail = computed(() => this.state().recipeDetail);
 
   private spoonacularBaseUrl: string = `https://api.spoonacular.com/recipes/`;
   private spoonacularApiKey: string = `${environment.spoonacularApiKey}`;

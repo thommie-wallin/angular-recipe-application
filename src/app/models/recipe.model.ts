@@ -14,7 +14,7 @@ export interface RecipeDetail {
   imageUrl: string;
 }
 
-interface Ingredients {
+export interface Ingredients {
   name: string;
   quantity: number;
   unit: string;

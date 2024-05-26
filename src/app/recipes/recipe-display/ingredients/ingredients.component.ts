@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, input } from '@angular/core';
+import { Ingredients, RecipeDetail } from 'app/models/recipe.model';
 import { ExtendedIngredient } from 'app/shared/models/extendedingredient.model';
 
 @Component({
@@ -6,11 +7,7 @@ import { ExtendedIngredient } from 'app/shared/models/extendedingredient.model';
   templateUrl: './ingredients.component.html',
   styleUrls: ['./ingredients.component.css']
 })
-export class IngredientsComponent implements OnInit {
-  @Input() recipe: ExtendedIngredient;
-
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+export class IngredientsComponent {
+  ingredients = input<Ingredients>();
+  // @Input() recipe: ExtendedIngredient;
 }

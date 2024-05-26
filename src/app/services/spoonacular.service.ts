@@ -8,6 +8,7 @@ import { FilterState } from 'app/core/services/filter.service';
 import { SpoonacularAdapter } from './adapters/spoonacular.adapter';
 import { map } from 'rxjs/operators';
 import { Recipe, RecipeDetail } from 'app/models/recipe.model';
+import * as mockRecipeJSONDetail from '../../assets/mockRecipeDetail.json';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +43,19 @@ export class SpoonacularService implements RecipeApiInterface {
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
+    console.log(id);
+    
+
+    return this.apiService.get(
+      `${this.baseUrl}${id}/information`, { 
+        params: new HttpParams()
+        .append('apiKey',this.apiKey) 
+      }).pipe(
+        map(response => this.adapter.adaptToRecipeDetail(response))
+      );
+
     // Implement the API call
+    // const recipeDetail = mockRecipeJSONDetail;
     return of(null);
   };
 }

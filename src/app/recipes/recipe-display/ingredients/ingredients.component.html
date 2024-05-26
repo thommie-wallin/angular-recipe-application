@@ -9,9 +9,9 @@
 
 <div fxLayout="column">
   <h3>Ingredients:</h3>
-  <div *ngFor="let data of recipe">
+  <div *ngFor="let ingredient of ingredients">
     <mat-card appearance="outlined" class="recipe-ingredients-item">
-      {{ data.amount }} {{ data.measures.metric.unitShort }} {{ data.name }}
+      {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
     </mat-card>
   </div>
 </div>

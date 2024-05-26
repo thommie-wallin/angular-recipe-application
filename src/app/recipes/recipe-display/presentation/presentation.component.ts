@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, inject, input } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { FavouritesService } from '../../../core/services/favourites.service';
@@ -8,16 +8,19 @@ import { FavouritesService } from '../../../core/services/favourites.service';
   templateUrl: './presentation.component.html',
   styleUrls: ['./presentation.component.css']
 })
-export class PresentationComponent implements OnInit {
-  @Input() recipe: Recipe;
+export class PresentationComponent {
+  private favouritesService = inject(FavouritesService);
+  private _snackBar = inject(MatSnackBar);
+  recipeDetail = input();
+  // @Input() recipe: Recipe;
 
   constructor(
-    private favouritesService: FavouritesService,
-    private _snackBar: MatSnackBar,
+    // private favouritesService: FavouritesService,
+    // private _snackBar: MatSnackBar,
   ) { }
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
 
   addToFavourites(recipe) {  
     this.favouritesService.addToFavourites(recipe);

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { DataService } from '../../core/services/data.service';
@@ -18,8 +18,13 @@ export class RecipeDisplayComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private recipeDataService = inject(RecipeDataService);
 
-  recipeId: string = this.route.snapshot.paramMap.get('id');
-  recipeDetail: RecipeDetail;
+  // recipeId: string = this.route.snapshot.paramMap.get('id');
+  recipeId: string;
+
+  // recipeDetail: RecipeDetail;
+  recipeDetail$: Observable<RecipeDetail>;
+
+
   // recipe$: Observable<Recipe>;
 
   // constructor(
@@ -29,10 +34,16 @@ export class RecipeDisplayComponent implements OnInit {
   // ) {}
 
   ngOnInit(): void {
-    // this.recipeDataService.getRecipeDetails(this.recipeId).pipe(takeUntilDestroyed()).subscribe(data => {
+    this.recipeId = this.route.snapshot.paramMap.get('id');
+
+    // this.recipeDataService.getRecipeDetails(this.recipeId).subscribe(data => {
     //   this.recipeDetail = data;
+    //   console.log(data);
     // });
-    console.log(this.recipeDetail);
+
+    this.recipeDataService.getRecipeDetails(this.recipeId);
+    
+    // console.log(this.recipeDetail);
     
     // this.dataService.getSelected().subscribe((selectedCategories) => {
     //   this.getRecipe(selectedCategories);

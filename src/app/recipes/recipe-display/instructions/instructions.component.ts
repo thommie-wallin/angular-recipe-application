@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, input } from '@angular/core';
+import { RecipeDetail } from 'app/models/recipe.model';
 import { Step } from 'app/shared/interfaces';
 
 @Component({
@@ -6,11 +7,12 @@ import { Step } from 'app/shared/interfaces';
   templateUrl: './instructions.component.html',
   styleUrls: ['./instructions.component.css']
 })
-export class InstructionsComponent implements OnInit {
-  @Input() recipe: Step;
+export class InstructionsComponent {
+  recipeDetail = input<RecipeDetail>();
+  // @Input() recipe: Step;
   
-  constructor() { }
+  // constructor() { }
 
-  ngOnInit(): void {
-  }
+  // ngOnInit(): void {
+  // }
 }

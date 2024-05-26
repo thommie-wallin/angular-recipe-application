@@ -6,7 +6,7 @@ import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
 import { FilterService } from 'app/core/services/filter.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { outputToObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { RecipeDataService } from 'app/services/recipe-data.service';
 
 @Component({
@@ -49,7 +49,6 @@ export class RecipesComponent implements OnInit {
     this.filterService.state$.subscribe((filterState) => {
       // this.recipeService.fetchRecipeList(filterState);
     })
-    
     
     // this.recipeService.filteredRecipes()
   }
