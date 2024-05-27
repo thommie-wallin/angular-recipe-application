@@ -1,17 +1,14 @@
-<!-- <div fxLayout="column">
-  <h3>Ingredients:</h3>
-  <div *ngFor="let data of (recipe | async)?.extendedIngredients">
-    <mat-card class="recipe-ingredients-item">
-      {{ data.amount }} {{ data.measures.metric.unitShort }} {{ data.name }}
-    </mat-card>
-  </div>
-</div> -->
-
 <div fxLayout="column">
   <h3>Ingredients:</h3>
-  <div *ngFor="let ingredient of ingredients">
-    <mat-card appearance="outlined" class="recipe-ingredients-item">
-      {{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}
-    </mat-card>
+  <div>
+    @for (ingredient of ingredients; track ingredient.name) {
+      <mat-card appearance="outlined" class="recipe-ingredients-item">
+        <mat-card-content>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</mat-card-content>
+      </mat-card>
+    } @empty {
+      <mat-card appearance="outlined" class="recipe-ingredients-item">
+        <mat-card-content>There are no ingredients.</mat-card-content>
+      </mat-card>
+    }
   </div>
 </div>

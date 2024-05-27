@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { RecipeApiInterface } from './recipe-api.interface';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { ApiService } from 'app/core/services/api.service';
 import { FilterState } from 'app/core/services/filter.service';
@@ -29,22 +29,23 @@ export class EdamamService implements RecipeApiInterface {
       };
     };
 
-    //? Append field to get specific values, must specifically add all the fields in a array if using it.
-
     return this.apiService.get<any[]>(`${this.baseUrl}?`, { 
       params: filterParams
-      // .append('field', 'totalTime')
       .append('type', 'public')
       .append('app_key',this.apiKey)
       .append('app_id', this.apiId)
     }).pipe(map(response => this.adapter.adaptToRecipeList(response)));
-
-    // Implement the API call
-    // return of([]);
-  }
+  };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
-    // Implement the API call
-    return of(null);
+
+    return this.apiService.get<any>(`${this.baseUrl}/${id}`, { 
+      params: new HttpParams()
+      .append('type', 'public')
+      .append('app_key',this.apiKey)
+      .append('app_id', this.apiId)
+    }).pipe(
+      map(response => this.adapter.adaptToRecipeDetail(response))
+    );
   }
 }

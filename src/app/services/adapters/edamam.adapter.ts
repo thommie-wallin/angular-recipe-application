@@ -19,14 +19,19 @@ export class EdamamAdapter {
   }
 
   adaptToRecipeDetail(apiResponse: any): RecipeDetail {
+    
     return {
-      id: apiResponse.id,
-      title: apiResponse.title,
-      ingredients: apiResponse.ingredients.map(ing => ({ name: ing.text, quantity: ing.quantity, unit: ing.measure })),
-      instructions: apiResponse.instructions,
-      totalTime: null,
-      servings: apiResponse.yield,
-      imageUrl: apiResponse.image,
+      id: apiResponse.recipe.uri.split('#recipe_').pop(),
+      title: apiResponse.recipe.label, 
+      ingredients: apiResponse.recipe.ingredients.map(ing => ({ 
+        name: ing.food, 
+        quantity: ing.quantity, 
+        unit: ing.measure.includes('<') ? null : ing.measure,
+      })),
+      instructions: apiResponse.recipe.url,
+      totalTime: (apiResponse.recipe.totalTime),
+      servings: apiResponse.recipe.yield,
+      imageUrl: apiResponse.recipe.image, 
     };
   };
 };

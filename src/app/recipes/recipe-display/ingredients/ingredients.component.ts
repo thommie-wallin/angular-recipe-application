@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, input } from '@angular/core';
-import { Ingredients, RecipeDetail } from 'app/models/recipe.model';
-import { ExtendedIngredient } from 'app/shared/models/extendedingredient.model';
+import { Component, Input } from '@angular/core';
+import { Ingredients } from 'app/models/recipe.model';
 
 @Component({
   selector: 'app-ingredients',
@@ -8,6 +7,5 @@ import { ExtendedIngredient } from 'app/shared/models/extendedingredient.model';
   styleUrls: ['./ingredients.component.css']
 })
 export class IngredientsComponent {
-  ingredients = input<Ingredients>();
-  // @Input() recipe: ExtendedIngredient;
+  @Input() ingredients: Ingredients[];
 }
