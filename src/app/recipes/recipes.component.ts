@@ -7,7 +7,7 @@ import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
 import { FilterService } from 'app/core/services/filter.service';
 import { outputToObservable, takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { RecipeDataService } from 'app/services/recipe-data.service';
+import { RecipeDataService } from 'app/features/recipes/services/recipe-data.service';
 
 @Component({
   selector: 'app-recipes',

@@ -1,5 +1,5 @@
 import { FilterState } from "app/core/services/filter.service";
-import { Recipe, RecipeDetail } from "app/models/recipe.model";
+import { Recipe, RecipeDetail } from "app/features/recipes/models/recipe.model";
 import { Observable } from "rxjs";
 
 export interface RecipeApiInterface {

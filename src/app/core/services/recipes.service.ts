@@ -8,8 +8,8 @@ import { CoreModule } from '../core.module';
 import { Selected } from 'app/shared/interfaces';
 import { FilterService } from './filter.service';
 import { catchError, retry, switchMap } from 'rxjs/operators';
-import { RecipeDataService } from 'app/services/recipe-data.service';
-import { Recipe, RecipeDetail } from 'app/models/recipe.model';
+import { RecipeDataService } from 'app/features/recipes/services/recipe-data.service';
+import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 
 export interface RecipeState {
   recipeList: Recipe[];

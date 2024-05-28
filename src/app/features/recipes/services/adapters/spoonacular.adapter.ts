@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe, RecipeDetail } from 'app/models/recipe.model';
+import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +16,7 @@ export class SpoonacularAdapter {
 
   adaptToRecipeList(apiResponse: any): Recipe[] {
     return apiResponse.results.map(this.adaptToRecipe);
-  }
+  };
 
   adaptToRecipeDetail(apiResponse: any): RecipeDetail {
     return {

@@ -2,7 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { CoreModule } from '../core.module';
 import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from 'app/shared/constants/ui';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { RecipeDataService } from 'app/services/recipe-data.service';
+import { RecipeDataService } from 'app/features/recipes/services/recipe-data.service';
 import { filter } from 'rxjs/operators';
 
 export interface FilterState {

@@ -1,13 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { RecipeApiInterface } from './recipe-api.interface';
 import { Observable } from 'rxjs';
 import { environment } from 'environments/environment';
 import { ApiService } from 'app/core/services/api.service';
 import { FilterState } from 'app/core/services/filter.service';
 import { HttpParams } from '@angular/common/http';
-import { EdamamAdapter } from './adapters/edamam.adapter';
 import { map } from 'rxjs/operators';
-import { Recipe, RecipeDetail } from 'app/models/recipe.model';
+import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
+import { EdamamAdapter } from 'app/features/recipes/services/adapters/edamam.adapter';
+import { RecipeApiInterface } from '../recipe-api.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -1,6 +1,6 @@
 import { Injectable, signal } from '@angular/core';
 import { CoreModule } from '../core.module';
-import { Recipe } from 'app/models/recipe.model';
+import { Recipe } from 'app/features/recipes/models/recipe.model';
 
 @Injectable({
   providedIn: CoreModule

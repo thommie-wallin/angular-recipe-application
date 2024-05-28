@@ -1,5 +1,5 @@
 import { Injectable, computed, signal } from '@angular/core';
-import { RecipeDetail } from 'app/models/recipe.model';
+import { RecipeDetail } from 'app/features/recipes/models/recipe.model';
 
 export interface RecipeDisplayState {
   recipeDisplayItem: RecipeDetail;

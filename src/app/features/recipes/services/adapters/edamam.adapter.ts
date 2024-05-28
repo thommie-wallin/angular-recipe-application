@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Recipe, RecipeDetail } from 'app/models/recipe.model';
+import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +16,9 @@ export class EdamamAdapter {
 
   adaptToRecipeList(apiResponse: any): Recipe[] {
     return apiResponse.hits.map(this.adaptToRecipe);
-  }
+  };
 
   adaptToRecipeDetail(apiResponse: any): RecipeDetail {
-    
     return {
       id: apiResponse.recipe.uri.split('#recipe_').pop(),
       title: apiResponse.recipe.label, 

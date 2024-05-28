@@ -5,8 +5,8 @@ import { DataService } from '../../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
 import { RecipesService } from 'app/core/services/recipes.service';
-import { RecipeDataService } from 'app/services/recipe-data.service';
-import { RecipeDetail } from 'app/models/recipe.model';
+import { RecipeDataService } from 'app/features/recipes/services/recipe-data.service';
+import { RecipeDetail } from 'app/features/recipes/models/recipe.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import * as mockRecipeDetail from '../../../assets/mockRecipeDetail.json';
 
