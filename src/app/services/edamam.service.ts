@@ -29,7 +29,7 @@ export class EdamamService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<any[]>(`${this.baseUrl}?`, { 
+    return this.apiService.get<Recipe[]>(`${this.baseUrl}?`, { 
       params: filterParams
       .append('type', 'public')
       .append('app_key',this.apiKey)
@@ -39,7 +39,7 @@ export class EdamamService implements RecipeApiInterface {
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
 
-    return this.apiService.get<any>(`${this.baseUrl}/${id}`, { 
+    return this.apiService.get<RecipeDetail>(`${this.baseUrl}/${id}`, { 
       params: new HttpParams()
       .append('type', 'public')
       .append('app_key',this.apiKey)

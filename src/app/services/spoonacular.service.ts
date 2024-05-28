@@ -28,7 +28,7 @@ export class SpoonacularService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<any[]>(`${this.baseUrl}complexSearch?`, { 
+    return this.apiService.get<Recipe[]>(`${this.baseUrl}complexSearch?`, { 
       params: filterParams
       .append('number', 4)
       .append('instructionsRequired', true)
@@ -40,7 +40,7 @@ export class SpoonacularService implements RecipeApiInterface {
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
 
-    return this.apiService.get(`${this.baseUrl}${id}/information`, { 
+    return this.apiService.get<RecipeDetail>(`${this.baseUrl}${id}/information`, { 
       params: new HttpParams()
       .append('apiKey',this.apiKey) 
     }).pipe(
