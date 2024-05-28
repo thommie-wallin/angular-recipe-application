@@ -1,37 +1,29 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
 import { FavouritesService } from '../core/services/favourites.service'
+import { Recipe } from 'app/models/recipe.model';
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.component.html',
   styleUrls: ['./favourites.component.css']
 })
-export class FavouritesComponent implements OnInit {
-  favourites; 
+export class FavouritesComponent {
+  private favouritesService = inject(FavouritesService);
+  private snackBar = inject(MatSnackBar);
+  favourites = this.favouritesService.favouriteRecipes; 
 
-  constructor(
-    private favouritesService: FavouritesService,
-    private _snackBar: MatSnackBar,
-  ) { }
-
-  ngOnInit(): void {
-    this.favourites = this.favouritesService.getFavourites();
-  }
-
-  clearOneFavourite(recipe) {
-    this.favouritesService.clearOneFavourite(recipe);
-    this._snackBar.open('Recipe cleared from favourites.', 'OK', {
+  removeFromFavourites(recipe: Recipe) {
+    this.favouritesService.removeFromFavourites(recipe);
+    this.snackBar.open('Recipe cleared from favourites.', 'OK', {
       duration: 3000
     });
-  }
+  };
 
-  clearAllFavourites() {
-    this.favourites = this.favouritesService.clearAllFavourites();
-    this._snackBar.open('All recipes cleared from favourites.', 'OK', {
+  removeAllFromFavourites() {
+    this.favouritesService.removeAllFromFavourites();
+    this.snackBar.open('All recipes cleared from favourites.', 'OK', {
       duration: 3000
     });
-  }
-}
+  };
+};
