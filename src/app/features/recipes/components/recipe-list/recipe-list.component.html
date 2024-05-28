@@ -1,1 +1,39 @@
-<p>recipe-list works!</p>
+<div class="grid-container">
+  <h1 class="mat-h1">Recipes</h1>
+    <!-- <app-categories></app-categories> -->
+    <mat-grid-list [cols]="cols" rowHeight="3:1">
+      <mat-grid-tile [colspan]="1">
+        <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
+      </mat-grid-tile>
+
+      @for (category of filterCategories(); track $index) {
+        <mat-grid-tile [colspan]="1">
+          <app-form-field [categoryName]="category.key" [label]="category.label" [items]="category.options"></app-form-field>
+        </mat-grid-tile>
+      }
+    </mat-grid-list>
+
+    <div class="list-content">
+      <mat-grid-list [cols]="cols">
+        @for (recipe of recipes(); track $index) {
+          <mat-grid-tile [colspan]="1">
+            <mat-card appearance="outlined" class="dashboard-card">
+              <a routerLink="/recipe/{{ recipe.id }}">
+                <mat-card-header>
+                  <mat-card-title title="{{ recipe.title }}">
+                    {{ recipe.title }}
+                  </mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="{{ recipe.imageUrl }}">
+              </a>
+              <mat-card-actions>
+                <button (click)="addToFavourites(recipe)"  mat-mini-fab class="more-button" aria-label="add to favourites">
+                  <mat-icon>favorite</mat-icon>
+                </button>
+              </mat-card-actions>
+            </mat-card>
+          </mat-grid-tile>
+        }
+      </mat-grid-list>
+    </div>
+</div>

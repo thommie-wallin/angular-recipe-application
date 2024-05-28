@@ -83,16 +83,16 @@ export class RecipesService {
     );
   };
 
-  getOneRecipe(id: number, selectedCategories: Selected) : Observable<Recipe> {
-    if (selectedCategories.api === 'spoonacular') {
-      return this.apiService.get(
-        `${this.spoonacularBaseUrl}${id}/information`, { 
-          params: new HttpParams()
-          .append('apiKey',this.spoonacularApiKey) 
-        }
-      );
-    } else if (selectedCategories.api === 'edamam') {
+  // getOneRecipe(id: number, selectedCategories: Selected) : Observable<Recipe> {
+  //   if (selectedCategories.api === 'spoonacular') {
+  //     return this.apiService.get(
+  //       `${this.spoonacularBaseUrl}${id}/information`, { 
+  //         params: new HttpParams()
+  //         .append('apiKey',this.spoonacularApiKey) 
+  //       }
+  //     );
+  //   } else if (selectedCategories.api === 'edamam') {
 
-    };
-  };
+  //   };
+  // };
 };
