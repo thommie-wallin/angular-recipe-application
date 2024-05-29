@@ -1,18 +1,18 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FavouritesService } from 'app/core/services/favourites.service';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FilterService } from 'app/core/services/filter.service';
 import { API_FORM_FIELD } from 'app/shared/constants/ui';
 import { SharedModule } from 'app/shared/shared.module';
-import { RecipesService } from 'app/state/recipes.service';
+import { RecipesService } from 'app/features/recipes/services/recipe-state.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
+import { FavouritesService } from 'app/features/favourites';
 
 @Component({
   selector: 'app-recipe-list',

@@ -22,8 +22,11 @@ const routes: Routes = [
     path: 'recipes', loadChildren: () => import('./features/recipes/recipes.module').then(m => m.RecipesModule)
   },
   { 
-    path: 'favourites', component: FavouritesComponent 
+    path: 'favourites', loadChildren: () => import('./features/favourites/favourites.module').then(m => m.FavouritesModule)
   },
+  // { 
+  //   path: 'favourites', component: FavouritesComponent 
+  // },
   { path: '**', component: HomeComponent },
 ];
 

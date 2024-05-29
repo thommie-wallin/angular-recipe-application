@@ -1,8 +1,8 @@
 import { Component, OnInit, inject, input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FavouritesService } from '../../core/services/favourites.service';
 import { Recipe } from 'app/features/recipes/models/recipe.model';
+import { FavouritesService } from 'app/features/favourites';
 
 @Component({
   selector: 'app-recipe-list',

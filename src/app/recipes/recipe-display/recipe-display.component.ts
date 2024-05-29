@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { DataService } from '../../core/services/data.service';
 import { Recipe } from 'app/shared/models/recipe.model';
 import { Selected } from 'app/shared/interfaces';
-import { RecipesService } from 'app/state/recipes.service';
+import { RecipesService } from 'app/features/recipes/services/recipe-state.service';
 import { RecipeDataService } from 'app/features/recipes/services/recipe-data.service';
 import { RecipeDetail } from 'app/features/recipes/models/recipe.model';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';

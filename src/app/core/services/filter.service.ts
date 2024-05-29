@@ -21,7 +21,7 @@ export interface FilterCategory {
 export class FilterService {
   private recipeDataService = inject(RecipeDataService);
   private state = signal<FilterState>(null);
-  private selectedApi = signal(SPOONACULAR_KEY_NAME)
+  private selectedApi = signal(SPOONACULAR_KEY_NAME);
 
   // Observables
   state$ = toObservable(this.state).pipe(

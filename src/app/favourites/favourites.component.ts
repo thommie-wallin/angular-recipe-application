@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { FavouritesService } from '../core/services/favourites.service'
+import { FavouritesService } from 'app/features/favourites';
+// import { FavouritesService } from '../core/services/favourites.service'
 import { Recipe } from 'app/features/recipes/models/recipe.model';
 
 @Component({
@@ -11,7 +12,7 @@ import { Recipe } from 'app/features/recipes/models/recipe.model';
 export class FavouritesComponent {
   private favouritesService = inject(FavouritesService);
   private snackBar = inject(MatSnackBar);
-  favourites = this.favouritesService.favouriteRecipes; 
+  favourites = this.favouritesService.state; 
 
   removeFromFavourites(recipe: Recipe) {
     this.favouritesService.removeFromFavourites(recipe);

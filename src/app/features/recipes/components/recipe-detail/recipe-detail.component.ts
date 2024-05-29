@@ -1,15 +1,16 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FavouritesService } from 'app/core/services/favourites.service';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-import { RecipeDetailService } from 'app/state/recipe-detail.service';
+// import { RecipeDetailService } from 'app/features/recipes/services/recipe-detail.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { Recipe } from '../../models/recipe.model';
+import { FavouritesService } from 'app/features/favourites';
+import { RecipesService } from '../../services/recipe-state.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -21,9 +22,9 @@ import { Recipe } from '../../models/recipe.model';
 export class RecipeDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private favouritesService = inject(FavouritesService);
-  private recipeDetailService = inject(RecipeDetailService);
+  private recipesService = inject(RecipesService)
   private snackBar = inject(MatSnackBar);
-  recipeDetail = this.recipeDetailService.recipeDetail;
+  recipeDetail = this.recipesService.recipeDetail;
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -34,7 +35,7 @@ export class RecipeDetailComponent implements OnInit {
   };
 
   getRecipeId(id: string) {
-    this.recipeDetailService.setRecipeId(id);
+    this.recipesService.setRecipeId(id);
   };
 
   addToFavourites(recipe: Recipe) {  

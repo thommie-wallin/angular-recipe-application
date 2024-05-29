@@ -1,23 +1,22 @@
 import { Injectable, signal } from '@angular/core';
-import { CoreModule } from '../core.module';
 import { Recipe } from 'app/features/recipes/models/recipe.model';
 
 @Injectable({
-  providedIn: CoreModule
+  providedIn: 'root'
 })
 export class FavouritesService {
   // Manage state with signals.
-  favouriteRecipes = signal<Recipe[]>([]);
+  state = signal<Recipe[]>([]);
 
   addToFavourites(recipe: Recipe) {
-    this.favouriteRecipes.update(recipes => [...recipes, recipe]);
+    this.state.update(recipes => [...recipes, recipe]);
   };
 
   removeFromFavourites(recipe: Recipe) {
-    this.favouriteRecipes.update(recipes => recipes.filter(item => item.id !== recipe.id));
+    this.state.update(recipes => recipes.filter(item => item.id !== recipe.id));
   };
 
   removeAllFromFavourites() {
-    this.favouriteRecipes.set([]);
+    this.state.set([]);
   };
 };
