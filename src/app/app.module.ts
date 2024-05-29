@@ -24,6 +24,7 @@ import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { RecipesComponent } from './recipes/recipes.component';
+import { RecipeDetailComponent, RecipeListComponent } from './features/recipes';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,8 @@ import { RecipesComponent } from './recipes/recipes.component';
     MatListModule,
     MatSnackBarModule,
     CommonModule,
+    RecipeListComponent,
+    RecipeDetailComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]

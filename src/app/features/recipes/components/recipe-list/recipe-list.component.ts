@@ -1,44 +1,34 @@
-import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
-import { Component, inject, input } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FavouritesService } from 'app/core/services/favourites.service';
-import { Recipe } from '../../models/recipe.model';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FilterService } from 'app/core/services/filter.service';
 import { API_FORM_FIELD } from 'app/shared/constants/ui';
 import { SharedModule } from 'app/shared/shared.module';
-import { RecipesService } from 'app/core/services/recipes.service';
+import { RecipesService } from 'app/state/recipes.service';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
   standalone: true,
-  imports: [
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    LayoutModule,
-    SharedModule,
-  ],
+  imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule, SharedModule],
   templateUrl: './recipe-list.component.html',
   styleUrl: './recipe-list.component.css'
 })
-export class RecipeListComponent {
+export class RecipeListComponent implements OnInit {
   private filterService = inject(FilterService);
   private recipeService = inject(RecipesService);
   private breakpointObserver = inject(BreakpointObserver);
   private favouritesService = inject(FavouritesService);
-  private _snackBar = inject(MatSnackBar);
-  // recipeList = input<Recipe[]>();
+  private snackBar = inject(MatSnackBar);
   recipes = this.recipeService.recipeList;
   filterCategories = this.filterService.getFilterCategories;
-
-  // protected filterService = inject(FilterService);
   api = API_FORM_FIELD;
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
@@ -86,7 +76,7 @@ export class RecipeListComponent {
 
   addToFavourites(recipe) {  
     this.favouritesService.addToFavourites(recipe);
-    this._snackBar.open('Recipe added to favourites.', 'OK', {
+    this.snackBar.open('Recipe added to favourites.', 'OK', {
       duration: 3000
     });
   };

@@ -1,6 +1,6 @@
 import { Component, Input, } from '@angular/core';
 import { DataService } from 'app/core/services/data.service';
-import { RecipesService } from 'app/core/services/recipes.service';
+import { RecipesService } from 'app/state/recipes.service';
 import { Selected } from 'app/shared/interfaces';
 import { Observable } from 'rxjs';
 

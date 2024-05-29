@@ -1,0 +1,66 @@
+
+/* Recipe-display -------------------------------------------- */
+.grid-container {
+  margin: 20px;
+}
+
+@media only screen and (max-width: 600px) {
+  .grid-container {
+    margin: 20px 5px 5px 5px;
+  }
+}
+
+/* Presentation ------------------------------------------------- */
+
+.recipe-presentation {
+  position: relative;
+}
+
+.recipe-presentation-header-wrapper {
+  padding: 2.5rem;
+}
+
+.more-button {
+  position: absolute;
+  bottom: 30px;
+  left: 20px;
+}
+
+.summary-list {
+  list-style: none;
+  margin: 0;
+}
+
+.summary-list > li {
+  margin: 1rem;
+  display: flex;
+  align-items: center;
+}
+
+.summary-img {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+/* Instructions ---------------------------------------------------- */
+
+.recipe-instructions-item {
+  margin-top: 1rem;
+  height: 100%;
+}
+
+h3 {
+  margin: 16px 16px;
+}
+
+/* Ingredients ------------------------------------------------------------- */
+
+.recipe-ingredients-item {
+  margin-top: .25rem;
+  text-align: center;
+}
+
+h3 {
+  margin: 16px 0px 16px 0px;
+}

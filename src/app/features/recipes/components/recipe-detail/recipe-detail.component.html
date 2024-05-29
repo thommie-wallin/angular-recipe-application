@@ -1,1 +1,54 @@
-<p>recipe-detail works!</p>
+<div class="grid-container">
+  @if (recipeDetail()) {
+    <div class="recipe-presentation" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px grid">
+      <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column" class="recipe-presentation-header-wrapper">
+        <h1 class="mat-h1">{{ recipeDetail().title }}</h1>
+        <div>
+          <ul class="summary-list" fxLayout="row">
+            <li><mat-icon>group</mat-icon> {{ recipeDetail().servings }} servings</li>
+            <li><mat-icon>access_time</mat-icon> {{ recipeDetail().totalTime }} minutes</li>
+          </ul>
+        </div>
+      </div>
+      <div class="summary-img" fxFlex="50%" fxFlex.xs="100%">
+        <img src="{{ recipeDetail().imageUrl }}" alt="Recipe image">
+        <button (click)="addToFavourites(recipeDetail())"  mat-mini-fab class="more-button" aria-label="add to favourites">
+          <mat-icon>favorite</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px grid">
+      <div fxLayout="column">
+        <h3>Ingredients:</h3>
+        <div>
+          @for (ingredient of recipeDetail().ingredients; track $index) {
+            <mat-card appearance="outlined" class="recipe-ingredients-item">
+              <mat-card-content>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</mat-card-content>
+            </mat-card>
+          } @empty {
+            <mat-card appearance="outlined" class="recipe-ingredients-item">
+              <mat-card-content>There are no ingredients.</mat-card-content>
+            </mat-card>
+          }
+        </div>
+      </div>
+
+      <div>
+        <h3>Instructions:</h3>
+        @if (recipeDetail().instructions) {
+          <p [innerHTML]="recipeDetail().instructions"></p>
+        } @else  {
+          <span>There are no instructions.</span>
+        }
+      </div>
+    </div>
+  } 
+  <!-- @else {
+    <ng-template #loading> Loading... </ng-template>
+    <loading-spinner>
+  } -->
+  
+</div>

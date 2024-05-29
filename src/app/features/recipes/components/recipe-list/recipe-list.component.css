@@ -2,6 +2,7 @@
 
 .grid-container {
   margin: 20px;
+  /* height: ; */
 }
 
 @media screen and (max-width: 425px) {
