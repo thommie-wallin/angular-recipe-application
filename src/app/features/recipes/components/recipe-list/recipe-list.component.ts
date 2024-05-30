@@ -3,7 +3,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FilterService } from 'app/core/services/filter.service';
-import { API_FORM_FIELD } from 'app/shared/constants/ui';
+import { API_FORM_FIELD } from 'app/core/constants/ui';
 import { SharedModule } from 'app/shared/shared.module';
 import { RecipesService } from 'app/features/recipes/services/recipe-state.service';
 import { MatCardModule } from '@angular/material/card';

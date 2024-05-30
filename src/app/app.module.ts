@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { LayoutModule } from '@angular/cdk/layout';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,16 +17,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from  './shared/shared.module';
 import { AppComponent } from './app.component';
-import { NavComponent } from './nav/nav.component';
-import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
 import { RecipeDetailComponent, RecipeListComponent } from './features/recipes';
+import { HomeComponent } from './core/components/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,20 +31,20 @@ import { RecipeDetailComponent, RecipeListComponent } from './features/recipes';
     CoreModule,
     SharedModule,
     LayoutModule,
-    // FlexLayoutModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatSidenavModule,
-    MatIconModule,
-    BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatListModule,
-    MatSnackBarModule,
-    CommonModule,
+    // MatToolbarModule,
+    // MatButtonModule,
+    // MatSidenavModule,
+    // MatIconModule,
+    // BrowserAnimationsModule,
+    // MatGridListModule,
+    // MatCardModule,
+    // MatMenuModule,
+    // MatListModule,
+    // MatSnackBarModule,
+    // CommonModule,
     RecipeListComponent,
     RecipeDetailComponent,
+    HomeComponent,
   ],
   providers: [],
   bootstrap: [AppComponent]
