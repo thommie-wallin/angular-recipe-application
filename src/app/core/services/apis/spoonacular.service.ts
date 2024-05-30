@@ -1,11 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-// import { ApiService } from '../core/services/api.service';
 import { environment } from 'environments/environment';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { RecipeApiInterface } from '../features/recipes/services/recipe-api.interface';
 import { FilterState } from 'app/core/services/filter.service';
-// import { SpoonacularAdapter } from '../features/recipes/services/adapters/spoonacular.adapter';
 import { map } from 'rxjs/operators';
 import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 import { RecipeApiInterface } from '../recipe-api.interface';
@@ -42,7 +39,6 @@ export class SpoonacularService implements RecipeApiInterface {
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
-
     return this.apiService.get<RecipeDetail>(`${this.baseUrl}${id}/information`, { 
       params: new HttpParams()
       .append('apiKey',this.apiKey) 

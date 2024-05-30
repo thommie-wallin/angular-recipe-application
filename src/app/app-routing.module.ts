@@ -1,10 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { HomeComponent } from './home/home.component';
-import { RecipesComponent } from './recipes/recipes.component';
-import { FavouritesComponent } from './favourites/favourites.component';
-import { RecipeDisplayComponent } from './recipes/recipe-display/recipe-display.component';
 
 // const routes: Routes = [
 //   { path: '', pathMatch: 'full', component: HomeComponent },
@@ -18,15 +14,8 @@ import { RecipeDisplayComponent } from './recipes/recipe-display/recipe-display.
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { 
-    path: 'recipes', loadChildren: () => import('./features/recipes/recipes.module').then(m => m.RecipesModule)
-  },
-  { 
-    path: 'favourites', loadChildren: () => import('./features/favourites/favourites.module').then(m => m.FavouritesModule)
-  },
-  // { 
-  //   path: 'favourites', component: FavouritesComponent 
-  // },
+  { path: 'recipes', loadChildren: () => import('./features/recipes/recipes.module').then(m => m.RecipesModule) },
+  { path: 'favourites', loadChildren: () => import('./features/favourites/favourites.module').then(m => m.FavouritesModule) },
   { path: '**', component: HomeComponent },
 ];
 

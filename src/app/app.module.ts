@@ -15,15 +15,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
-import { RecipesModule } from './recipes/recipes.module';
-import { FavouritesComponent } from './favourites/favourites.component';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from  './shared/shared.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
 import { CommonModule } from '@angular/common';
-import { RecipesComponent } from './recipes/recipes.component';
 import { RecipeDetailComponent, RecipeListComponent } from './features/recipes';
 
 @NgModule({
@@ -31,14 +28,12 @@ import { RecipeDetailComponent, RecipeListComponent } from './features/recipes';
     AppComponent,
     NavComponent,
     HomeComponent,
-    FavouritesComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    RecipesModule,
     LayoutModule,
     // FlexLayoutModule,
     MatToolbarModule,

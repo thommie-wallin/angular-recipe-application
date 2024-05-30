@@ -38,7 +38,6 @@ export class EdamamService implements RecipeApiInterface {
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
-
     return this.apiService.get<RecipeDetail>(`${this.baseUrl}/${id}`, { 
       params: new HttpParams()
       .append('type', 'public')
@@ -47,5 +46,5 @@ export class EdamamService implements RecipeApiInterface {
     }).pipe(
       map(response => this.adapter.adaptToRecipeDetail(response))
     );
-  }
-}
+  };
+};

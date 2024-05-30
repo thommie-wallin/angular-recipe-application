@@ -1,9 +1,0 @@
-.grid-container {
-  margin: 20px;
-}
-
-@media screen and (max-width: 425px) {
-  .grid-container {
-    margin: 0px;
-  }
-}

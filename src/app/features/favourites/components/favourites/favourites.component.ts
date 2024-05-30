@@ -24,14 +24,14 @@ export class FavouritesComponent {
 
   removeFromFavourites(recipe: Recipe) {
     this.favouritesService.removeFromFavourites(recipe);
-    this.snackBar.open('Recipe cleared from favourites.', 'OK', {
+    this.snackBar.open('Recipe removed from favourites.', 'OK', {
       duration: 3000
     });
   };
 
   removeAllFromFavourites() {
     this.favouritesService.removeAllFromFavourites();
-    this.snackBar.open('All recipes cleared from favourites.', 'OK', {
+    this.snackBar.open('All recipes removed from favourites.', 'OK', {
       duration: 3000
     });
   };
