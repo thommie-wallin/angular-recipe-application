@@ -1,11 +1,5 @@
-.flex-container {
+.fav-container {
   margin: 20px;
-}
-
-@media screen and (max-width: 425px) {
-  .flex-container {
-    margin: 0px;
-  }
 }
 
 .fav-header {
@@ -14,8 +8,17 @@
   justify-content: space-between;
 }
 
+.fav-content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
 .card {
   position: relative;
+  /* margin: 0 1rem 0 1rem; */
+  margin: 0.5rem;
 }
 
 .card > a {
@@ -23,10 +26,135 @@
 }
 
 /* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card-header {
+/* mat-card-header {
   width: calc(90%);
   white-space: nowrap;
   overflow: hidden;
+} */
+
+.card-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+@media screen and (max-width: 425px) {
+  .flex-container {
+    margin: 0px;
+  }
+}
+
+/* @media screen and (max-width: 576px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ------------------------------------ */
+
+/* .flex-container {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.fav-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card-item {
+  flex: 1 1 calc(25% - 16px);
+  min-width: 200px;
+  max-width: 100%;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.card > a {
+  text-decoration: none;
+  display: block;
+}
+
+mat-card-header {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+mat-card-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover; 
 }
 
 .card-button {
@@ -34,3 +162,21 @@ mat-card-header {
   bottom: 10px;
   right: 10px;
 }
+
+@media screen and (max-width: 425px) {
+  .flex-container {
+    margin: 0px;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .grid-container {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .grid-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+} */

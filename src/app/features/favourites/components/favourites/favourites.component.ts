@@ -22,6 +22,15 @@ export class FavouritesComponent {
   private snackBar = inject(MatSnackBar);
   favourites = this.favouritesService.state;
 
+  ngOnInit() {
+    console.log(this.favourites());
+  }
+
+  // ngOnChanges() {
+  //   console.log(this.favourites());
+    
+  // }
+
   removeFromFavourites(recipe: Recipe) {
     this.favouritesService.removeFromFavourites(recipe);
     this.snackBar.open('Recipe removed from favourites.', 'OK', {
