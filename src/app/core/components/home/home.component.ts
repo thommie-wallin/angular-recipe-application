@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { Component, OnInit, inject } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
+import { HomeCard, ResponsiveService } from 'app/core/services/responsive.service';
 
 @Component({
   selector: 'app-home',
@@ -17,28 +16,10 @@ import { CommonModule } from '@angular/common';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  cards$;
-
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  private responsiveService = inject(ResponsiveService);
+  cards: HomeCard[];
 
   ngOnInit(): void {
-    /** Based on the screen size, switch from standard to one column per row */
-    this.cards$ = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
-    map(({ matches }) => {
-      if (matches) {
-        return [
-          { title: `Search for recipes`, cols: 2, rows: 1, image: '../../assets/images/fish.jpg' },
-          { title: 'Save your favourites', cols: 2, rows: 1, image: '../../assets/images/pancake.jpg' },
-          { title: 'Inspiration', cols: 2, rows: 1, image: '../../assets/images/lemon.jpg' },
-        ];
-      }
-
-      return [
-        { title: `Search for recipes`, cols: 2, rows: 1, image: '../../assets/images/fish.jpg' },
-        { title: 'Save your favourites', cols: 1, rows: 1, image: '../../assets/images/pancake.jpg' },
-        { title: 'Inspiration', cols: 1, rows: 1, image: '../../assets/images/lemon.jpg' },
-      ];
-    })
-  );
+    this.responsiveService.homeCards$.subscribe(cards => this.cards = cards);
   };
 }

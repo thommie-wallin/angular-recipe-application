@@ -1,30 +1,31 @@
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { FilterService } from 'app/core/services/filter.service';
 import { API_FORM_FIELD } from 'app/core/constants/ui';
-import { SharedModule } from 'app/shared/shared.module';
 import { RecipesService } from 'app/features/recipes/services/recipe-state.service';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDividerModule } from '@angular/material/divider';
 import { RouterModule } from '@angular/router';
 import { FavouritesService } from 'app/features/favourites';
+import { CommonModule } from '@angular/common';
+import { FormFieldComponent } from 'app/shared';
+import { MatDividerModule } from '@angular/material/divider';
+import { ResponsiveService } from 'app/core/services/responsive.service';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @Component({
-  selector: 'app-recipe-list',
-  standalone: true,
-  imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule, SharedModule],
-  templateUrl: './recipe-list.component.html',
-  styleUrl: './recipe-list.component.css'
+    selector: 'app-recipe-list',
+    standalone: true,
+    templateUrl: './recipe-list.component.html',
+    styleUrl: './recipe-list.component.css',
+    imports: [CommonModule, MatGridListModule, MatDividerModule, FormFieldComponent, MatCardModule, MatIconModule, MatMenuModule, MatButtonModule, RouterModule]
 })
 export class RecipeListComponent implements OnInit {
   private filterService = inject(FilterService);
   private recipeService = inject(RecipesService);
-  private breakpointObserver = inject(BreakpointObserver);
+  private responsiveService = inject(ResponsiveService);
   private favouritesService = inject(FavouritesService);
   private snackBar = inject(MatSnackBar);
   recipes = this.recipeService.recipeList;
@@ -32,46 +33,10 @@ export class RecipeListComponent implements OnInit {
   api = API_FORM_FIELD;
 
   // Angular Material Grid list: Columns per viewportsize in media queries.
-  cols : number;
-  gridByBreakpoint = {
-    xl: 5,
-    lg: 4,
-    md: 3,
-    sm: 2,
-    xs: 1
-  };
+  cols: number;
 
   ngOnInit(): void {
-    // Angular Material Component Dev Kit (CDK): Layout behaviour primitives with Material Designs breakpoint system. 
-    // The breakpointobserver utility with the observe method evaluate default media queries from the breakpoint system 
-    // which will emit when one of them changes its boolean value. If a media query emits a boolean value of true, the different
-    // if statements check which media querys condition is truthy. Then the cols variable is set to a corresponding number 
-    // value from the gridByBreakpoint object.
-    this.breakpointObserver.observe([
-      Breakpoints.XSmall,
-      Breakpoints.Small,
-      Breakpoints.Medium,
-      Breakpoints.Large,
-      Breakpoints.XLarge,
-    ]).subscribe(result => {
-      if (result.matches) {
-        if (result.breakpoints[Breakpoints.XSmall]) {
-          this.cols = this.gridByBreakpoint.xs;
-        }
-        if (result.breakpoints[Breakpoints.Small]) {
-          this.cols = this.gridByBreakpoint.sm;
-        }
-        if (result.breakpoints[Breakpoints.Medium]) {
-          this.cols = this.gridByBreakpoint.md;
-        }
-        if (result.breakpoints[Breakpoints.Large]) {
-          this.cols = this.gridByBreakpoint.lg;
-        }
-        if (result.breakpoints[Breakpoints.XLarge]) {
-          this.cols = this.gridByBreakpoint.xl;
-        }
-      }
-    });
+    this.responsiveService.cols$.subscribe(cols => this.cols = cols);
   };
 
   addToFavourites(recipe) {  
