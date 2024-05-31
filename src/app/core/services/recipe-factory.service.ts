@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
-import { SpoonacularService } from './apis/spoonacular.service';
-import { EdamamService } from './apis/edamam.service';
+import { SpoonacularService } from './api/spoonacular.service';
+import { EdamamService } from './api/edamam.service';
 import { RecipeApiInterface } from './recipe-api.interface';
-import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from 'app/core/constants/ui';
+import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from 'app/core/constants/api';
 
 @Injectable({
   providedIn: 'root'

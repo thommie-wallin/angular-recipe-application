@@ -16,9 +16,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 
 @NgModule({ 
-  declarations: [
-    NavComponent,
-  ], 
   imports: [
     CommonModule,
     AppRoutingModule,
@@ -33,10 +30,8 @@ import { RouterModule } from '@angular/router';
     LayoutModule,
     MatButtonModule,
     HomeComponent,
-  ], 
-  exports: [
     NavComponent,
-  ],
+  ], 
   providers: [provideHttpClient(withInterceptorsFromDi())] 
 })
 export class CoreModule { }
