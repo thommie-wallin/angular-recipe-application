@@ -36,7 +36,7 @@ export class RecipeListComponent implements OnInit {
   cols: number;
 
   ngOnInit(): void {
-    this.responsiveService.cols$.subscribe(cols => this.cols = cols);
+    // this.responsiveService.cols$.subscribe(cols => this.cols = cols);
   };
 
   addToFavourites(recipe) {  
