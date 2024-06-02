@@ -10,13 +10,12 @@ import { RouterModule } from '@angular/router';
 import { Recipe } from 'app/features/recipes';
 import { FavouritesService } from '../../services/favourite-state.service';
 import { ResponsiveService } from 'app/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { map } from 'rxjs/operators';
+import { NgStyle } from '@angular/common';
 
 @Component({
   selector: 'app-favourites',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule],
+  imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule, NgStyle],
   templateUrl: './favourites.component.html',
   styleUrl: './favourites.component.css'
 })
@@ -26,45 +25,16 @@ export class FavouritesComponent implements OnInit {
   private responsiveService = inject(ResponsiveService);
   favourites = this.favouritesService.state;
 
-  private breakpointObserver = inject(BreakpointObserver);
-
   // Angular Material Grid list: Columns per viewportsize in media queries.
-  cols: string;
-  // gridColumns: string;
+  currentStyles: Record<string, string> = {};
 
   ngOnInit() {
-    this.responsiveService.cols$.subscribe(cols => this.cols = cols);
-    console.log(this.cols);
-
-    // this.breakpointObserver.observe([
-    //   Breakpoints.XSmall,
-    //   Breakpoints.Small,
-    //   Breakpoints.Medium,
-    //   Breakpoints.Large,
-    //   Breakpoints.XLarge
-    // ]).pipe(
-    //   map(result => {
-    //     if (result.breakpoints[Breakpoints.XSmall]) {
-    //       return '1fr';
-    //     } else if (result.breakpoints[Breakpoints.Small]) {
-    //       return '1fr';
-    //     } else if (result.breakpoints[Breakpoints.Medium]) {
-    //       return '1fr';
-    //     } else if (result.breakpoints[Breakpoints.Large]) {
-    //       return 'repeat(3, 1fr)';
-    //     } else if (result.breakpoints[Breakpoints.XLarge]) {
-    //       return 'repeat(5, 1fr)';
-    //     } else {
-    //       return 'repeat(5, 1fr)'; // Default to 5 columns if no match
-    //     }
-    //   })
-    // ).subscribe(columns => this.gridColumns = columns);
+    this.responsiveService.cols$.subscribe(cols => {
+      this.currentStyles = {
+        'grid-template-columns': cols,
+      };
+    });
   };
-
-  // ngOnChanges() {
-  //   console.log(this.favourites());
-    
-  // }
 
   removeFromFavourites(recipe: Recipe) {
     this.favouritesService.removeFromFavourites(recipe);

@@ -14,13 +14,13 @@ interface HomeCards {
   web: HomeCard[];
 };
 
-// interface GridByBreakpoint {
-//   xl: number;
-//   lg: number;
-//   md: number;
-//   sm: number;
-//   xs: number;
-// }
+interface GridByBreakpoint {
+  xl: string;
+  lg: string;
+  md: string;
+  sm: string;
+  xs: string;
+}
 
 
 @Injectable({
@@ -30,12 +30,12 @@ export class ResponsiveService {
   private breakpointObserver = inject(BreakpointObserver);
 
   // Columns in a angular material gridlist.
-  private gridByBreakpoint = {
-    xl: 'repeat(5, 1fr);',
-    lg: 'repeat(4, 1fr);',
-    md: 'repeat(3, 1fr);',
-    sm: '1fr;',
-    xs: '1fr;'
+  private gridByBreakpoint: GridByBreakpoint = {
+    xl: 'repeat(5, 1fr)',
+    lg: 'repeat(4, 1fr)',
+    md: 'repeat(3, 1fr)',
+    sm: 'repeat(2, 1fr)',
+    xs: '1fr'
   };
 
   // Home component cards composition for handset (max-width: 599.98px) and web (min-width: 600px).
@@ -52,7 +52,7 @@ export class ResponsiveService {
     ]
   };
 
-  private colsSubject = new BehaviorSubject<string>('');
+  private colsSubject = new BehaviorSubject<string>(this.gridByBreakpoint.xl);
   cols$: Observable<string> = this.colsSubject.asObservable();
 
   private homeCardsSubject = new BehaviorSubject<HomeCard[]>(this.homeCards.web);

@@ -3,29 +3,24 @@
     <h1 class="mat-h1">Favourites</h1>
     <button (click)="removeAllFromFavourites()" mat-raised-button color="warn">Clear All</button>
   </div>
-  <!-- <div class="fav-content" [style]="{ 'grid-template-columns': gridColumns }">   -->
-  <div class="fav-content" [style.grid-template-columns]="cols">  
-    <!-- <mat-grid-list [cols]="cols"> -->
-      @for (favourite of favourites(); track $index) {
-        <!-- <mat-grid-tile [colspan]="1" class="fav-grid-tile"> -->
-          <mat-card appearance="outlined" class="fav-card">
-            <a [routerLink]="['/recipes', favourite.id]">
-              <mat-card-header>
-                <mat-card-title title="{{ favourite.title }}">
-                  {{ favourite.title }}
-                </mat-card-title>
-              </mat-card-header>
-              <img class="fav-card-img" mat-card-image src="{{ favourite.imageUrl }}">
-            </a>
-            <mat-card-actions>
-              <button (click)="removeFromFavourites(favourite)" color="warn" class="card-button" mat-mini-fab aria-label="add to favourites">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </mat-card-actions>
-          </mat-card>
-        <!-- </mat-grid-tile> -->
-      }
-    <!-- </mat-grid-list> -->
+  <div class="fav-content" [ngStyle]="currentStyles"> 
+    @for (favourite of favourites(); track $index) {
+      <mat-card appearance="outlined" class="fav-card">
+        <a [routerLink]="['/recipes', favourite.id]">
+          <mat-card-header class="fav-card-header">
+            <mat-card-title title="{{ favourite.title }}">
+              {{ favourite.title }}
+            </mat-card-title>
+          </mat-card-header>
+          <img class="fav-card-img" mat-card-image src="{{ favourite.imageUrl }}">
+        </a>
+        <mat-card-actions>
+          <button (click)="removeFromFavourites(favourite)" color="warn" class="card-button" mat-mini-fab aria-label="add to favourites">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    }
   </div>
 </div>
 
