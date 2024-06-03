@@ -1,0 +1,25 @@
+<div class="container" [ngStyle]="currentStyles"> 
+  @for (recipe of recipes; track $index) {
+    <mat-card appearance="outlined" class="card">
+      <a [routerLink]="['/recipes', recipe.id]">
+        <mat-card-header class="card-header">
+          <mat-card-title title="{{ recipe.title }}">
+            {{ recipe.title }}
+          </mat-card-title>
+        </mat-card-header>
+        <img class="card-img" mat-card-image src="{{ recipe.imageUrl }}">
+      </a>
+      <mat-card-actions class="card-actions">
+        <button (click)="onButtonClick(recipe)" color="warn" class="card-button" mat-mini-fab aria-label="add/remove recipe">
+          @if (isFavComponent) {
+            <mat-icon>delete</mat-icon>
+          } @else {
+            <mat-icon>favorite</mat-icon>
+          }
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  } @empty {
+    <span>No recipes.</span>
+  }
+</div>

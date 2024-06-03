@@ -1,10 +1,12 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
 import { FilterService } from '../../../core/services/filter.service';
-import { catchError, retry, switchMap } from 'rxjs/operators';
+import { catchError, retry, switchMap, tap } from 'rxjs/operators';
 import { RecipeDataService } from './recipe-data.service';
 import { Recipe, RecipeDetail } from '../models/recipe.model';
 import { EMPTY } from 'rxjs';
+
+
 
 export interface RecipeState {
   recipeList: Recipe[];
@@ -54,11 +56,24 @@ export class RecipesService {
 
   constructor(
   ) {
+    // console.log(mockRecipeList);
+    
+    // this.state.update((state) => ({
+    //   ...state,
+    //   // recipeList: data,
+    //   recipeList: mockRecipeList,
+    //   // status: "success",
+    // }))
+
+    // this.state().set(mockRecipeList)
+
+
     // reducers
     this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((data) =>
       this.state.update((state) => ({
         ...state,
         recipeList: data,
+        // recipeList: mockRecipeList,
         // status: "success",
       }))
     );

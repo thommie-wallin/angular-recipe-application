@@ -22,6 +22,14 @@ interface GridByBreakpoint {
   xs: string;
 }
 
+interface ColsByBreakpoint {
+  xl: number;
+  lg: number;
+  md: number;
+  sm: number;
+  xs: number;
+}
+
 
 @Injectable({
   providedIn: 'root'
@@ -29,13 +37,22 @@ interface GridByBreakpoint {
 export class ResponsiveService {
   private breakpointObserver = inject(BreakpointObserver);
 
-  // Columns in a angular material gridlist.
+  // Columns in gridlist.
   private gridByBreakpoint: GridByBreakpoint = {
     xl: 'repeat(5, 1fr)',
     lg: 'repeat(4, 1fr)',
     md: 'repeat(3, 1fr)',
     sm: 'repeat(2, 1fr)',
     xs: '1fr'
+  };
+
+  // Columns in a angular material gridlist.
+  private colsByBreakpoint: ColsByBreakpoint = {
+    xl: 5,
+    lg: 4,
+    md: 3,
+    sm: 2,
+    xs: 1
   };
 
   // Home component cards composition for handset (max-width: 599.98px) and web (min-width: 600px).
@@ -52,8 +69,12 @@ export class ResponsiveService {
     ]
   };
 
+  // Columns for grid-list component.
   private colsSubject = new BehaviorSubject<string>(this.gridByBreakpoint.xl);
   cols$: Observable<string> = this.colsSubject.asObservable();
+
+  private colsNrSubject = new BehaviorSubject<number>(this.colsByBreakpoint.xl);
+  colsNr$: Observable<number> = this.colsNrSubject.asObservable();
 
   private homeCardsSubject = new BehaviorSubject<HomeCard[]>(this.homeCards.web);
   homeCards$: Observable<HomeCard[]> = this.homeCardsSubject.asObservable();
@@ -74,20 +95,25 @@ export class ResponsiveService {
       if (result.matches) {
         if (result.breakpoints[Breakpoints.XSmall]) {
           this.colsSubject.next(this.gridByBreakpoint.xs);
+          this.colsNrSubject.next(this.colsByBreakpoint.xs);
           this.homeCardsSubject.next(this.homeCards.handset);
         }
         if (result.breakpoints[Breakpoints.Small]) {
           this.colsSubject.next(this.gridByBreakpoint.sm);
+          this.colsNrSubject.next(this.colsByBreakpoint.sm);
           this.homeCardsSubject.next(this.homeCards.web);
         }
         if (result.breakpoints[Breakpoints.Medium]) {
           this.colsSubject.next(this.gridByBreakpoint.md);
+          this.colsNrSubject.next(this.colsByBreakpoint.md);
         }
         if (result.breakpoints[Breakpoints.Large]) {
           this.colsSubject.next(this.gridByBreakpoint.lg);
+          this.colsNrSubject.next(this.colsByBreakpoint.lg);
         }
         if (result.breakpoints[Breakpoints.XLarge]) {
           this.colsSubject.next(this.gridByBreakpoint.xl);
+          this.colsNrSubject.next(this.colsByBreakpoint.xl);
         }
       }
     });

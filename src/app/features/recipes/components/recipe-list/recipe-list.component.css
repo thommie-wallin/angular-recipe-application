@@ -1,40 +1,9 @@
-/* Recipes------------------------------------ */
-
-.grid-container {
+.recipe-list-container {
   margin: 20px;
 }
 
 @media screen and (max-width: 425px) {
-  .grid-container {
+  .recipe-list-container {
     margin: 0px;
   }
 }
-
-/* Recipe-list ------------------------------- */
-
-.dashboard-card {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  right: 15px;
-  bottom: 15px;
-}
-
-.dashboard-card > a {  
-  text-decoration: none;
-}
-
-.more-button {
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
-}
-
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-/* mat-card-header {
-  width: calc(90%);
-  white-space: nowrap;
-  overflow: hidden;
-} */
-
-/* ----------------------------- */
