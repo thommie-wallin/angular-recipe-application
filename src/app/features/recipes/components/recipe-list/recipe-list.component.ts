@@ -1,9 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
-import { FilterService } from 'app/core/services/filter.service';
-import { API_FORM_FIELD } from 'app/core/constants/api';
-import { RecipesService } from 'app/features/recipes/services/recipe-state.service';
+import { API_FORM_FIELD, FilterService } from 'app/core';
 import { RouterModule } from '@angular/router';
 import { FavouritesService } from 'app/features/favourites';
 import { CommonModule } from '@angular/common';
@@ -14,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { RecipesService } from '../../services/recipe-state.service';
 
 @Component({
     selector: 'app-recipe-list',

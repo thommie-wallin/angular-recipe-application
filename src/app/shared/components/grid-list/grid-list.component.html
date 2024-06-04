@@ -1,7 +1,7 @@
 <div class="container" [ngStyle]="currentStyles"> 
   @for (recipe of recipes; track $index) {
     <mat-card appearance="outlined" class="card">
-      <a [routerLink]="['/recipes', recipe.id]" (click)="setSelectedApi(recipe.api)">
+      <a [routerLink]="['/recipes', recipe.id, { api: recipe.api }]">
         <mat-card-header class="card-header">
           <mat-card-title title="{{ recipe.title }}">
             {{ recipe.title }}

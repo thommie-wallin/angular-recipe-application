@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { Recipe } from '../../models/recipe.model';
 import { FavouritesService } from 'app/features/favourites';
 import { RecipesService } from '../../services/recipe-state.service';
+import { RecipeDataService } from '../../services/recipe-data.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -23,17 +24,22 @@ export class RecipeDetailComponent implements OnInit {
   private favouritesService = inject(FavouritesService);
   private recipesService = inject(RecipesService)
   private snackBar = inject(MatSnackBar);
+  private recipeDataService = inject(RecipeDataService);
   recipeDetail = this.recipesService.recipeDetail;
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+      const api = params['api'];
 
-    if (id) {
-      this.getRecipeId(id);
-    };
+      // Change selected API in data service.
+      this.recipeDataService.switchApi(api);
+
+      this.fetchRecipe(id);
+    });
   };
 
-  getRecipeId(id: string) {
+  fetchRecipe(id: string) {
     this.recipesService.setRecipeId(id);
   };
 

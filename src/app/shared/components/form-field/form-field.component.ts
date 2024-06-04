@@ -3,6 +3,7 @@ import { Component, Input, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { API_FORM_FIELD } from 'app/core';
 import { FilterService } from 'app/core/services/filter.service';
 
 @Component({
@@ -20,7 +21,11 @@ export class FormFieldComponent {
   selected: string;
 
   ngOnChanges() {
-    this.selected = this.items[0];
+    if (this.categoryName === API_FORM_FIELD.name) {
+      this.selected = this.filterService.api();
+    } else {
+      this.selected = this.items[0];
+    };
   };
 
   changeSelected(selectedValue) {
