@@ -3,7 +3,7 @@
 export const SPOONACULAR_KEY_NAME = 'spoonacular';
 export const SPOONACULAR_FILTER_CATEGORIES = [
   {
-    key: 'mealType', 
+    key: 'type', 
     label: 'Meal type',
     options: ['none', 'main course', 'side dish', 'dessert', 'appetizer', 'salad', 'bread', 'breakfast', 'soup', 'beverage', 'sauce', 'marinade', 'fingerfood', 'snack', 'drink'],
   },
