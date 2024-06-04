@@ -1,5 +1,4 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { API_FORM_FIELD, FilterService } from 'app/core';
 import { RouterModule } from '@angular/router';
@@ -26,7 +25,6 @@ export class RecipeListComponent implements OnInit {
   private recipeService = inject(RecipesService);
   private responsiveService = inject(ResponsiveService);
   private favouritesService = inject(FavouritesService);
-  private snackBar = inject(MatSnackBar);
 
   recipes = this.recipeService.recipeList;
   filterCategories = this.filterService.getFilterCategories;
@@ -48,8 +46,5 @@ export class RecipeListComponent implements OnInit {
 
   addToFavourites(recipe) {  
     this.favouritesService.addToFavourites(recipe);
-    this.snackBar.open('Recipe added to favourites.', 'OK', {
-      duration: 3000
-    });
   };
 };

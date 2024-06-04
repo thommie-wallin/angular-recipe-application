@@ -5,7 +5,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { FavouritesService } from '../../services/favourite-state.service';
 import { ResponsiveService } from 'app/core';
@@ -22,7 +21,6 @@ import { Recipe } from 'app/features/recipes';
 })
 export class FavouritesComponent implements OnInit {
   private favouritesService = inject(FavouritesService);
-  private snackBar = inject(MatSnackBar);
   private responsiveService = inject(ResponsiveService);
   favourites = this.favouritesService.state;
 
@@ -39,15 +37,9 @@ export class FavouritesComponent implements OnInit {
 
   removeFromFavourites(recipe: Recipe) {
     this.favouritesService.removeFromFavourites(recipe);
-    this.snackBar.open('Recipe removed from favourites.', 'OK', {
-      duration: 3000
-    });
   };
 
   removeAllFromFavourites() {
     this.favouritesService.removeAllFromFavourites();
-    this.snackBar.open('All recipes removed from favourites.', 'OK', {
-      duration: 3000
-    });
   };
 };

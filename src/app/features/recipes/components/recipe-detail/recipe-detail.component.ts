@@ -1,7 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
@@ -15,7 +14,7 @@ import { RecipeDataService } from '../../services/recipe-data.service';
 @Component({
   selector: 'app-recipe-detail',
   standalone: true,
-  imports: [CommonModule, MatSnackBarModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule],
+  imports: [CommonModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule],
   templateUrl: './recipe-detail.component.html',
   styleUrl: './recipe-detail.component.css'
 })
@@ -23,7 +22,6 @@ export class RecipeDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private favouritesService = inject(FavouritesService);
   private recipesService = inject(RecipesService)
-  private snackBar = inject(MatSnackBar);
   private recipeDataService = inject(RecipeDataService);
   recipeDetail = this.recipesService.recipeDetail;
 
@@ -45,8 +43,5 @@ export class RecipeDetailComponent implements OnInit {
 
   addToFavourites(recipe: Recipe) {  
     this.favouritesService.addToFavourites(recipe);
-    this.snackBar.open('Recipe added to favourites.', 'OK', {
-      duration: 3000
-    });
   };
 };
