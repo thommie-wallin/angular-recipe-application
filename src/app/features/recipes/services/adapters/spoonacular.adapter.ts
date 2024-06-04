@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { SPOONACULAR_KEY_NAME } from 'app/core';
 import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 
 @Injectable({
@@ -11,6 +12,7 @@ export class SpoonacularAdapter {
       id: apiResponse.id.toString(), 
       title: apiResponse.title, 
       imageUrl: apiResponse.image, 
+      api: SPOONACULAR_KEY_NAME,
     };
   };
 

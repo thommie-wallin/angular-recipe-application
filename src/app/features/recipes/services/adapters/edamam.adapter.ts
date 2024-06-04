@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { EDAMAM_KEY_NAME } from 'app/core';
 import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 
 @Injectable({
@@ -11,6 +12,7 @@ export class EdamamAdapter {
       id: apiResponse.recipe.uri.split('#recipe_').pop(),
       title: apiResponse.recipe.label, 
       imageUrl: apiResponse.recipe.image, 
+      api: EDAMAM_KEY_NAME,
     };
   };
 

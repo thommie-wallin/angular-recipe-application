@@ -2,6 +2,7 @@ export interface Recipe {
   id: string;
   title: string;
   imageUrl: string;
+  api: string;
 };
 
 export interface RecipeDetail {
