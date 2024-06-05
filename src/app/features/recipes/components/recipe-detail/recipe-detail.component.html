@@ -1,18 +1,18 @@
-<div class="grid-container">
+<div class="detail-container">
   @if (recipeDetail()) {
-    <div class="recipe-presentation" fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px grid">
-      <div fxFlex="50%" fxFlex.xs="100%" fxLayout="column" class="recipe-presentation-header-wrapper">
+    <div class="detail-presentation">
+      <div class="detail-header-wrapper">
         <h1 class="mat-h1">{{ recipeDetail().title }}</h1>
         <div>
-          <ul class="summary-list" fxLayout="row">
-            <li><mat-icon>group</mat-icon> {{ recipeDetail().servings }} servings</li>
-            <li><mat-icon>access_time</mat-icon> {{ recipeDetail().totalTime }} minutes</li>
+          <ul class="detail-summary-list">
+            <li><mat-icon>group</mat-icon><span>{{ recipeDetail().servings }} servings</span></li>
+            <li><mat-icon>access_time</mat-icon><span>{{ recipeDetail().totalTime }} minutes</span></li>
           </ul>
         </div>
       </div>
-      <div class="summary-img" fxFlex="50%" fxFlex.xs="100%">
+      <div class="detail-img">
         <img src="{{ recipeDetail().imageUrl }}" alt="Recipe image">
-        <button (click)="addToFavourites(recipeDetail())"  mat-mini-fab class="more-button" aria-label="add to favourites">
+        <button (click)="addToFavourites(recipeDetail())"  mat-mini-fab class="detail-button" aria-label="add to favourites button">
           <mat-icon>favorite</mat-icon>
         </button>
       </div>
@@ -20,16 +20,16 @@
 
     <mat-divider></mat-divider>
 
-    <div fxLayout="row" fxLayout.xs="column" fxLayoutGap="16px grid">
-      <div fxLayout="column">
+    <div class="recipe-details">
+      <div class="detail-ingredients">
         <h3>Ingredients:</h3>
         <div>
           @for (ingredient of recipeDetail().ingredients; track $index) {
-            <mat-card appearance="outlined" class="recipe-ingredients-item">
+            <mat-card appearance="outlined" class="detail-ingredients-item">
               <mat-card-content>{{ ingredient.quantity }} {{ ingredient.unit }} {{ ingredient.name }}</mat-card-content>
             </mat-card>
           } @empty {
-            <mat-card appearance="outlined" class="recipe-ingredients-item">
+            <mat-card appearance="outlined" class="detail-ingredients-item">
               <mat-card-content>There are no ingredients.</mat-card-content>
             </mat-card>
           }

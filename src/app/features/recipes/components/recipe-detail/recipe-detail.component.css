@@ -1,66 +1,98 @@
 
-/* Recipe-display -------------------------------------------- */
-.grid-container {
+.detail-container {
   margin: 20px;
 }
 
-@media only screen and (max-width: 600px) {
-  .grid-container {
-    margin: 20px 5px 5px 5px;
-  }
-}
+/* Presentation ---------------------------------------------------- */
 
-/* Presentation ------------------------------------------------- */
-
-.recipe-presentation {
+.detail-presentation {
   position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
-.recipe-presentation-header-wrapper {
+.detail-header-wrapper {
   padding: 2.5rem;
 }
 
-.more-button {
+.detail-button {
   position: absolute;
   bottom: 30px;
   left: 20px;
 }
 
-.summary-list {
+.detail-summary-list {
   list-style: none;
   margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
 }
 
-.summary-list > li {
-  margin: 1rem;
+.detail-summary-list > li {
   display: flex;
   align-items: center;
 }
 
-.summary-img {
+.detail-summary-list > li > span {
+  margin-left: 3px;
+}
+
+.detail-img {
   position: relative;
   display: flex;
   align-items: flex-end;
 }
 
-/* Instructions ---------------------------------------------------- */
-
-.recipe-instructions-item {
-  margin-top: 1rem;
-  height: 100%;
+.detail-img img {
+  width: 100%;
+  height: auto;
 }
 
-h3 {
-  margin: 16px 16px;
+/* Divider ---------------------------------------------------- */
+
+.recipe-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
 }
 
 /* Ingredients ------------------------------------------------------------- */
 
-.recipe-ingredients-item {
+.detail-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-ingredients-item {
   margin-top: .25rem;
   text-align: center;
 }
 
 h3 {
   margin: 16px 0px 16px 0px;
+}
+
+@media (max-width: 600px) {
+  .detail-container {
+    margin: 20px 5px 5px 5px;
+  }
+
+  .detail-summary-list {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 900px) {
+  .detail-presentation {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-details {
+    grid-template-columns: 1fr;
+  }
 }
