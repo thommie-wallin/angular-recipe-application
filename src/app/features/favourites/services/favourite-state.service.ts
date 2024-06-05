@@ -11,10 +11,19 @@ export class FavouritesService {
   state = signal<Recipe[]>([]);
 
   addToFavourites(recipe: Recipe) {
-    this.state.update(recipes => [...recipes, recipe]);
-    this.snackBar.open('Recipe added to favourites.', 'OK', {
-      duration: 3000
-    });
+    const currentFavourites = this.state();
+    const exists = currentFavourites.some(fav => fav.id === recipe.id);
+    
+    if (!exists) {
+      this.state.update(recipes => [...recipes, recipe]);
+      this.snackBar.open('Recipe added to favourites.', 'OK', {
+        duration: 3000
+      });
+    } else {
+      this.snackBar.open('Recipe already in favourites.', 'OK', {
+        duration: 3000
+      });
+    };
   };
 
   removeFromFavourites(recipe: Recipe) {
