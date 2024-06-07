@@ -5,25 +5,25 @@ export interface Tile {
   rows: number;
 }
 
-export interface AnalyzedInstruction {
-    name: string;
-    steps: Step[];
-}
+// export interface AnalyzedInstruction {
+//     name: string;
+//     steps: Step[];
+// }
 
-export interface Step {
-  number: number;
-  step: string;
-  ingredients: Ingredient[];
-  equipment: Equipment[];
-  length: Length;
-}
+// export interface Step {
+//   number: number;
+//   step: string;
+//   ingredients: Ingredient[];
+//   equipment: Equipment[];
+//   length: Length;
+// }
 
-export interface Ingredient {
-  id: number;
-  name: string;
-  localizedName: string;
-  image: string;
-}
+// export interface Ingredient {
+//   id: number;
+//   name: string;
+//   localizedName: string;
+//   image: string;
+// }
 
 export interface Equipment {
   id: number;

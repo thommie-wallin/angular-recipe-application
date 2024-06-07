@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 
 export interface FilterState {
   [index: string]: string; 
+  // [key: string]: string;
 };
 
 export interface FilterCategory {
@@ -20,8 +21,8 @@ export interface FilterCategory {
 })
 export class FilterService {
   private recipeDataService = inject(RecipeDataService);
-  private state = signal<FilterState>(null);
-  private selectedApi = signal(SPOONACULAR_KEY_NAME);
+  private state = signal<FilterState>({});
+  private selectedApi = signal<string>(SPOONACULAR_KEY_NAME);
 
   // Observables
   state$ = toObservable(this.state).pipe(
@@ -39,35 +40,34 @@ export class FilterService {
   };
 
   // Get corresponding categories when switching API.
-  getFilterCategories = computed(() => {
-    let categories: FilterCategory[];
+  getFilterCategories = computed<FilterCategory[]>(() => {
+    // let categories: FilterCategory[];
 
     switch (this.api()) {
       case SPOONACULAR_KEY_NAME:
-        categories = SPOONACULAR_FILTER_CATEGORIES;
-        break;
+        return SPOONACULAR_FILTER_CATEGORIES;
       case EDAMAM_KEY_NAME:
-        categories = EDAMAM_FILTER_CATEGORIES;
-        break;
+        return EDAMAM_FILTER_CATEGORIES;
       default:
-        categories = null;
-        break;
+        throw new Error('Unsupported API');
     };
 
-    return categories;
+    // return categories;
   });
 
   // Update filter state or reset selected categories when switching API:s.
-  updateFilter(selected) {
-    if (Object.hasOwn(selected, 'api')) {
+  updateFilter(selected: { [key: string]: string }) {
+    if ('api' in selected) {
+      const api = selected['api'];
+
       // Change selected API.
-      this.selectedApi.set(selected.api);
+      this.selectedApi.set(api);
 
       // Change selected API in data service.
-      this.recipeDataService.switchApi(selected.api);
+      this.recipeDataService.switchApi(api);
 
       // Change filter categories depending on selected API.
-      switch (selected.api) {
+      switch (api) {
         case SPOONACULAR_KEY_NAME:
           this.setFilter(SPOONACULAR_FILTER_CATEGORIES)
           break;
@@ -87,15 +87,23 @@ export class FilterService {
     // console.log(this.state());
   };
 
-  setFilter(categories) {
+  setFilter(categories: FilterCategory[]) {
+    const newState: FilterState = {};
+
     // Reset state
-    this.state.set(null);
+    // this.state.set({});
+
+    // for (const category of categories) {
+    //   this.state.update((state) => ({
+    //     ...state,
+    //     [category.key]: 'none',
+    //   }))
+    // };
 
     for (const category of categories) {
-      this.state.update((state) => ({
-        ...state,
-        [category.key]: 'none',
-      }))
+      newState[category.key] = 'none';
     };
+
+    this.state.set(newState);
   };
 }

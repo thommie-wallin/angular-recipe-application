@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, SimpleChanges, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
@@ -15,20 +15,26 @@ import { FilterService } from 'app/core/services/filter.service';
 })
 export class FormFieldComponent {
   private filterService = inject(FilterService);
-  @Input() categoryName: string;
-  @Input() label: string;
-  @Input() items: string[];
-  selected: string;
 
-  ngOnChanges() {
-    if (this.categoryName === API_FORM_FIELD.name) {
-      this.selected = this.filterService.api();
-    } else {
-      this.selected = this.items[0];
+  @Input() categoryName: string = '';
+  @Input() label: string = '';
+  @Input() items: string[] = [];
+  selected: string = '';
+
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes);
+    
+    if (changes['categoryName'] || changes['items']) {
+      if (this.categoryName === API_FORM_FIELD.name) {
+        this.selected = this.filterService.api();
+      } else {
+        this.selected = this.items[0];
+      };
     };
+    
   };
 
-  changeSelected(selectedValue) {
+  changeSelected(selectedValue: string) {
     this.filterService.updateFilter({ [this.categoryName]: selectedValue });
   };
 }

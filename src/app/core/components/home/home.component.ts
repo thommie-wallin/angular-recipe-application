@@ -17,7 +17,7 @@ import { HomeCard, ResponsiveService } from 'app/core/services/responsive.servic
 })
 export class HomeComponent implements OnInit {
   private responsiveService = inject(ResponsiveService);
-  cards: HomeCard[];
+  cards: HomeCard[] = [];
 
   ngOnInit(): void {
     this.responsiveService.homeCards$.subscribe(cards => this.cards = cards);

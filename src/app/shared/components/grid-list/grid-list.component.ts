@@ -15,9 +15,9 @@ import { Recipe, RecipeDataService } from 'app/features/recipes';
 })
 export class GridListComponent {
   private recipeDataService = inject(RecipeDataService);
-  @Input() recipes: Recipe[];
+  @Input() recipes: Recipe[] = [];
   @Input() currentStyles: Record<string, string> = {};
-  @Input() isFavComponent: boolean;
+  @Input() isFavComponent: boolean = false;
   @Output() recipe = new EventEmitter<Recipe>();
 
   // Set selected API in data service.

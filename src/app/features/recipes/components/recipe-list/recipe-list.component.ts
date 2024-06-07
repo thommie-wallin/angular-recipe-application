@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RecipesService } from '../../services/recipe-state.service';
+import { Recipe } from '../../models/recipe.model';
 
 @Component({
     selector: 'app-recipe-list',
@@ -31,7 +32,7 @@ export class RecipeListComponent implements OnInit {
   api = API_FORM_FIELD;
 
   // Grid-list style: Columns per viewportsize in media queries.
-  colsNr: number;
+  colsNr: number = 5;
   currentStyles: Record<string, string> = {};
 
   ngOnInit(): void {
@@ -44,7 +45,7 @@ export class RecipeListComponent implements OnInit {
     });
   };
 
-  addToFavourites(recipe) {  
+  addToFavourites(recipe: Recipe) {  
     this.favouritesService.addToFavourites(recipe);
   };
 };

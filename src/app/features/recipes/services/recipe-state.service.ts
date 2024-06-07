@@ -23,8 +23,17 @@ export class RecipesService {
 
   private state = signal<RecipeState>({
     recipeList: [],
-    recipeDetail: null,
-    recipeId: null,
+    recipeDetail: {
+      id: '',
+      title: '',
+      ingredients: [],
+      instructions: '',
+      totalTime: 0,
+      servings: 0,
+      imageUrl: '',
+      api: ''
+    },
+    recipeId: '',
   });
 
   // selectors

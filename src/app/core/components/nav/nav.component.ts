@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { BreakpointObserver, Breakpoints, LayoutModule } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,7 +21,7 @@ import { AppRoutingModule } from 'app/app-routing.module';
 })
 export class NavComponent implements OnInit {
   private breakpointObserver = inject(BreakpointObserver);
-  isHandset$: Observable<boolean>;
+  isHandset$: Observable<boolean> = of(false);
 
   ngOnInit(): void {
     this.isHandset$ = this.breakpointObserver.observe(Breakpoints.Handset)
