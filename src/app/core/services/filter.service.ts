@@ -7,7 +7,6 @@ import { filter } from 'rxjs/operators';
 
 export interface FilterState {
   [index: string]: string; 
-  // [key: string]: string;
 };
 
 export interface FilterCategory {
@@ -41,8 +40,6 @@ export class FilterService {
 
   // Get corresponding categories when switching API.
   getFilterCategories = computed<FilterCategory[]>(() => {
-    // let categories: FilterCategory[];
-
     switch (this.api()) {
       case SPOONACULAR_KEY_NAME:
         return SPOONACULAR_FILTER_CATEGORIES;
@@ -51,8 +48,6 @@ export class FilterService {
       default:
         throw new Error('Unsupported API');
     };
-
-    // return categories;
   });
 
   // Update filter state or reset selected categories when switching API:s.
@@ -84,21 +79,10 @@ export class FilterService {
         ...selected,
       }));
     };
-    // console.log(this.state());
   };
 
   setFilter(categories: FilterCategory[]) {
     const newState: FilterState = {};
-
-    // Reset state
-    // this.state.set({});
-
-    // for (const category of categories) {
-    //   this.state.update((state) => ({
-    //     ...state,
-    //     [category.key]: 'none',
-    //   }))
-    // };
 
     for (const category of categories) {
       newState[category.key] = 'none';
@@ -106,4 +90,4 @@ export class FilterService {
 
     this.state.set(newState);
   };
-}
+};

@@ -22,8 +22,6 @@ export class FormFieldComponent {
   selected: string = '';
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes);
-    
     if (changes['categoryName'] || changes['items']) {
       if (this.categoryName === API_FORM_FIELD.name) {
         this.selected = this.filterService.api();
@@ -31,7 +29,6 @@ export class FormFieldComponent {
         this.selected = this.items[0];
       };
     };
-    
   };
 
   changeSelected(selectedValue: string) {

@@ -5,7 +5,7 @@ import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
 interface Ingredient {
   food: string; 
   quantity: number; 
-  measure: string | string[];
+  measure: string;
 }
 
 @Injectable({
@@ -32,8 +32,8 @@ export class EdamamAdapter {
       title: apiResponse.recipe.label, 
       ingredients: apiResponse.recipe.ingredients.map((ing: Ingredient) => ({ 
         name: ing.food, 
-        quantity: ing.quantity, 
-        unit: ing.measure.includes('<') ? null : ing.measure,
+        quantity: ing.quantity.toString().length > 4 ? ing.quantity.toFixed(2) : ing.quantity, 
+        unit: ing.measure !== null ? (ing.measure.includes('<') ? null : ing.measure) : null,
       })),
       instructions: apiResponse.recipe.url,
       totalTime: (apiResponse.recipe.totalTime),

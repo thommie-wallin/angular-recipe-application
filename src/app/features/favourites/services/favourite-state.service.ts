@@ -13,6 +13,9 @@ export class FavouritesService {
   addToFavourites(recipe: Recipe) {
     const currentFavourites = this.state();
     const exists = currentFavourites.some(fav => fav.id === recipe.id);
+
+    console.log(exists);
+    
     
     if (!exists) {
       this.state.update(recipes => [...recipes, recipe]);

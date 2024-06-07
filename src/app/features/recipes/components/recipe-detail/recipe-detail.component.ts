@@ -42,6 +42,8 @@ export class RecipeDetailComponent implements OnInit {
   };
 
   addToFavourites(recipe: Recipe) {  
+    console.log(recipe);
+    
     this.favouritesService.addToFavourites(recipe);
   };
 };

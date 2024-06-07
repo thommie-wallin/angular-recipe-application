@@ -28,9 +28,13 @@ export class SpoonacularAdapter {
 
   adaptToRecipeDetail(apiResponse: any): RecipeDetail {
     return {
-      id: apiResponse.id,
+      id: apiResponse.id.toString(),
       title: apiResponse.title,
-      ingredients: apiResponse.extendedIngredients.map((ing: Ingredient)  => ({ name: ing.name, quantity: ing.amount, unit: ing.unit })),
+      ingredients: apiResponse.extendedIngredients.map((ing: Ingredient)  => ({ 
+        name: ing.name, 
+        quantity: ing.amount.toString().length > 4 ? ing.amount.toFixed(2) : ing.amount, 
+        unit: ing.unit 
+      })),
       instructions: apiResponse.instructions,
       totalTime: apiResponse.readyInMinutes,
       servings: apiResponse.servings,
