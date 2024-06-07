@@ -33,6 +33,7 @@ export class EdamamAdapter {
       totalTime: (apiResponse.recipe.totalTime),
       servings: apiResponse.recipe.yield,
       imageUrl: apiResponse.recipe.image, 
+      api: EDAMAM_KEY_NAME,
     };
   };
 };

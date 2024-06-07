@@ -29,6 +29,7 @@ export class SpoonacularAdapter {
       totalTime: apiResponse.readyInMinutes,
       servings: apiResponse.servings,
       imageUrl: apiResponse.image,
+      api: SPOONACULAR_KEY_NAME,
     };
   };
 };

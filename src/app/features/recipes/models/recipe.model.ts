@@ -13,6 +13,7 @@ export interface RecipeDetail {
   totalTime: number;
   servings: number;
   imageUrl: string;
+  api: string;
 }
 
 export interface Ingredients {
