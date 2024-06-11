@@ -1,7 +1,12 @@
 <div class="fav-container">
   <div class="fav-header">
     <h1 class="mat-h1">Favourites</h1>
-    <button (click)="removeAllFromFavourites()" mat-raised-button color="warn">Clear All</button>
+    <button 
+      (click)="removeAllFromFavourites()" 
+      mat-raised-button 
+      color="warn"
+      [disabled]="favourites().length > 0 ? false : true"
+    >Remove All</button>
   </div>
   <!-- <app-grid-list 
     [recipes]="favourites()" 

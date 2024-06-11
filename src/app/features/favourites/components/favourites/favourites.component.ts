@@ -25,14 +25,14 @@ export class FavouritesComponent implements OnInit {
   favourites = this.favouritesService.state;
 
   // Grid-list style: Columns per viewportsize in media queries.
-  currentStyles: Record<string, string> = {};
+  // currentStyles: Record<string, string> = {};
 
   ngOnInit() {
-    this.responsiveService.cols$.subscribe(cols => {
-      this.currentStyles = {
-        'grid-template-columns': cols,
-      };
-    });
+    // this.responsiveService.cols$.subscribe(cols => {
+    //   this.currentStyles = {
+    //     'grid-template-columns': cols,
+    //   };
+    // });
   };
 
   removeFromFavourites(recipe: Recipe) {
