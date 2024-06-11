@@ -15,8 +15,9 @@ describe('HomeComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [HomeComponent],
+      declarations: [],
       imports: [
+        HomeComponent,
         NoopAnimationsModule,
         LayoutModule,
         MatButtonModule,

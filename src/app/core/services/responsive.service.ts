@@ -9,27 +9,9 @@ export interface HomeCard {
   image: string;
 };
 
-interface HomeCards {
-  handset: HomeCard[];
-  web: HomeCard[];
-};
-
-interface GridByBreakpoint {
-  xl: string;
-  lg: string;
-  md: string;
-  sm: string;
-  xs: string;
-}
-
-interface ColsByBreakpoint {
-  xl: number;
-  lg: number;
-  md: number;
-  sm: number;
-  xs: number;
-}
-
+type HomeCards = Record<'handset' | 'web', HomeCard[]>;
+type GridByBreakpoint = Record<'xl' | 'lg' | 'md' | 'sm' | 'xs', string>;
+type ColsByBreakpoint = Record<'xl' | 'lg' | 'md' | 'sm' | 'xs', number>;
 
 @Injectable({
   providedIn: 'root'
@@ -58,14 +40,14 @@ export class ResponsiveService {
   // Home component cards composition for handset (max-width: 599.98px) and web (min-width: 600px).
   private homeCards: HomeCards = {
     handset: [
-      { title: `Search for recipes`, cols: 2, rows: 1, image: '../../assets/images/fish.jpg' },
-      { title: 'Save your favourites', cols: 2, rows: 1, image: '../../assets/images/pancake.jpg' },
-      { title: 'Inspiration', cols: 2, rows: 1, image: '../../assets/images/lemon.jpg' },
+      { title: `Search for recipes`, cols: 2, rows: 1, image: 'assets/images/fish.jpg' },
+      { title: 'Save your favourites', cols: 2, rows: 1, image: 'assets/images/pancake.jpg' },
+      { title: 'Inspiration', cols: 2, rows: 1, image: 'assets/images/lemon.jpg' },
     ],
     web: [
-      { title: `Search for recipes`, cols: 2, rows: 1, image: '../../assets/images/fish.jpg' },
-      { title: 'Save your favourites', cols: 1, rows: 1, image: '../../assets/images/pancake.jpg' },
-      { title: 'Inspiration', cols: 1, rows: 1, image: '../../assets/images/lemon.jpg' },
+      { title: `Search for recipes`, cols: 2, rows: 1, image: 'assets/images/fish.jpg' },
+      { title: 'Save your favourites', cols: 1, rows: 1, image: 'assets/images/pancake.jpg' },
+      { title: 'Inspiration', cols: 1, rows: 1, image: 'assets/images/lemon.jpg' },
     ]
   };
 

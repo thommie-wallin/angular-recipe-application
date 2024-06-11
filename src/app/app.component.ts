@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
+import { NavComponent } from './core';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [NavComponent],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrl: './app.component.css'
 })
-export class AppComponent {
-  
-}
+export class AppComponent {};

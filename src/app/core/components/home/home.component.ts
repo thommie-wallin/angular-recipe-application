@@ -2,7 +2,7 @@ import { Component, OnInit, inject } from '@angular/core';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
-import { HomeCard, ResponsiveService } from 'app/core/services/responsive.service';
+import { HomeCard, ResponsiveService } from '../../services/responsive.service';
 
 @Component({
   selector: 'app-home',

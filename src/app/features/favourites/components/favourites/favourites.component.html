@@ -3,11 +3,20 @@
     <h1 class="mat-h1">Favourites</h1>
     <button (click)="removeAllFromFavourites()" mat-raised-button color="warn">Clear All</button>
   </div>
-  <app-grid-list 
+  <!-- <app-grid-list 
     [recipes]="favourites()" 
     [currentStyles]="currentStyles" 
     [isFavComponent]="true"
     (recipe)="removeFromFavourites($event)"
   >
+  </app-grid-list> -->
+
+  <mat-divider />
+  <app-grid-list>
+    @for (favourite of favourites(); track $index) {
+      <app-card [recipe]="favourite" (onClick)="removeFromFavourites($event)"></app-card>
+    } @empty {
+      <span>No recipes.</span>
+    }
   </app-grid-list>
 </div>

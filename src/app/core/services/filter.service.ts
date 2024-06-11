@@ -1,9 +1,8 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
-import { CoreModule } from '../core.module';
-import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from 'app/core/constants/api';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { RecipeDataService } from 'app/features/recipes/services/recipe-data.service';
 import { filter } from 'rxjs/operators';
+import { RecipeDataService } from '../../features/recipes';
+import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from '../constants/api';
 
 export interface FilterState {
   [index: string]: string; 
@@ -16,7 +15,7 @@ export interface FilterCategory {
 };
 
 @Injectable({
-  providedIn: CoreModule
+  providedIn: 'root',
 })
 export class FilterService {
   private recipeDataService = inject(RecipeDataService);

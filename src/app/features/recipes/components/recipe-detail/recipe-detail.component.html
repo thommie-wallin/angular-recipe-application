@@ -35,15 +35,16 @@
           }
         </div>
       </div>
-
+      
       <div>
         <h3>Instructions:</h3>
         @if (recipeDetail().instructions) {
-          <p [innerHTML]="recipeDetail().instructions"></p>
+          <div class="instructions-text" [innerHTML]="recipeDetail().instructions | safeHtml"></div>
         } @else  {
           <span>There are no instructions.</span>
         }
       </div>
+      
     </div>
   } 
   <!-- @else {

@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Recipe, RecipeDetail } from '../models/recipe.model';
-import { FilterState, RecipeApiInterface, RecipeFactoryService, SPOONACULAR_KEY_NAME } from 'app/core';
+import { FilterState, RecipeApiInterface, RecipeFactoryService, SPOONACULAR_KEY_NAME } from '../../../core';
 
 @Injectable({
   providedIn: 'root'

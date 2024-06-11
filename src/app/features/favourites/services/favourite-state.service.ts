@@ -1,6 +1,6 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { Recipe } from 'app/features/recipes/models/recipe.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Recipe } from '../../recipes';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,6 @@ export class FavouritesService {
   addToFavourites(recipe: Recipe) {
     const currentFavourites = this.state();
     const exists = currentFavourites.some(fav => fav.id === recipe.id);
-
-    console.log(exists);
-    
     
     if (!exists) {
       this.state.update(recipes => [...recipes, recipe]);

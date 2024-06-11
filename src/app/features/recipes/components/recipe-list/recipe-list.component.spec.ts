@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeListComponent } from './recipe-list.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('RecipeListComponent', () => {
   let component: RecipeListComponent;
@@ -8,7 +10,8 @@ describe('RecipeListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RecipeListComponent]
+      imports: [RecipeListComponent, BrowserAnimationsModule],
+      providers: [HttpClient, HttpHandler],
     })
     .compileComponents();
     

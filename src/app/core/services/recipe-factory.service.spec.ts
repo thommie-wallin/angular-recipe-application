@@ -1,12 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-
-import { RecipeFactoryService } from '../features/recipes/services/recipe-factory.service';
+import { RecipeFactoryService } from './recipe-factory.service';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('RecipeFactoryService', () => {
   let service: RecipeFactoryService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      providers: [
+        HttpClient,
+        HttpHandler,
+      ]
+    });
     service = TestBed.inject(RecipeFactoryService);
   });
 

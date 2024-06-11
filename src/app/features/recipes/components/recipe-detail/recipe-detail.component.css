@@ -73,6 +73,10 @@
   text-align: center;
 }
 
+.instructions-text {
+  margin-left: 1rem;
+}
+
 h3 {
   margin: 16px 0px 16px 0px;
 }

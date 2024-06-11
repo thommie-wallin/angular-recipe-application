@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { SpoonacularService } from './api/spoonacular.service';
 import { EdamamService } from './api/edamam.service';
 import { RecipeApiInterface } from './recipe-api.interface';
-import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from 'app/core/constants/api';
+import { EDAMAM_KEY_NAME, SPOONACULAR_KEY_NAME } from '../constants/api';
 
 @Injectable({
   providedIn: 'root'

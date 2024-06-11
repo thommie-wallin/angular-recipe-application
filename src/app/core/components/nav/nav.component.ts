@@ -8,14 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { AppRoutingModule } from 'app/app-routing.module';
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-nav',
   standalone: true,
-  imports: [MatSidenavModule, MatToolbarModule, MatListModule,BrowserAnimationsModule, MatMenuModule, MatIconModule, LayoutModule, MatButtonModule, AppRoutingModule, RouterModule],
+  imports: [CommonModule, MatSidenavModule, MatToolbarModule, MatListModule, MatMenuModule, MatIconModule, LayoutModule, MatButtonModule, RouterOutlet, RouterLink],
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })

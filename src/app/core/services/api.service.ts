@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { CoreModule } from '../core.module';
 import { Observable } from 'rxjs';
-import { Options } from 'app/shared/interfaces';
+import { Options } from '../../shared';
 
 @Injectable({
-  providedIn: CoreModule,
+  providedIn: 'root',
 })
 export class ApiService {
   constructor(private httpClient: HttpClient) {};

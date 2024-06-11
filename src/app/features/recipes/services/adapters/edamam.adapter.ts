@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { EDAMAM_KEY_NAME } from 'app/core';
-import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
+import { Recipe, RecipeDetail } from '../../models/recipe.model';
+import { EDAMAM_KEY_NAME } from '../../../../core';
 
 interface Ingredient {
   food: string; 

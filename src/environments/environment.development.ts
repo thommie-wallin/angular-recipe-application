@@ -1,5 +1,5 @@
 export const environment = {
-  production: true,
+  production: false,
   spoonacularBaseUrl: import.meta.env["NG_APP_SPOONACULAR_BASE_URL"],
   spoonacularApiKey: import.meta.env["NG_APP_SPOONACULAR_API_KEY"],
   edamamBaseUrl: import.meta.env["NG_APP_EDAMAM_BASE_URL"],

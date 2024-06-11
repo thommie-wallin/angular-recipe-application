@@ -1,23 +1,27 @@
 <div class="recipe-list-container">
   <h1 class="mat-h1">Recipes</h1>
-    <mat-grid-list [cols]="colsNr" rowHeight="78px">
+  <mat-grid-list [cols]="colsNr" rowHeight="78px">
+    <mat-grid-tile [colspan]="1">
+      <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
+    </mat-grid-tile>
+    @for (category of filterCategories(); track $index) {
       <mat-grid-tile [colspan]="1">
-        <app-form-field [categoryName]="api.name" [label]="api.label" [items]="api.categories"></app-form-field>
+        <app-form-field [categoryName]="category.key" [label]="category.label" [items]="category.options"></app-form-field>
       </mat-grid-tile>
-      @for (category of filterCategories(); track $index) {
-        <mat-grid-tile [colspan]="1">
-          <app-form-field [categoryName]="category.key" [label]="category.label" [items]="category.options"></app-form-field>
-        </mat-grid-tile>
-      }
-    </mat-grid-list>
-    <mat-divider></mat-divider>
-    <div class="list-content">
-      <app-grid-list 
-        [recipes]="recipes()" 
-        [currentStyles]="currentStyles" 
-        [isFavComponent]="false"
-        (recipe)="addToFavourites($event)"
-      >
-      </app-grid-list>
-    </div>
+    }
+  </mat-grid-list>
+  <mat-divider></mat-divider>
+  <!-- <div class="list-content-container" [ngStyle]="currentStyles"> -->
+  <app-grid-list>
+    @for (recipe of recipes(); track $index) {
+      <app-card [recipe]="recipe" (onClick)="addToFavourites($event)"></app-card>
+    } @empty {
+      <span>No recipes.</span>
+    }
+  </app-grid-list>
+
+    <!-- <div class="list-content-container" [ngStyle]="currentStyles">  -->
+      
+    <!-- </div> -->
+  <!-- </div> -->
 </div>

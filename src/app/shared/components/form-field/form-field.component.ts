@@ -3,8 +3,7 @@ import { Component, Input, SimpleChanges, inject } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { API_FORM_FIELD } from 'app/core';
-import { FilterService } from 'app/core/services/filter.service';
+import { API_FORM_FIELD, FilterService } from '../../../core';
 
 @Component({
   selector: 'app-form-field',

@@ -1,5 +1,8 @@
 <div class="container" [ngStyle]="currentStyles"> 
-  @for (recipe of recipes; track $index) {
+  <ng-content />
+  <!-- @for (recipe of recipes; track $index) {
+    <app-card [recipe]="recipe"></app-card>
+
     <mat-card appearance="outlined" class="card">
       <a [routerLink]="['/recipes', recipe.id, { api: recipe.api }]">
         <mat-card-header class="card-header">
@@ -21,5 +24,5 @@
     </mat-card>
   } @empty {
     <span>No recipes.</span>
-  }
+  } -->
 </div>

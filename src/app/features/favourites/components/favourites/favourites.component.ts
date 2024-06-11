@@ -7,15 +7,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { FavouritesService } from '../../services/favourite-state.service';
-import { ResponsiveService } from 'app/core';
 import { CommonModule, NgStyle } from '@angular/common';
-import { GridListComponent } from 'app/shared';
-import { Recipe } from 'app/features/recipes';
+import { CardComponent, GridListComponent } from '../../../../shared';
+import { ResponsiveService } from '../../../../core';
+import { Recipe } from '../../../recipes';
 
 @Component({
   selector: 'app-favourites',
   standalone: true,
-  imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule, NgStyle, CommonModule, GridListComponent],
+  imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule, NgStyle, CommonModule, GridListComponent, CardComponent],
   templateUrl: './favourites.component.html',
   styleUrl: './favourites.component.css'
 })
