@@ -7,14 +7,16 @@ import { Recipe } from '../../recipes';
 })
 export class FavouritesService {
   private snackBar = inject(MatSnackBar);
+  
   // Manage state with signals.
   state = signal<Recipe[]>([]);
 
+  isFavourite(id: string): boolean {
+    return this.state().some(recipe => recipe.id === id);
+  };
+
   addToFavourites(recipe: Recipe) {
-    const currentFavourites = this.state();
-    const exists = currentFavourites.some(fav => fav.id === recipe.id);
-    
-    if (!exists) {
+    if (!this.isFavourite(recipe.id)) {
       this.state.update(recipes => [...recipes, recipe]);
       this.snackBar.open('Recipe added to favourites.', 'OK', {
         duration: 3000

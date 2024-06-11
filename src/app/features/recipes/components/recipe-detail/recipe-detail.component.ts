@@ -6,11 +6,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
-import { Recipe } from '../../models/recipe.model';
 import { RecipesService } from '../../services/recipe-state.service';
 import { RecipeDataService } from '../../services/recipe-data.service';
 import { FavouritesService } from '../../../favourites';
-import { DomSanitizer } from '@angular/platform-browser';
 import { SafeHtmlPipe } from '../../../../shared';
 
 @Component({
@@ -22,13 +20,12 @@ import { SafeHtmlPipe } from '../../../../shared';
 })
 export class RecipeDetailComponent implements OnInit {
   private route = inject(ActivatedRoute);
-  private sanitizer = inject(DomSanitizer);
   private favouritesService = inject(FavouritesService);
   private recipesService = inject(RecipesService)
   private recipeDataService = inject(RecipeDataService);
 
   recipeDetail = this.recipesService.recipeDetail;
-  trustedHtml: any;
+  isFavourite: boolean = false;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -38,6 +35,9 @@ export class RecipeDetailComponent implements OnInit {
       // Change selected API in data service.
       this.recipeDataService.switchApi(api);
 
+      // Check if recipe is in favourites.
+      this.isFavourite = this.favouritesService.isFavourite(id);
+
       this.fetchRecipe(id);
     });
   };
@@ -46,7 +46,16 @@ export class RecipeDetailComponent implements OnInit {
     this.recipesService.setRecipeId(id);
   };
 
-  addToFavourites(recipe: Recipe) {  
-    this.favouritesService.addToFavourites(recipe);
+  get icon(): string {
+    return this.isFavourite ? 'delete' : 'favorite';
+  };
+
+  toggleFavourite() {
+    if (this.isFavourite) {
+      this.favouritesService.removeFromFavourites(this.recipeDetail());
+    } else {
+      this.favouritesService.addToFavourites(this.recipeDetail());
+    }
+    this.isFavourite = !this.isFavourite;
   };
 };

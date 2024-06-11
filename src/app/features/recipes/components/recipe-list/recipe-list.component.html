@@ -14,7 +14,7 @@
   <!-- <div class="list-content-container" [ngStyle]="currentStyles"> -->
   <app-grid-list>
     @for (recipe of recipes(); track $index) {
-      <app-card [recipe]="recipe" (onClick)="addToFavourites($event)"></app-card>
+      <app-card [recipe]="recipe"></app-card>
     } @empty {
       <span>No recipes.</span>
     }

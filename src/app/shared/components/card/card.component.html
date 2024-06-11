@@ -9,12 +9,8 @@
       <img class="card-img" mat-card-image src="{{ recipe.imageUrl }}">
     </a>
     <mat-card-actions class="card-actions">
-      <button (click)="onButtonClick(recipe)" color="warn" class="card-button" mat-mini-fab aria-label="add/remove recipe">
-        <!-- @if (isFavComponent) {
-          <mat-icon>delete</mat-icon>
-        } @else {
-          <mat-icon>favorite</mat-icon>
-        } -->
+      <button (click)="toggleFavourite()" [color]="isFavourite ? 'warn' : 'accent'" class="card-button" mat-mini-fab aria-label="add/remove recipe">
+        <mat-icon>{{ icon }}</mat-icon>
       </button>
     </mat-card-actions>
   </mat-card>

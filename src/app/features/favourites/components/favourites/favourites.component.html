@@ -8,18 +8,10 @@
       [disabled]="favourites().length > 0 ? false : true"
     >Remove All</button>
   </div>
-  <!-- <app-grid-list 
-    [recipes]="favourites()" 
-    [currentStyles]="currentStyles" 
-    [isFavComponent]="true"
-    (recipe)="removeFromFavourites($event)"
-  >
-  </app-grid-list> -->
-
   <mat-divider />
   <app-grid-list>
     @for (favourite of favourites(); track $index) {
-      <app-card [recipe]="favourite" (onClick)="removeFromFavourites($event)"></app-card>
+      <app-card [recipe]="favourite"></app-card>
     } @empty {
       <span>No recipes.</span>
     }
