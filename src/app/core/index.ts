@@ -12,6 +12,9 @@ export * from './services/api/spoonacular.service';
 
 // Re-exporting constants
 export * from './constants/api';
+export * from './constants/edamam-filters';
+export * from './constants/spoonacular-filters';
 
 // Re-exporting intefaces
-export * from './services/recipe-api.interface';
+export * from './interfaces/recipe-api.interface';
+export * from './interfaces/api-filter.interface';

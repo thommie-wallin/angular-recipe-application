@@ -1,16 +1,12 @@
 import { Injectable, inject } from '@angular/core';
-// import { environment } from 'environments/environment';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-// import { FilterState } from 'app/core/services/filter.service';
 import { map } from 'rxjs/operators';
-// import { Recipe, RecipeDetail } from 'app/features/recipes/models/recipe.model';
-import { RecipeApiInterface } from '../recipe-api.interface';
 import { ApiService } from '../api.service';
 import { Recipe, RecipeDetail, SpoonacularAdapter } from '../../../features/recipes';
 import { environment } from '../../../../environments/environment';
-import { FilterState } from '../filter.service';
-// import { SpoonacularAdapter } from 'app/features/recipes/services/adapters/spoonacular.adapter';
+import { RecipeApiInterface } from '../../interfaces/recipe-api.interface';
+import { FilterState } from '../../interfaces/api-filter.interface';
 
 @Injectable({
   providedIn: 'root'

@@ -2,23 +2,17 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
 import { RecipeDataService } from '../../features/recipes';
-import { EDAMAM_FILTER_CATEGORIES, EDAMAM_KEY_NAME, SPOONACULAR_FILTER_CATEGORIES, SPOONACULAR_KEY_NAME } from '../constants/api';
-
-export interface FilterState {
-  [index: string]: string; 
-};
-
-export interface FilterCategory {
-  key: string,
-  label: string,
-  options: string[],
-};
+import { FilterCategory, FilterState } from '../interfaces/api-filter.interface';
+import { SPOONACULAR_KEY_NAME } from '../constants/spoonacular-filters';
+import { FilterFactoryService } from './filter-factory.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class FilterService {
   private recipeDataService = inject(RecipeDataService);
+  private filterFactoryService = inject(FilterFactoryService);
+
   private state = signal<FilterState>({});
   private selectedApi = signal<string>(SPOONACULAR_KEY_NAME);
 
@@ -27,26 +21,18 @@ export class FilterService {
     // Only emit item if any filterState source property is not 'none'.
     filter(state => Object.values(state).find((el) => el !== 'none') !== undefined)
   );
-
   selectedApi$ = toObservable(this.selectedApi);
 
   // selectors (readonly)
   api = computed(() => this.selectedApi());
 
   constructor() {
-    this.setFilter(SPOONACULAR_FILTER_CATEGORIES)
+    this.updateFilter({ api: SPOONACULAR_KEY_NAME });
   };
 
   // Get corresponding categories when switching API.
   getFilterCategories = computed<FilterCategory[]>(() => {
-    switch (this.api()) {
-      case SPOONACULAR_KEY_NAME:
-        return SPOONACULAR_FILTER_CATEGORIES;
-      case EDAMAM_KEY_NAME:
-        return EDAMAM_FILTER_CATEGORIES;
-      default:
-        throw new Error('Unsupported API');
-    };
+    return this.filterFactoryService.getFilterCategories(this.api());
   });
 
   // Update filter state or reset selected categories when switching API:s.
@@ -61,16 +47,8 @@ export class FilterService {
       this.recipeDataService.switchApi(api);
 
       // Change filter categories depending on selected API.
-      switch (api) {
-        case SPOONACULAR_KEY_NAME:
-          this.setFilter(SPOONACULAR_FILTER_CATEGORIES)
-          break;
-        case EDAMAM_KEY_NAME:
-          this.setFilter(EDAMAM_FILTER_CATEGORIES)
-          break;
-        default:
-          throw new Error('Unsupported API');
-      };
+      const categories = this.filterFactoryService.getFilterCategories(api);
+      this.setFilter(categories);
 
     } else {
       this.state.update((state) => ({
