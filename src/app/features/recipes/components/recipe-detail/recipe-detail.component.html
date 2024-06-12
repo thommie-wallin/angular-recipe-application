@@ -12,9 +12,7 @@
       </div>
       <div class="detail-img">
         <img src="{{ recipeDetail().imageUrl }}" alt="Recipe image">
-        <button (click)="toggleFavourite()" [color]="isFavourite ? 'warn' : 'accent'" mat-mini-fab class="detail-button" aria-label="add to favourites button">
-          <mat-icon>{{ icon }}</mat-icon>
-        </button>
+        <app-favourite-button [recipe]="recipeDetail()" class="detail-button" />
       </div>
     </div>
 
