@@ -10,7 +10,7 @@
   </div>
   <mat-divider />
   <app-grid-list>
-    @for (favourite of favourites(); track $index) {
+    @for (favourite of favourites(); track favourite.id) {
       <app-card [recipe]="favourite"></app-card>
     } @empty {
       <span>No recipes.</span>

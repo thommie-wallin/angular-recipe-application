@@ -1,5 +1,5 @@
-import { Component, Input, OnInit, inject } from '@angular/core';
-import { Recipe } from '../../../features/recipes';
+import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
+import { Recipe, RecipeDetail } from '../../../features/recipes';
 import { FavouritesService } from '../../../features/favourites';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,15 +11,20 @@ import { MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [CommonModule, MatCardModule, MatIconModule, MatButtonModule],
   templateUrl: './favourite-button.component.html',
-  styleUrl: './favourite-button.component.css'
+  styleUrl: './favourite-button.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FavouriteButtonComponent implements OnInit {
   private favouritesService = inject(FavouritesService);
 
-  @Input() recipe: Recipe = { id: '', title: '', imageUrl: '', api: '' };
+  @Input() recipe: Recipe | RecipeDetail = { id: '', title: '', imageUrl: '', api: '' };
   isFavourite: boolean = false;
 
   ngOnInit() {
+    this.isFavourite = this.favouritesService.isFavourite(this.recipe.id);
+  };
+
+  ngOnChanges() {
     this.isFavourite = this.favouritesService.isFavourite(this.recipe.id);
   };
 
@@ -30,9 +35,10 @@ export class FavouriteButtonComponent implements OnInit {
   toggleFavourite() {
     if (this.isFavourite) {
       this.favouritesService.removeFromFavourites(this.recipe);
+      this.isFavourite = false;
     } else {
       this.favouritesService.addToFavourites(this.recipe);
-    }
-    this.isFavourite = !this.isFavourite;
+      this.isFavourite = true;
+    };
   };
 };

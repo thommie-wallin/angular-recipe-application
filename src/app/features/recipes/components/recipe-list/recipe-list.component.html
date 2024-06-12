@@ -11,17 +11,11 @@
     }
   </mat-grid-list>
   <mat-divider></mat-divider>
-  <!-- <div class="list-content-container" [ngStyle]="currentStyles"> -->
   <app-grid-list>
-    @for (recipe of recipes(); track $index) {
+    @for (recipe of recipes(); track recipe.id) {
       <app-card [recipe]="recipe"></app-card>
     } @empty {
       <span>No recipes.</span>
     }
   </app-grid-list>
-
-    <!-- <div class="list-content-container" [ngStyle]="currentStyles">  -->
-      
-    <!-- </div> -->
-  <!-- </div> -->
 </div>
