@@ -11,24 +11,29 @@ import { RecipesService } from '../../services/recipe-state.service';
 import { Recipe } from '../../models/recipe.model';
 import { API_FORM_FIELD, FilterService, ResponsiveService } from '../../../../core';
 import { FavouritesService } from '../../../favourites';
-import { CardComponent, FormFieldComponent, GridListComponent } from '../../../../shared';
+import { CardComponent, ErrorComponent, FormFieldComponent, GridListComponent, LoadingComponent } from '../../../../shared';
+import { GlobalStateService } from '../../../../state';
 
 @Component({
     selector: 'app-recipe-list',
     standalone: true,
     templateUrl: './recipe-list.component.html',
     styleUrl: './recipe-list.component.css',
-    imports: [CommonModule, MatGridListModule, MatDividerModule, FormFieldComponent, MatCardModule, MatIconModule, MatMenuModule, MatButtonModule, RouterModule, GridListComponent, CardComponent]
+    imports: [CommonModule, MatGridListModule, MatDividerModule, FormFieldComponent, MatCardModule, MatIconModule, MatMenuModule, MatButtonModule, RouterModule, GridListComponent, CardComponent, LoadingComponent, ErrorComponent]
 })
 export class RecipeListComponent implements OnInit {
   private filterService = inject(FilterService);
   private recipeService = inject(RecipesService);
   private responsiveService = inject(ResponsiveService);
   private favouritesService = inject(FavouritesService);
+  private globalStateService = inject(GlobalStateService);
 
   recipes = this.recipeService.recipeList;
   filterCategories = this.filterService.getFilterCategories;
   api = API_FORM_FIELD;
+
+  loading = this.globalStateService.loading;
+  error = this.globalStateService.error;
 
   // Grid-list style: Columns per viewportsize in media queries.
   colsNr: number = 5;

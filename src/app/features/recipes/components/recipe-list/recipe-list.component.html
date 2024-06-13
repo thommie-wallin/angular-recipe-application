@@ -15,7 +15,13 @@
     @for (recipe of recipes(); track recipe.id) {
       <app-card [recipe]="recipe"></app-card>
     } @empty {
-      <span>No recipes.</span>
+      @if (error()) {
+        <app-error></app-error>
+      } @else if (loading()) {
+        <app-loading></app-loading>
+      } @else {
+        <span>No recipes.</span>
+      }
     }
   </app-grid-list>
 </div>

@@ -1,5 +1,9 @@
 <div class="detail-container">
-  @if (recipeDetail()) {
+  @if (error()) {
+    <app-error />
+  } @else if (loading()) {
+    <app-loading />
+  } @else if (recipeDetail()) {
     <div class="detail-presentation">
       <div class="detail-header-wrapper">
         <h1 class="mat-h1">{{ recipeDetail().title }}</h1>
@@ -42,12 +46,8 @@
           <span>There are no instructions.</span>
         }
       </div>
-      
     </div>
-  } 
-  <!-- @else {
-    <ng-template #loading> Loading... </ng-template>
-    <loading-spinner>
-  } -->
-  
+  } @else {
+    <span>No recipe.</span>
+  }
 </div>
