@@ -39,7 +39,7 @@
       </div>
       
       <div>
-        <h3>Instructions:</h3>
+        <h3 class="instructions-title">Instructions:</h3>
         @if (recipeDetail().instructions) {
           <div class="instructions-text" [innerHTML]="recipeDetail().instructions | safeHtml"></div>
         } @else  {
