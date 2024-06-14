@@ -14,6 +14,8 @@ export interface RecipeDetail {
   servings: number;
   imageUrl: string;
   api: string;
+  sourceName: string,
+  sourceUrl: string,
 }
 
 export interface Ingredients {

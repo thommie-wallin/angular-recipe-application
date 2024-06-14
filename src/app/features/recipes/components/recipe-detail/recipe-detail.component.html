@@ -13,6 +13,7 @@
             <li><mat-icon>access_time</mat-icon><span>{{ recipeDetail().totalTime }} minutes</span></li>
           </ul>
         </div>
+        <a class="detail-presentation-link" href="{{ recipeDetail().sourceUrl }}">{{ recipeDetail().sourceName }}</a>
       </div>
       <div class="detail-img">
         <img src="{{ recipeDetail().imageUrl }}" alt="Recipe image">

@@ -12,8 +12,18 @@
   gap: 16px;
 }
 
+.detail-presentation-link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
 .detail-header-wrapper {
   padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .detail-button {
@@ -88,6 +98,10 @@ h3 {
 
   .detail-summary-list {
     flex-direction: column;
+  }
+
+  .detail-presentation-link {
+    justify-content: flex-start;
   }
 }
 

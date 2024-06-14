@@ -40,6 +40,8 @@ export class EdamamAdapter {
       servings: apiResponse.recipe.yield,
       imageUrl: apiResponse.recipe.image, 
       api: EDAMAM_KEY_NAME,
+      sourceName: '',
+      sourceUrl: '',
     };
   };
 };

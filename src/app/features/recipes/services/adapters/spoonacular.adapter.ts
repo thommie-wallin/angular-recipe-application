@@ -40,6 +40,8 @@ export class SpoonacularAdapter {
       servings: apiResponse.servings,
       imageUrl: apiResponse.image,
       api: SPOONACULAR_KEY_NAME,
+      sourceName: apiResponse.sourceName,
+      sourceUrl: apiResponse.sourceUrl,
     };
   };
 };

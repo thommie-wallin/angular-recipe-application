@@ -31,7 +31,9 @@ export class RecipesService {
       totalTime: 0,
       servings: 0,
       imageUrl: '',
-      api: ''
+      api: '',
+      sourceName: '',
+      sourceUrl: '',
     },
     recipeId: '',
   });
