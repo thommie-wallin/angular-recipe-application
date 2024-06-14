@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "new-project": {
+    "angular-recipe-application": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@ngx-env/builder:application",
           "options": {
-            "outputPath": "dist/new-project",
+            "outputPath": "dist/angular-recipe-application",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -67,10 +67,10 @@
           "builder": "@ngx-env/builder:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "new-project:build:production"
+              "buildTarget": "angular-recipe-application:build:production"
             },
             "development": {
-              "buildTarget": "new-project:build:development"
+              "buildTarget": "angular-recipe-application:build:development"
             }
           },
           "defaultConfiguration": "development"
