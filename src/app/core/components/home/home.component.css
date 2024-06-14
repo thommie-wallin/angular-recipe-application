@@ -21,8 +21,12 @@
   text-align: center;
 }
 
-/* TODO(mdc-migration): The following rule targets internal classes of card that may no longer apply for the MDC version. */
-mat-card > img {
+.home-img {
   object-fit: cover;
   height: 100%;
+}
+
+#edamam-badge {
+  display: flex;
+  justify-content: center;
 }
