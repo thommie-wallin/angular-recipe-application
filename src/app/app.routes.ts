@@ -10,7 +10,7 @@ export const routes: Routes = [
       { path: 'recipe/:id', loadComponent: () => import('./features/browse/components/recipe-detail/recipe-detail.component').then(m => m.RecipeDetailComponent) }
     ]
   },
-  { path: 'favourites', loadComponent: () => import('./features/favourites/components/favourites/favourites.component').then(m => m.FavouritesComponent) },
+  { path: 'favourites', loadComponent: () => import('./features/favourites/components/favourite-list/favourite-list.component').then(m => m.FavouritesListComponent) },
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: '**', redirectTo: 'home' },
 ];

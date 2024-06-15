@@ -14,10 +14,10 @@ import { CardComponent, GridListComponent } from '../../../../shared';
   selector: 'app-favourites',
   standalone: true,
   imports: [MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatDividerModule, RouterModule, CommonModule, GridListComponent, CardComponent],
-  templateUrl: './favourites.component.html',
-  styleUrl: './favourites.component.css'
+  templateUrl: './favourite-list.component.html',
+  styleUrl: './favourite-list.component.css'
 })
-export class FavouritesComponent {
+export class FavouritesListComponent {
   private favouritesService = inject(FavouritesService);
   favourites = this.favouritesService.state;
 
