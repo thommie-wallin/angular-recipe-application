@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, inject } from '@angular/core';
-import { Recipe, RecipeDetail } from '../../../features/recipes';
+import { Recipe, RecipeDetail } from '../../../features/browse';
 import { FavouritesService } from '../../../features/favourites';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';

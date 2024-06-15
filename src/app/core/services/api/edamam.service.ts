@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../api.service';
-import { EdamamAdapter, Recipe, RecipeDetail } from '../../../features/recipes';
+import { EdamamAdapter, Recipe, RecipeDetail } from '../../../features/browse';
 import { environment } from '../../../../environments/environment';
 import { RecipeApiInterface } from '../../interfaces/recipe-api.interface';
 import { FilterState } from '../../interfaces/api-filter.interface';

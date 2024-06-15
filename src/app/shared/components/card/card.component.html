@@ -1,6 +1,6 @@
 <div class="card-container">
   <mat-card appearance="outlined" class="card">
-    <a [routerLink]="['/recipes', recipe.id, { api: recipe.api }]">
+    <a [routerLink]="['/browse/recipe', recipe.id, { api: recipe.api }]">
       <mat-card-header class="card-header">
         <mat-card-title title="{{ recipe.title }}">
           {{ recipe.title }}

@@ -3,7 +3,7 @@ import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ApiService } from '../api.service';
-import { Recipe, RecipeDetail, SpoonacularAdapter } from '../../../features/recipes';
+import { Recipe, RecipeDetail, SpoonacularAdapter } from '../../../features/browse';
 import { environment } from '../../../../environments/environment';
 import { RecipeApiInterface } from '../../interfaces/recipe-api.interface';
 import { FilterState } from '../../interfaces/api-filter.interface';

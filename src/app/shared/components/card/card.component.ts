@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import { RouterModule } from '@angular/router';
-import { Recipe } from '../../../features/recipes';
+import { Recipe } from '../../../features/browse';
 import { FavouriteButtonComponent } from '../favourite-button/favourite-button.component';
 
 @Component({

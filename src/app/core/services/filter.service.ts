@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { filter } from 'rxjs/operators';
-import { RecipeDataService } from '../../features/recipes';
+import { RecipeDataService } from '../../features/browse';
 import { FilterCategory, FilterState } from '../interfaces/api-filter.interface';
 import { SPOONACULAR_KEY_NAME } from '../constants/spoonacular-filters';
 import { FilterFactoryService } from './filter-factory.service';
