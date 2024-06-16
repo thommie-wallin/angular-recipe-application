@@ -18,27 +18,19 @@ export class FavouritesService {
   addToFavourites(recipe: Recipe) {
     if (!this.isFavourite(recipe.id)) {
       this.state.update(recipes => [...recipes, recipe]);
-      this.snackBar.open('Recipe added to favourites.', 'OK', {
-        duration: 3000
-      });
+      this.snackBar.open('Recipe added to favourites.', 'OK', { duration: 3000 });
     } else {
-      this.snackBar.open('Recipe already in favourites.', 'OK', {
-        duration: 3000
-      });
+      this.snackBar.open('Recipe already in favourites.', 'OK', { duration: 3000 });
     };
   };
 
   removeFromFavourites(recipe: Recipe) {
     this.state.update(recipes => recipes.filter(item => item.id !== recipe.id));
-    this.snackBar.open('Recipe removed from favourites.', 'OK', {
-      duration: 3000
-    });
+    this.snackBar.open('Recipe removed from favourites.', 'OK', { duration: 3000 });
   };
 
   removeAllFromFavourites() {
     this.state.set([]);
-    this.snackBar.open('All recipes removed from favourites.', 'OK', {
-      duration: 3000
-    });
+    this.snackBar.open('All recipes removed from favourites.', 'OK', { duration: 3000 });
   };
 };
