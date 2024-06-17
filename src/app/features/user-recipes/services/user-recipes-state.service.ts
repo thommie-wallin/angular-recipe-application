@@ -15,6 +15,10 @@ export class UserRecipesStateService {
     this.snackBar.open('Recipe created.', 'OK', { duration: 3000 });
   };
 
+  getUserRecipe(id: string): UserRecipe | undefined {
+    return this.state().find(recipe => recipe.id === id);
+  };
+
   updateUserRecipe(recipe: UserRecipe) {
     this.state.update(recipeList => recipeList.map(item => item.id === recipe.id ? recipe : item));
     this.snackBar.open('Recipe updated.', 'OK', { duration: 3000 });

@@ -1,0 +1,15 @@
+.user-recipes-list-container {
+  margin: 20px;
+}
+
+.user-recipes-list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 425px) {
+  .user-recipes-list-container {
+    margin: 0px;
+  }
+}

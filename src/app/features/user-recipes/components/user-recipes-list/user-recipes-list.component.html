@@ -1,1 +1,19 @@
-<p>user-recipes-list works!</p>
+<div class="user-recipes-list-container">
+  <div class="user-recipes-list-header">
+    <h1 class="mat-h1">My favourite recipes</h1>
+    <button 
+      (click)="deleteAllUserRecipes()" 
+      mat-raised-button 
+      color="warn"
+      [disabled]="userRecipes().length > 0 ? false : true"
+    >Remove All</button>
+  </div>
+  <mat-divider />
+  <app-grid-list>
+    @for (userRecipe of userRecipes(); track userRecipe.id) {
+      <app-card [recipe]="userRecipe"></app-card>
+    } @empty {
+      <span>No recipes.</span>
+    }
+  </app-grid-list>
+</div>

@@ -6,6 +6,7 @@ export interface UserRecipe {
   totalTime: number;
   servings: number;
   description: string;
+  imageUrl: string;
 };
 
 export interface Ingredients {

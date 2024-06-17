@@ -1,6 +1,19 @@
 <form [formGroup]="recipeForm">
   <label for="title">Title: </label>
   <input id="title" type="text" formControlName="title">
+
+  <label for="ingredients">Ingredients: </label>
+  <input id="ingredients" type="text" formControlName="ingredients">
+
+  <label for="instructions">Instructions: </label>
+  <input id="instructions" type="text" formControlName="instructions">
+
+  <label for="totalTime">TotalTime: </label>
+  <input id="totalTime" type="text" formControlName="totalTime">
+
+  <label for="servings">Servings: </label>
+  <input id="servings" type="text" formControlName="servings">
+  
   <label for="description">Description: </label>
   <input id="description" type="text" formControlName="description">
 </form>
