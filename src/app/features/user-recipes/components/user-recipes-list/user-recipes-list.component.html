@@ -1,12 +1,24 @@
 <div class="user-recipes-list-container">
   <div class="user-recipes-list-header">
-    <h1 class="mat-h1">My favourite recipes</h1>
-    <button 
-      (click)="deleteAllUserRecipes()" 
-      mat-raised-button 
-      color="warn"
-      [disabled]="userRecipes().length > 0 ? false : true"
-    >Remove All</button>
+    <h1 class="mat-h1">My recipes</h1>
+    <div>
+      <button 
+        (click)="onClickCreateBtn()"
+        mat-raised-button
+        color="accent"
+        class="user-recipes-list-create-btn"
+      >
+        Create
+      </button>
+      <button 
+        (click)="deleteAllUserRecipes()" 
+        mat-raised-button 
+        color="primary"
+        [disabled]="userRecipes().length > 0 ? false : true"
+      >
+        Remove All
+      </button>
+    </div>
   </div>
   <mat-divider />
   <app-grid-list>

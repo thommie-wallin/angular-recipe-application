@@ -1,5 +1,5 @@
 .recipe-list-container {
-  margin: 20px;
+  /* margin: 20px; */
 }
 
 /* .list-content-container {
@@ -10,6 +10,6 @@
 
 @media screen and (max-width: 425px) {
   .recipe-list-container {
-    margin: 0px;
+    /* margin: 0px; */
   }
 }

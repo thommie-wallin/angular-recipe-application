@@ -1,0 +1,65 @@
+
+.user-recipe-create-form-inputs {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  width: 100%;
+}
+
+.inputs-title-description {
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  max-width: 50%;
+  /* width: 100%; */
+  margin-top: 1rem;
+}
+
+.inputs-ingredients {
+  margin-top: 1rem;
+}
+
+.inputs-instructions {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  /* align-items: center; */
+  max-width: 50%;
+}
+
+.inputs-time-servings {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.inputs-submit-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media screen and (max-width: 428px) {
+  .user-recipe-create-container {
+    margin: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .inputs-time-servings {
+    flex-direction: column;
+  }
+
+  .inputs-instructions {
+    max-width: 100%;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .inputs-instructions {
+    max-width: 50%;
+  }
+}

@@ -1,19 +1,86 @@
-<form [formGroup]="recipeForm">
-  <label for="title">Title: </label>
-  <input id="title" type="text" formControlName="title">
-
-  <label for="ingredients">Ingredients: </label>
-  <input id="ingredients" type="text" formControlName="ingredients">
-
-  <label for="instructions">Instructions: </label>
-  <input id="instructions" type="text" formControlName="instructions">
-
-  <label for="totalTime">TotalTime: </label>
-  <input id="totalTime" type="text" formControlName="totalTime">
-
-  <label for="servings">Servings: </label>
-  <input id="servings" type="text" formControlName="servings">
+<div class="user-recipe-create-container">
+  <h1 class="mat-h1">Create recipe</h1>
+  <mat-divider />
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="user-recipe-create-form-inputs">
+      <div class="inputs-title-description">
+        <mat-form-field>
+          <mat-label for="title">Title</mat-label>
+          <input matInput id="title" type="text" formControlName="title">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label for="description">Description: </mat-label>
+          <textarea matInput id="description" type="text" formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
   
-  <label for="description">Description: </label>
-  <input id="description" type="text" formControlName="description">
-</form>
+      <mat-divider />
+  
+      <div formGroupName="ingredients" class="inputs-ingredients">
+        <app-form-field [categoryName]="api.name" label="Ingredients API" [items]="api.categories"></app-form-field>
+
+        <mat-form-field>
+          <mat-label>Search ingredients</mat-label>
+          <input type="text"
+                placeholder="Pick one"
+                aria-label="Number"
+                matInput
+                formControlName="name"
+                [matAutocomplete]="auto">
+          <mat-autocomplete #auto="matAutocomplete">
+            <!-- @for (option of options; track option) {
+              <mat-option [value]="option">{{option}}</mat-option>
+            } -->
+          </mat-autocomplete>
+        </mat-form-field>
+
+        <mat-form-field>
+          <mat-label for="quantity">Quantity: </mat-label>
+          <input matInput id="quantity" type="number" formControlName="quantity">
+        </mat-form-field>
+    
+        <mat-form-field>
+          <mat-label for="unit">Unit: </mat-label>
+          <input matInput id="unit" type="text" formControlName="unit">
+        </mat-form-field>
+      </div>
+      
+    
+      <!-- <div formGroupName="ingredients">
+        <label for="name">Name: </label>
+        <input id="name" type="text" formControlName="name">
+    
+        
+      </div> -->
+  
+      <mat-divider />
+    
+      <div class="inputs-instructions">
+        <mat-form-field>
+          <mat-label for="instructions">Instructions: </mat-label>
+          <textarea matInput id="instructions" type="text" formControlName="instructions"></textarea>
+        </mat-form-field>
+      </div>
+  
+      <mat-divider />
+    
+      <div class="inputs-time-servings">
+        <mat-form-field>
+          <mat-label for="totalTime">TotalTime: </mat-label>
+          <input matInput id="totalTime" type="number" formControlName="totalTime">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label for="servings">Servings: </mat-label>
+          <input matInput id="servings" type="number" formControlName="servings">
+        </mat-form-field>
+      </div>
+      
+      
+    
+      <div class="inputs-submit-btn">
+        <p>*required to complete the form.</p>
+        <button mat-raised-button color="primary" type="submit" [disabled]="!recipeForm.valid">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
