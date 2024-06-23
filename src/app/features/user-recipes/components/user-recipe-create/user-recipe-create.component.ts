@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserRecipesStateService } from '../../services/user-recipes-state.service';
@@ -11,11 +11,13 @@ import { FormFieldComponent } from '../../../../shared';
 import { API_FORM_FIELD } from '../../../../core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ingredients } from '../../models/user-recipe.model';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-user-recipe-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDivider, FormFieldComponent, MatAutocompleteModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDivider, FormFieldComponent, MatAutocompleteModule, MatTableModule, MatIconModule],
   templateUrl: './user-recipe-create.component.html',
   styleUrl: './user-recipe-create.component.css'
 })
@@ -28,47 +30,60 @@ export class UserRecipeCreateComponent {
   autocompleteOptions: string[] = [];
   searchTerm: string = '';
 
-  // ingredients: Ingredients[] = [{
-  //   name: '',
-  //   quantity: 0,
-  //   unit: ''
-  // }];
+  // ingredients = signal<Ingredients[]>([]);
 
   recipeForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
+    ingredients: this.formBuilder.array([]),
     // ingredients: this.formBuilder.group({
+    //   name: [''],
+    //   quantity: [0],
+    //   unit: [''],
+    // }),
+    // ingredients: this.formBuilder.array([this.formBuilder.control({
     //   name: ['', Validators.required],
     //   quantity: [0, Validators.required],
-    //   unit: ['', Validators.required],
-    // }),
-    ingredients: this.formBuilder.array([this.formBuilder.group({
-      name: ['', Validators.required],
-      quantity: [0, Validators.required],
-      unit: ['', Validators.required]
-    })]),
+    //   unit: [''],
+    // })]),
     instructions: ['', Validators.required],
-    totalTime: [0, Validators.required],
-    servings: [0, Validators.required],
-    description: ['', Validators.required],
+    totalTime: [null, Validators.min(0)],
+    servings: [null, Validators.min(0)],
+    description: [''],
     imageUrl: ['assets/images/lemon.jpg'],
   });
+
+  // Static form controls for adding a new ingredient
+  ingredientForm: FormGroup = this.formBuilder.group({
+    name: ['', Validators.required],
+    quantity: [null, Validators.min(0)],
+    unit: ['']
+  });
+
+  // Source for updating table
+  dataSource = new MatTableDataSource<any>();
+
+  displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
 
   get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
   };
 
   addIngredient() {
-    const ingredientForm = this.formBuilder.group({
-      name: ['', Validators.required],
-      quantity: [0, Validators.required],
-      unit: ['', Validators.required]
-    });
-
-    this.ingredients.push(ingredientForm);
+    if (this.ingredientForm.valid) {
+      const ingredient: FormGroup = this.formBuilder.group({
+        name: [this.ingredientForm.value.name, Validators.required],
+        quantity: [this.ingredientForm.value.quantity, Validators.required],
+        unit: [this.ingredientForm.value.unit, Validators.required]
+      });
+      this.ingredients.push(ingredient);
+      this.dataSource.data = this.ingredients.controls;  // Update data source
+      this.ingredientForm.reset();
+    };
   };
 
   removeIngredient(index: number) {
     this.ingredients.removeAt(index);
+    this.dataSource.data = this.ingredients.controls;  // Update data source
   };
 
   onSubmit() {
