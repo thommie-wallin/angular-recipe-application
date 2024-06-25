@@ -29,22 +29,16 @@ export class UserRecipeCreateComponent {
   api = API_FORM_FIELD;
   autocompleteOptions: string[] = [];
   searchTerm: string = '';
+  displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
+
+  // Source for updating table when ingredient is added or removed.
+  dataSource = new MatTableDataSource<any>();
 
   // ingredients = signal<Ingredients[]>([]);
 
   recipeForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
     ingredients: this.formBuilder.array([]),
-    // ingredients: this.formBuilder.group({
-    //   name: [''],
-    //   quantity: [0],
-    //   unit: [''],
-    // }),
-    // ingredients: this.formBuilder.array([this.formBuilder.control({
-    //   name: ['', Validators.required],
-    //   quantity: [0, Validators.required],
-    //   unit: [''],
-    // })]),
     instructions: ['', Validators.required],
     totalTime: [null, Validators.min(0)],
     servings: [null, Validators.min(0)],
@@ -52,18 +46,14 @@ export class UserRecipeCreateComponent {
     imageUrl: ['assets/images/lemon.jpg'],
   });
 
-  // Static form controls for adding a new ingredient
+  // Static form controls for adding a new ingredient. Used to collect input from the user for a single ingredient before it is added to the main ingredients array in the recipeForm.
   ingredientForm: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     quantity: [null, Validators.min(0)],
     unit: ['']
   });
 
-  // Source for updating table
-  dataSource = new MatTableDataSource<any>();
-
-  displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
-
+  // Retrieve ingredients form array from parent form group.
   get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
   };
@@ -71,9 +61,9 @@ export class UserRecipeCreateComponent {
   addIngredient() {
     if (this.ingredientForm.valid) {
       const ingredient: FormGroup = this.formBuilder.group({
-        name: [this.ingredientForm.value.name, Validators.required],
-        quantity: [this.ingredientForm.value.quantity, Validators.required],
-        unit: [this.ingredientForm.value.unit, Validators.required]
+        name: [this.ingredientForm.value.name],
+        quantity: [this.ingredientForm.value.quantity],
+        unit: [this.ingredientForm.value.unit]
       });
       this.ingredients.push(ingredient);
       this.dataSource.data = this.ingredients.controls;  // Update data source
@@ -91,9 +81,6 @@ export class UserRecipeCreateComponent {
       const newRecipe = { id: crypto.randomUUID(), ...this.recipeForm.value };
       this.userRecipesStateService.createUserRecipe(newRecipe);
       this.router.navigate(['/user-recipes']);
-    }
-
-    // console.log(this.recipeForm.value.ingredients);
-    
+    };
   };
 };
