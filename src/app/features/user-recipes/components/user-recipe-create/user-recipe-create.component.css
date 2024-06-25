@@ -45,6 +45,10 @@
   margin-bottom: 3rem;
 }
 
+.ingredients-error-message {
+  color: red;
+}
+
 .add-ingredient-content {
   display: flex;
   margin-bottom: 2rem;

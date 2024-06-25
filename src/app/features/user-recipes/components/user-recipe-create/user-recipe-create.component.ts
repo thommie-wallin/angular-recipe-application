@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserRecipesStateService } from '../../services/user-recipes-state.service';
 import { CommonModule } from '@angular/common';
@@ -44,7 +44,7 @@ export class UserRecipeCreateComponent {
     servings: [null, Validators.min(0)],
     description: [''],
     imageUrl: ['assets/images/lemon.jpg'],
-  });
+  }, { validators: atLeastOneIngredientValidator });
 
   // Static form controls for adding a new ingredient. Used to collect input from the user for a single ingredient before it is added to the main ingredients array in the recipeForm.
   ingredientForm: FormGroup = this.formBuilder.group({
@@ -66,14 +66,19 @@ export class UserRecipeCreateComponent {
         unit: [this.ingredientForm.value.unit]
       });
       this.ingredients.push(ingredient);
-      this.dataSource.data = this.ingredients.controls;  // Update data source
+
+      // Update data source and ingredients table
+      this.dataSource.data = this.ingredients.controls;
+
       this.ingredientForm.reset();
     };
   };
 
   removeIngredient(index: number) {
     this.ingredients.removeAt(index);
-    this.dataSource.data = this.ingredients.controls;  // Update data source
+
+    // Update data source and ingredients table
+    this.dataSource.data = this.ingredients.controls;
   };
 
   onSubmit() {
@@ -81,6 +86,14 @@ export class UserRecipeCreateComponent {
       const newRecipe = { id: crypto.randomUUID(), ...this.recipeForm.value };
       this.userRecipesStateService.createUserRecipe(newRecipe);
       this.router.navigate(['/user-recipes']);
+    } else {
+      // Mark all controls as touched to show validation messages.
+      this.recipeForm.markAllAsTouched();  
     };
   };
 };
+
+function atLeastOneIngredientValidator(control: AbstractControl): ValidationErrors | null {
+  const ingredients = control.get('ingredients') as FormArray;
+  return ingredients && ingredients.length > 0 ? null : { noIngredients: true };
+}
