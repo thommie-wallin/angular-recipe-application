@@ -51,6 +51,7 @@
 
 .add-ingredient-content {
   display: flex;
+  flex-direction: column;
   margin-bottom: 2rem;
 }
 
@@ -62,6 +63,10 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.add-ingredient-border-error {
+  border: 1px dotted red;
 }
 
 .ingredients-table {

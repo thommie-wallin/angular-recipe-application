@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserRecipesStateService } from '../../services/user-recipes-state.service';
@@ -13,6 +13,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ingredients } from '../../models/user-recipe.model';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
+import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
 
 @Component({
   selector: 'app-user-recipe-create',
@@ -21,7 +22,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './user-recipe-create.component.html',
   styleUrl: './user-recipe-create.component.css'
 })
-export class UserRecipeCreateComponent {
+export class UserRecipeCreateComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private userRecipesStateService = inject(UserRecipesStateService);
   private router = inject(Router);
@@ -35,6 +36,8 @@ export class UserRecipeCreateComponent {
   dataSource = new MatTableDataSource<any>();
 
   // ingredients = signal<Ingredients[]>([]);
+
+  nameSubscription: Subscription | undefined;
 
   recipeForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
@@ -52,6 +55,27 @@ export class UserRecipeCreateComponent {
     quantity: [null, Validators.min(0)],
     unit: ['']
   });
+
+  ngOnInit() {
+    this.setupNameDebounce();
+  };
+
+  ngOnDestroy() {
+    if (this.nameSubscription) {
+      this.nameSubscription.unsubscribe();
+    }
+  };
+
+  setupNameDebounce() {
+    this.nameSubscription = this.ingredientForm.get('name')?.valueChanges.pipe(
+      // 300 milliseconds debounce time
+      debounceTime(300),
+      distinctUntilChanged()
+    ).subscribe(value => {
+      console.log('Debounced name value:', value);
+      // Implement your API call or other logic here
+    });
+  }
 
   // Retrieve ingredients form array from parent form group.
   get ingredients(): FormArray {
