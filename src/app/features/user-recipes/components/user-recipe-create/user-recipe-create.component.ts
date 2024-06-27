@@ -13,7 +13,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ingredients } from '../../models/user-recipe.model';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { Subscription, debounceTime, distinctUntilChanged } from 'rxjs';
+import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, of, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-user-recipe-create',
@@ -28,16 +28,14 @@ export class UserRecipeCreateComponent implements OnInit {
   private router = inject(Router);
 
   api = API_FORM_FIELD;
-  autocompleteOptions: string[] = [];
-  searchTerm: string = '';
   displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
 
   // Source for updating table when ingredient is added or removed.
   dataSource = new MatTableDataSource<any>();
 
-  // ingredients = signal<Ingredients[]>([]);
-
-  nameSubscription: Subscription | undefined;
+  // Create an observable for the debounced ingredient name search term value and autocomplete options
+  debouncedIngredientSearch$: Observable<string | null> = of('');
+  autocompleteOptions$: Observable<string[]> = of(['']);
 
   recipeForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
@@ -57,25 +55,35 @@ export class UserRecipeCreateComponent implements OnInit {
   });
 
   ngOnInit() {
-    this.setupNameDebounce();
+    this.setupDebouncedSearchObservable();
+    this.setupAutocompleteOptionsObservable();
   };
 
-  ngOnDestroy() {
-    if (this.nameSubscription) {
-      this.nameSubscription.unsubscribe();
-    }
-  };
-
-  setupNameDebounce() {
-    this.nameSubscription = this.ingredientForm.get('name')?.valueChanges.pipe(
-      // 300 milliseconds debounce time
+  setupDebouncedSearchObservable() {
+    this.debouncedIngredientSearch$ = this.ingredientForm.get('name')!.valueChanges.pipe(
       debounceTime(300),
-      distinctUntilChanged()
-    ).subscribe(value => {
-      console.log('Debounced name value:', value);
-      // Implement your API call or other logic here
-    });
-  }
+      distinctUntilChanged(),
+      // Filter out null or undefined values preventing errors and redundant API requests.
+      filter((name: string | null) => name !== null && name !== undefined)
+    );
+  };
+
+  setupAutocompleteOptionsObservable() {
+    this.autocompleteOptions$ = this.debouncedIngredientSearch$.pipe(
+      switchMap(name => this.fetchAutocompleteOptions(name))
+    );
+  };
+
+  fetchAutocompleteOptions(name: string | null): Observable<string[]> {
+    // Handle the case where name is null or empty
+    if (!name || !name.trim()) {
+      return of([]);
+    }
+
+    // Replace this with your actual API call
+    // return this.userRecipesStateService.getAutocompleteOptions(name);
+    return of(['test', 'test2', 'test3']);
+  };
 
   // Retrieve ingredients form array from parent form group.
   get ingredients(): FormArray {
@@ -120,4 +128,4 @@ export class UserRecipeCreateComponent implements OnInit {
 function atLeastOneIngredientValidator(control: AbstractControl): ValidationErrors | null {
   const ingredients = control.get('ingredients') as FormArray;
   return ingredients && ingredients.length > 0 ? null : { noIngredients: true };
-}
+};

@@ -34,7 +34,12 @@
               <div class="add-ingredient-border" [ngClass]="recipeForm.errors?.['noIngredients'] && recipeForm.touched ? 'add-ingredient-border-error' : ''">
                 <mat-form-field subscriptSizing="dynamic">
                   <mat-label>Name</mat-label>
-                  <input matInput type="text" formControlName="name">
+                  <input matInput type="text" formControlName="name" [matAutocomplete]="auto">
+                  <mat-autocomplete #auto="matAutocomplete">
+                    <mat-option *ngFor="let option of autocompleteOptions$ | async" [value]="option">
+                      {{ option }}
+                    </mat-option>
+                  </mat-autocomplete>
                 </mat-form-field>
                 <mat-form-field subscriptSizing="dynamic">
                   <mat-label>Quantity</mat-label>
