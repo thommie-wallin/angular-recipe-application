@@ -1,5 +1,9 @@
 <div class="user-recipe-detail-container">
-  @if (recipe) {
+  @if (error()) {
+    <app-error />
+  } @else if (loading()) {
+    <app-loading />
+  } @else if (recipe) {
     <div class="detail-presentation">
       <div class="detail-header-wrapper">
         <h1 class="mat-h1">{{ recipe.title }}</h1>
@@ -9,15 +13,10 @@
             <li><mat-icon>access_time</mat-icon><span>{{ recipe.totalTime }} minutes</span></li>
           </ul>
         </div>
-
-        <!-- <a class="detail-presentation-link" href="{{ recipe.sourceUrl }}">{{ recipe.sourceName }}</a> -->
-
+        <p>{{ recipe.description }}</p>
       </div>
       <div class="detail-img">
         <img src="{{ recipe.imageUrl }}" alt="Recipe image">
-
-        <!-- <app-favourite-button [recipe]="recipe" class="detail-button" /> -->
-
       </div>
     </div>
 

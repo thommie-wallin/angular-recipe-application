@@ -1,0 +1,115 @@
+
+
+
+/* Presentation ---------------------------------------------------- */
+
+.detail-presentation {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.detail-presentation-link {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.detail-header-wrapper {
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.detail-button {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.detail-summary-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 12px;
+}
+
+.detail-summary-list > li {
+  display: flex;
+  align-items: center;
+}
+
+.detail-summary-list > li > span {
+  margin-left: 3px;
+}
+
+.detail-img {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+}
+
+.detail-img img {
+  width: 100%;
+  height: auto;
+}
+
+/* Divider ---------------------------------------------------- */
+
+.recipe-details {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 20px;
+}
+
+/* Ingredients ------------------------------------------------------------- */
+
+.detail-ingredients {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-ingredients-item {
+  margin-top: .25rem;
+  text-align: center;
+}
+
+.instructions-text, .instructions-title {
+  margin-left: 1rem;
+}
+
+h3 {
+  margin: 16px 0px 16px 0px;
+}
+
+@media (max-width: 600px) {
+  .user-recipe-detail-container {
+    margin: 20px 5px 5px 5px;
+  }
+
+  .detail-summary-list {
+    flex-direction: column;
+  }
+
+  .detail-presentation-link {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .detail-presentation {
+    grid-template-columns: 1fr;
+  }
+
+  .recipe-details {
+    grid-template-columns: 1fr;
+  }
+}
