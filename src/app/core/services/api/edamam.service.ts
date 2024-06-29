@@ -14,7 +14,7 @@ import { FilterState } from '../../interfaces/api-filter.interface';
 export class EdamamService implements RecipeApiInterface {
   private apiService = inject(ApiService);
   private adapter = inject(EdamamAdapter);
-  private baseUrl: string = `${environment.edamamBaseUrl}`;
+  private baseUrl: string = `${environment.edamamRecipeUrl}`;
   private apiKey: string = `${environment.edamamApiKey}`;
   private apiId: string = `${environment.edamamApiId}`;
 

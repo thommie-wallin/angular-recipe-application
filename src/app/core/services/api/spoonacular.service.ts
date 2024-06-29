@@ -14,7 +14,7 @@ import { FilterState } from '../../interfaces/api-filter.interface';
 export class SpoonacularService implements RecipeApiInterface {
   private apiService = inject(ApiService);
   private adapter = inject(SpoonacularAdapter);
-  private baseUrl: string = `${environment.spoonacularBaseUrl}`;
+  private baseUrl: string = `${environment.spoonacularRecipeUrl}`;
   private apiKey: string = `${environment.spoonacularApiKey}`;
 
   getRecipesList(query: FilterState): Observable<Recipe[]> {
