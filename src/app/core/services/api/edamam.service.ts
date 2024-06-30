@@ -1,12 +1,13 @@
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { EdamamAdapter, Recipe, RecipeDetail } from '../../../features/browse';
 import { environment } from '../../../../environments/environment';
 import { RecipeApiInterface } from '../../interfaces/recipe-api.interface';
 import { FilterState } from '../../interfaces/api-filter.interface';
+import { GlobalStateService } from '../../../state';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import { FilterState } from '../../interfaces/api-filter.interface';
 export class EdamamService implements RecipeApiInterface {
   private apiService = inject(ApiService);
   private adapter = inject(EdamamAdapter);
+  private globalStateService = inject(GlobalStateService);
   private baseUrl: string = `${environment.edamamBaseUrl}`;
   private apiKey: string = `${environment.edamamApiKey}`;
   private apiId: string = `${environment.edamamApiId}`;
@@ -34,7 +36,10 @@ export class EdamamService implements RecipeApiInterface {
 
     return this.apiService.get<Recipe[]>(this.constructUrl('api/recipes/v2'), { 
       params: filterParams
-    }).pipe(map(response => this.adapter.adaptToRecipeList(response)));
+    }).pipe(
+      map(response => this.adapter.adaptToRecipeList(response)),
+      catchError(error => this.handleError(error))
+    );
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
@@ -43,7 +48,14 @@ export class EdamamService implements RecipeApiInterface {
     return this.apiService.get<RecipeDetail>(this.constructUrl(endpoint), { 
       params: new HttpParams()
     }).pipe(
-      map(response => this.adapter.adaptToRecipeDetail(response))
+      map(response => this.adapter.adaptToRecipeDetail(response)),
+      catchError(error => this.handleError(error))
     );
+  };
+
+  private handleError(error: any): Observable<never> {
+    const errorMessage = error.error?.message || 'An error occurred';
+    this.globalStateService.setError(errorMessage);
+    return throwError(() => new Error(errorMessage));
   };
 };

@@ -31,16 +31,28 @@ export class GlobalStateService {
     this.error$.pipe(takeUntilDestroyed()).subscribe((error) =>
       this.state.update((state) => ({
         ...state,
-        error: error,
+        error: this.sanitizeError(error),
       }))
     );
   };
 
   setLoading(loading: boolean): void {
     this.loading$.next(loading);
-  }
+  };
 
   setError(error: string | null): void {
     this.error$.next(error);
-  }
-}
+  };
+
+  // Sanitize error messages
+  private sanitizeError(error: string | null): string | null {
+    if (!error) return null;
+
+    // Check if the error contains sensitive information
+    if (/apiKey=/.test(error)) {
+      return 'An error occurred. Please try again later.';
+    }
+    
+    return error;
+  };
+};
