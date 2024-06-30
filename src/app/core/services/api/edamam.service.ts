@@ -14,9 +14,13 @@ import { FilterState } from '../../interfaces/api-filter.interface';
 export class EdamamService implements RecipeApiInterface {
   private apiService = inject(ApiService);
   private adapter = inject(EdamamAdapter);
-  private baseUrl: string = `${environment.edamamRecipeUrl}`;
+  private baseUrl: string = `${environment.edamamBaseUrl}`;
   private apiKey: string = `${environment.edamamApiKey}`;
   private apiId: string = `${environment.edamamApiId}`;
+
+  private constructUrl(endpoint: string): string {
+    return `${this.baseUrl}${endpoint}?type=public&app_key=${this.apiKey}&app_id=${this.apiId}`;
+  };
 
   getRecipesList(query: FilterState): Observable<Recipe[]> {
     let filterParams = new HttpParams();
@@ -28,20 +32,16 @@ export class EdamamService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<Recipe[]>(`${this.baseUrl}?`, { 
+    return this.apiService.get<Recipe[]>(this.constructUrl('api/recipes/v2'), { 
       params: filterParams
-      .append('type', 'public')
-      .append('app_key',this.apiKey)
-      .append('app_id', this.apiId)
     }).pipe(map(response => this.adapter.adaptToRecipeList(response)));
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
-    return this.apiService.get<RecipeDetail>(`${this.baseUrl}/${id}`, { 
+    const endpoint = `api/recipes/v2/${id}`;
+
+    return this.apiService.get<RecipeDetail>(this.constructUrl(endpoint), { 
       params: new HttpParams()
-      .append('type', 'public')
-      .append('app_key',this.apiKey)
-      .append('app_id', this.apiId)
     }).pipe(
       map(response => this.adapter.adaptToRecipeDetail(response))
     );

@@ -14,8 +14,12 @@ import { FilterState } from '../../interfaces/api-filter.interface';
 export class SpoonacularService implements RecipeApiInterface {
   private apiService = inject(ApiService);
   private adapter = inject(SpoonacularAdapter);
-  private baseUrl: string = `${environment.spoonacularRecipeUrl}`;
+  private baseUrl: string = `${environment.spoonacularBaseUrl}`;
   private apiKey: string = `${environment.spoonacularApiKey}`;
+
+  private constructUrl(endpoint: string): string {
+    return `${this.baseUrl}${endpoint}?apiKey=${this.apiKey}`;
+  };
 
   getRecipesList(query: FilterState): Observable<Recipe[]> {
     let filterParams = new HttpParams();
@@ -27,20 +31,20 @@ export class SpoonacularService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<Recipe[]>(`${this.baseUrl}complexSearch?`, { 
+    return this.apiService.get<Recipe[]>(this.constructUrl('recipes/complexSearch'), { 
       params: filterParams
       .append('number', 4)
       .append('instructionsRequired', true)
-      .append('apiKey',this.apiKey) 
     }).pipe(
       map(response => this.adapter.adaptToRecipeList(response))
     );
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
-    return this.apiService.get<RecipeDetail>(`${this.baseUrl}${id}/information`, { 
+    const endpoint = `recipes/${id}/information`;
+
+    return this.apiService.get<RecipeDetail>(this.constructUrl(endpoint), { 
       params: new HttpParams()
-      .append('apiKey',this.apiKey) 
     }).pipe(
       map(response => this.adapter.adaptToRecipeDetail(response))
     );
