@@ -51,10 +51,10 @@ export class FilterService {
       this.setFilter(categories);
 
     } else {
-      this.state.update((state) => ({
-        ...state,
-        ...selected,
-      }));
+      // this.state.update((state) => ({
+      //   ...state,
+      //   ...selected,
+      // }));
     };
   };
 

@@ -48,7 +48,7 @@ export class GlobalStateService {
   private sanitizeError(error: string | null): string | null {
     if (!error) return null;
 
-    // Check if the error contains sensitive information
+    // Check if the error contains sensitive information with RegExp.test
     if (/apiKey=/.test(error)) {
       return 'An error occurred. Please try again later.';
     }

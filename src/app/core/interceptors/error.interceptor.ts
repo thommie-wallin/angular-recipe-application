@@ -5,22 +5,51 @@ import { catchError, throwError } from 'rxjs';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   const globalStateService = inject(GlobalStateService);
+
   return next(req).pipe(
-    catchError((error: any) => {
-      if (error instanceof HttpErrorResponse) {
-        // Handle HTTP errors
-        if (error.status === 401) {
-          // Specific handling for unauthorized errors         
-          globalStateService.setError(`Unauthorized request: ${error.message}`);
-        } else {
-          // Handle other HTTP error codes
-          globalStateService.setError(`HTTP error: ${error.message}`);
-        }
+    catchError((error: HttpErrorResponse) => {
+      let errorMessage = 'An error occurred';
+      
+      if (error.error instanceof ErrorEvent) {
+        // Client-side error
+        errorMessage = `Error: ${error.error.message}`;
       } else {
-        // Handle non-HTTP errors
-        globalStateService.setError(`An error occurred: ${error.message}`);
+        // Server-side error
+        if (error.status === 404) {
+          errorMessage = 'Resource not found';
+        } else if (error.status === 500) {
+          errorMessage = 'Internal server error';
+        } else if (error.status === 401) {
+          errorMessage = 'Unauthorized access';
+        }
+        // Handle other status codes as needed
+        else {
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+        }
       }
-      return throwError(() => new Error(error.message));
+
+      // Sanitize error message to avoid exposing sensitive info
+      const sanitizedErrorMessage = sanitizeErrorMessage(error.message);
+
+      // Log sanitized error message to the console for debugging
+      // console.error('Sanitized API error:', sanitizedErrorMessage);
+
+      // Update global state with sanitized error message
+      globalStateService.setError(errorMessage);
+
+      return throwError(() => new Error(errorMessage));
     })
   );
+
+  function sanitizeErrorMessage(message: string): string {
+    // Remove API keys or other sensitive info from the error message
+    if (/apiKey=/.test(message)) {
+      return message.replace(/apiKey=\w+/g, 'apiKey=***');
+    }
+    if (/app_key=/.test(message)) {
+      const errMsg = message.replace(/app_key=\w+/g, 'app_key=***');
+      return errMsg.replace(/app_id=\w+/g, 'app_id=***');
+    }
+    return message;
+  };
 };

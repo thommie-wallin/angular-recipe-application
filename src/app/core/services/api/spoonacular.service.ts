@@ -33,7 +33,7 @@ export class SpoonacularService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<Recipe[]>(this.constructUrl('recipes/complexSearch'), { 
+    return this.apiService.get<Recipe[]>(this.constructUrl('recipes/complexSearch/test'), { 
       params: filterParams
       .append('number', 4)
       .append('instructionsRequired', true)

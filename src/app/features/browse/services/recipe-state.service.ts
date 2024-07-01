@@ -1,10 +1,11 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
 import { FilterService } from '../../../core/services/filter.service';
-import { catchError, retry, switchMap, tap } from 'rxjs/operators';
+import { catchError, retry, switchMap } from 'rxjs/operators';
 import { RecipeDataService } from './recipe-data.service';
 import { Recipe, RecipeDetail } from '../models/recipe.model';
-import { EMPTY } from 'rxjs';
+import { EMPTY, of } from 'rxjs';
+import { GlobalStateService } from '../../../state';
 
 
 
@@ -20,6 +21,7 @@ export interface RecipeState {
 export class RecipesService {
   private recipeDataService = inject(RecipeDataService);
   private filterService = inject(FilterService);
+  private globalStateService = inject(GlobalStateService);
 
   private state = signal<RecipeState>({
     recipeList: [],
@@ -48,8 +50,11 @@ export class RecipesService {
     switchMap(filterState => this.recipeDataService.getRecipesList(filterState)),
     retry(2),
     catchError(error => {
-      // this.error$.next(error)
-      throw error;
+      const sanitizedError = this.sanitizeError(error.message || 'An error occurred');
+      this.globalStateService.setError(sanitizedError);
+
+      // Return an empty list in case of error
+      return of([]);
     }),
   );
 
@@ -59,7 +64,15 @@ export class RecipesService {
       if (!recipeId) {
         return EMPTY;
       };
-      return this.recipeDataService.getRecipeDetails(recipeId);
+      return this.recipeDataService.getRecipeDetails(recipeId).pipe(
+        catchError(error => {
+          const sanitizedError = this.sanitizeError(error.message || 'An error occurred');
+          this.globalStateService.setError(sanitizedError);
+
+          // Return an empty observable in case of error
+          return EMPTY;
+        })
+      );
     }),
   );
 
@@ -67,25 +80,11 @@ export class RecipesService {
 
   constructor(
   ) {
-    // console.log(mockRecipeList);
-    
-    // this.state.update((state) => ({
-    //   ...state,
-    //   // recipeList: data,
-    //   recipeList: mockRecipeList,
-    //   // status: "success",
-    // }))
-
-    // this.state().set(mockRecipeList)
-
-
     // reducers
     this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((data) =>
       this.state.update((state) => ({
         ...state,
         recipeList: data,
-        // recipeList: mockRecipeList,
-        // status: "success",
       }))
     );
 
@@ -94,7 +93,6 @@ export class RecipesService {
       this.state.update((state) => ({
         ...state,
         recipeList: [],
-        // status: "loading",
       }))
     );
 
@@ -102,7 +100,6 @@ export class RecipesService {
       this.state.update((state) => ({
         ...state,
         recipeDetail: data,
-        // status: "success",
       }))
     );
   };
@@ -112,5 +109,17 @@ export class RecipesService {
       ...state,
       recipeId: id,
     }))
+  };
+
+  private sanitizeError(error: any): string {
+    let errorMessage = 'An error occurred';
+    if (error.message) {
+      if (/apiKey=/.test(error.message)) {
+        errorMessage = 'An error occurred. Please try again later.';
+      } else {
+        errorMessage = error.message;
+      }
+    };
+    return errorMessage;
   };
 };

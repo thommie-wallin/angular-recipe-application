@@ -34,7 +34,7 @@ export class EdamamService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<Recipe[]>(this.constructUrl('api/recipes/v2'), { 
+    return this.apiService.get<Recipe[]>(this.constructUrl('api/recipes/v2/test'), { 
       params: filterParams
     }).pipe(
       map(response => this.adapter.adaptToRecipeList(response)),
@@ -55,7 +55,15 @@ export class EdamamService implements RecipeApiInterface {
 
   private handleError(error: any): Observable<never> {
     const errorMessage = error.error?.message || 'An error occurred';
-    this.globalStateService.setError(errorMessage);
-    return throwError(() => new Error(errorMessage));
+    const sanitizedErrorMessage = this.sanitizeErrorMessage(errorMessage);
+    this.globalStateService.setError(sanitizedErrorMessage);
+    return throwError(() => new Error(sanitizedErrorMessage));
+  };
+
+  private sanitizeErrorMessage(message: string): string {
+    if (/apiKey=/.test(message)) {
+      return 'An error occurred. Please try again later.';
+    }
+    return message;
   };
 };
