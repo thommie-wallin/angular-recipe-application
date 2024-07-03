@@ -23,32 +23,32 @@ export class RecipeDataService {
 
   getRecipesList(query: FilterState): Observable<Recipe[]> {
     return this.apiService.getRecipesList(query).pipe(
-      catchError(this.handleError.bind(this))
+      // catchError(this.handleError.bind(this))
     );
   };
 
   getRecipeDetails(id: string): Observable<RecipeDetail> {
     return this.apiService.getRecipeDetails(id).pipe(
-      catchError(this.handleError.bind(this))
+      // catchError(this.handleError.bind(this))
     );
   };
 
-  private handleError(error: any): Observable<never> {
-    const errorMessage = error.error?.message || 'An error occurred';
-    // Sanitize error message
-    const sanitizedErrorMessage = this.sanitizeErrorMessage(errorMessage);
-    // this.globalStateService.setError(sanitizedErrorMessage);
-    return throwError(() => new Error(sanitizedErrorMessage));
-  };
+  // private handleError(error: any): Observable<never> {
+  //   const errorMessage = error.error?.message || 'An error occurred in recipe-data.service';
+  //   // Sanitize error message
+  //   const sanitizedErrorMessage = this.sanitizeErrorMessage(errorMessage);
+  //   // this.globalStateService.setError(sanitizedErrorMessage);
+  //   return throwError(() => new Error(sanitizedErrorMessage));
+  // };
 
-  private sanitizeErrorMessage(message: string): string {
-    if (/apiKey=/.test(message)) {
-      return message.replace(/apiKey=\w+/g, 'apiKey=***');
-    }
-    if (/app_key=/.test(message)) {
-      const errMsg = message.replace(/app_key=\w+/g, 'app_key=***');
-      return errMsg.replace(/app_id=\w+/g, 'app_id=***');
-    }
-    return message;
-  };
+  // private sanitizeErrorMessage(message: string): string {
+  //   if (/apiKey=/.test(message)) {
+  //     return message.replace(/apiKey=\w+/g, 'apiKey=***');
+  //   }
+  //   if (/app_key=/.test(message)) {
+  //     const errMsg = message.replace(/app_key=\w+/g, 'app_key=***');
+  //     return errMsg.replace(/app_id=\w+/g, 'app_id=***');
+  //   }
+  //   return message;
+  // };
 };

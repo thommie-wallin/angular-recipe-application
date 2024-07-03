@@ -47,14 +47,28 @@ export class RecipesService {
 
   // sources
   private recipesForList$ = this.filterService.state$.pipe(
-    switchMap(filterState => this.recipeDataService.getRecipesList(filterState)),
-    retry(2),
+    switchMap(filterState => this.recipeDataService.getRecipesList(filterState).pipe(
+      catchError(error => {
+        // console.log(error);
+        
+        // const sanitizedError = this.sanitizeError(error || 'An error occurred in recipe-state.service');
+        // this.globalStateService.setError(sanitizedError);
+
+        // Return an empty list in case of error
+        return of([]);
+        // return EMPTY;
+      }),
+    )),
+    // retry(2),
     catchError(error => {
-      const sanitizedError = this.sanitizeError(error.message || 'An error occurred');
-      this.globalStateService.setError(sanitizedError);
+      // console.log(error);
+      
+      // const sanitizedError = this.sanitizeError(error || 'An error occurred in recipe-state.service');
+      // this.globalStateService.setError(sanitizedError);
 
       // Return an empty list in case of error
       return of([]);
+      // return EMPTY;
     }),
   );
 
@@ -66,7 +80,7 @@ export class RecipesService {
       };
       return this.recipeDataService.getRecipeDetails(recipeId).pipe(
         catchError(error => {
-          const sanitizedError = this.sanitizeError(error.message || 'An error occurred');
+          const sanitizedError = this.sanitizeError(error.message || 'An error occurred in recipe-state.service');
           this.globalStateService.setError(sanitizedError);
 
           // Return an empty observable in case of error
@@ -81,12 +95,14 @@ export class RecipesService {
   constructor(
   ) {
     // reducers
-    this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((data) =>
+    this.recipesForList$.pipe(takeUntilDestroyed()).subscribe({
+      next: (data) =>
       this.state.update((state) => ({
         ...state,
         recipeList: data,
-      }))
-    );
+      })),
+      error: (err) => console.log(err)
+    });
 
     // Reset recipeList when switching recipe-api.
     this.apiChange$.pipe(takeUntilDestroyed()).subscribe(() =>
@@ -112,7 +128,7 @@ export class RecipesService {
   };
 
   private sanitizeError(error: any): string {
-    let errorMessage = 'An error occurred';
+    let errorMessage = 'An error occurred in recipe-state.service 2';
     if (error.message) {
       if (/apiKey=/.test(error.message)) {
         errorMessage = 'An error occurred. Please try again later.';

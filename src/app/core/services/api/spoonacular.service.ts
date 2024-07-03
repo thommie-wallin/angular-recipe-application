@@ -39,7 +39,7 @@ export class SpoonacularService implements RecipeApiInterface {
       .append('instructionsRequired', true)
     }).pipe(
       map(response => this.adapter.adaptToRecipeList(response)),
-      catchError(error => this.handleError(error))
+      // catchError(error => this.handleError(error))
     );
   };
 
@@ -50,13 +50,13 @@ export class SpoonacularService implements RecipeApiInterface {
       params: new HttpParams()
     }).pipe(
       map(response => this.adapter.adaptToRecipeDetail(response)),
-      catchError(error => this.handleError(error))
+      // catchError(error => this.handleError(error))
     );
   };
 
-  private handleError(error: any): Observable<never> {
-    const errorMessage = error.error?.message || 'An error occurred';
-    this.globalStateService.setError(errorMessage);
-    return throwError(() => new Error(errorMessage));
-  };
+  // private handleError(error: any): Observable<never> {
+  //   const errorMessage = error.error?.message || 'An error occurred in spoonacular.service';
+  //   this.globalStateService.setError(errorMessage);
+  //   return throwError(() => new Error(errorMessage));
+  // };
 };

@@ -8,7 +8,7 @@ import { GlobalStateService } from '../../state';
   providedIn: 'root',
 })
 export class ApiService {
-  // private globalStateService = inject(GlobalStateService);
+  private globalStateService = inject(GlobalStateService);
   constructor(private httpClient: HttpClient) {};
 
   // Used to make a GET request to the API

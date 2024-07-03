@@ -1,10 +1,11 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
-import { filter } from 'rxjs/operators';
+import { catchError, filter } from 'rxjs/operators';
 import { RecipeDataService } from '../../features/browse';
 import { FilterCategory, FilterState } from '../interfaces/api-filter.interface';
 import { SPOONACULAR_KEY_NAME } from '../constants/spoonacular-filters';
 import { FilterFactoryService } from './filter-factory.service';
+import { throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +20,14 @@ export class FilterService {
   // Observables
   state$ = toObservable(this.state).pipe(
     // Only emit item if any filterState source property is not 'none'.
-    filter(state => Object.values(state).find((el) => el !== 'none') !== undefined)
+    filter(state => Object.values(state).find((el) => el !== 'none') !== undefined),
+
+    // catchError((error: any) => {
+    //   // Handle the error here
+    //   console.error('An error occurred:', error);
+    //   // Optionally, re-throw the error or return a default value
+    //   return throwError('Something went wrong');
+    // })
   );
   selectedApi$ = toObservable(this.selectedApi);
 
@@ -51,10 +59,12 @@ export class FilterService {
       this.setFilter(categories);
 
     } else {
-      // this.state.update((state) => ({
-      //   ...state,
-      //   ...selected,
-      // }));
+      // console.log(selected);
+      
+      this.state.update((state) => ({
+        ...state,
+        ...selected,
+      }));
     };
   };
 
