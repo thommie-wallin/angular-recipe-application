@@ -50,9 +50,12 @@ export class GlobalStateService {
 
     // Check if the error contains sensitive information with RegExp.test
     if (/apiKey=/.test(error)) {
-      return 'An error occurred. Please try again later.';
+      return error.replace(/apiKey=\w+/g, 'apiKey=***');
     }
-    
+    if (/app_key=/.test(error)) {
+      const errMsg = error.replace(/app_key=\w+/g, 'app_key=***');
+      return errMsg.replace(/app_id=\w+/g, 'app_id=***');
+    }
     return error;
   };
 };

@@ -1,10 +1,10 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
 import { FilterService } from '../../../core/services/filter.service';
-import { catchError, retry, switchMap } from 'rxjs/operators';
+import { retry, switchMap } from 'rxjs/operators';
 import { RecipeDataService } from './recipe-data.service';
 import { Recipe, RecipeDetail } from '../models/recipe.model';
-import { EMPTY, of } from 'rxjs';
+import { EMPTY } from 'rxjs';
 import { GlobalStateService } from '../../../state';
 
 
@@ -48,28 +48,8 @@ export class RecipesService {
   // sources
   private recipesForList$ = this.filterService.state$.pipe(
     switchMap(filterState => this.recipeDataService.getRecipesList(filterState).pipe(
-      catchError(error => {
-        // console.log(error);
-        
-        // const sanitizedError = this.sanitizeError(error || 'An error occurred in recipe-state.service');
-        // this.globalStateService.setError(sanitizedError);
-
-        // Return an empty list in case of error
-        return of([]);
-        // return EMPTY;
-      }),
+      retry(2),
     )),
-    // retry(2),
-    catchError(error => {
-      // console.log(error);
-      
-      // const sanitizedError = this.sanitizeError(error || 'An error occurred in recipe-state.service');
-      // this.globalStateService.setError(sanitizedError);
-
-      // Return an empty list in case of error
-      return of([]);
-      // return EMPTY;
-    }),
   );
 
   private recipeDetail$ = toObservable(this.recipeId).pipe(
@@ -78,15 +58,7 @@ export class RecipesService {
       if (!recipeId) {
         return EMPTY;
       };
-      return this.recipeDataService.getRecipeDetails(recipeId).pipe(
-        catchError(error => {
-          const sanitizedError = this.sanitizeError(error.message || 'An error occurred in recipe-state.service');
-          this.globalStateService.setError(sanitizedError);
-
-          // Return an empty observable in case of error
-          return EMPTY;
-        })
-      );
+      return this.recipeDataService.getRecipeDetails(recipeId)
     }),
   );
 
@@ -125,17 +97,5 @@ export class RecipesService {
       ...state,
       recipeId: id,
     }))
-  };
-
-  private sanitizeError(error: any): string {
-    let errorMessage = 'An error occurred in recipe-state.service 2';
-    if (error.message) {
-      if (/apiKey=/.test(error.message)) {
-        errorMessage = 'An error occurred. Please try again later.';
-      } else {
-        errorMessage = error.message;
-      }
-    };
-    return errorMessage;
   };
 };
