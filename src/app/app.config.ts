@@ -12,7 +12,7 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes, withComponentInputBinding()), 
     provideHttpClient(
-      withInterceptors([errorInterceptor, loadingInterceptor]),
+      withInterceptors([loadingInterceptor, errorInterceptor]),
     ), 
     provideAnimationsAsync()
   ]

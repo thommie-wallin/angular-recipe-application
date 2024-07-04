@@ -1,13 +1,10 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from "@angular/core/rxjs-interop";
 import { FilterService } from '../../../core/services/filter.service';
-import { retry, switchMap } from 'rxjs/operators';
+import { catchError, retry, switchMap } from 'rxjs/operators';
 import { RecipeDataService } from './recipe-data.service';
 import { Recipe, RecipeDetail } from '../models/recipe.model';
-import { EMPTY } from 'rxjs';
-import { GlobalStateService } from '../../../state';
-
-
+import { EMPTY, of } from 'rxjs';
 
 export interface RecipeState {
   recipeList: Recipe[];
@@ -21,7 +18,6 @@ export interface RecipeState {
 export class RecipesService {
   private recipeDataService = inject(RecipeDataService);
   private filterService = inject(FilterService);
-  private globalStateService = inject(GlobalStateService);
 
   private state = signal<RecipeState>({
     recipeList: [],
@@ -49,6 +45,9 @@ export class RecipesService {
   private recipesForList$ = this.filterService.state$.pipe(
     switchMap(filterState => this.recipeDataService.getRecipesList(filterState).pipe(
       retry(2),
+      catchError(() => {
+        return of([]);
+      })
     )),
   );
 
@@ -58,7 +57,23 @@ export class RecipesService {
       if (!recipeId) {
         return EMPTY;
       };
-      return this.recipeDataService.getRecipeDetails(recipeId)
+      return this.recipeDataService.getRecipeDetails(recipeId).pipe(
+        retry(2),
+        catchError(() => {
+          return of({
+            id: '',
+            title: '',
+            ingredients: [],
+            instructions: '',
+            totalTime: 0,
+            servings: 0,
+            imageUrl: '',
+            api: '',
+            sourceName: '',
+            sourceUrl: '',
+          });
+        })
+      )
     }),
   );
 
@@ -67,14 +82,12 @@ export class RecipesService {
   constructor(
   ) {
     // reducers
-    this.recipesForList$.pipe(takeUntilDestroyed()).subscribe({
-      next: (data) =>
+    this.recipesForList$.pipe(takeUntilDestroyed()).subscribe((data) =>
       this.state.update((state) => ({
         ...state,
         recipeList: data,
       })),
-      error: (err) => console.log(err)
-    });
+    );
 
     // Reset recipeList when switching recipe-api.
     this.apiChange$.pipe(takeUntilDestroyed()).subscribe(() =>

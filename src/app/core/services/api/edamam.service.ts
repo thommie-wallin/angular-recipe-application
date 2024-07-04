@@ -32,7 +32,7 @@ export class EdamamService implements RecipeApiInterface {
       };
     };
 
-    return this.apiService.get<Recipe[]>(this.constructUrl('api/recipes/v2/test'), { 
+    return this.apiService.get<Recipe[]>(this.constructUrl('api/recipes/v2'), { 
       params: filterParams
     }).pipe(
       map(response => this.adapter.adaptToRecipeList(response))
