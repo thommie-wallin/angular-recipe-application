@@ -27,7 +27,18 @@
         <div class="inputs-ingredients-container">
           <h2 class="mat-h2">Ingredients:</h2>
           <div class="all-ingredients-inputs">
-            <app-form-field [categoryName]="api.name" label="Ingredients API" [items]="api.categories"></app-form-field>
+            <!-- <app-form-field [categoryName]="api.name" label="Ingredients API" [items]="api.categories"></app-form-field> -->
+
+            <mat-form-field appearance="fill">
+              <mat-label>Ingredients API</mat-label>
+              <mat-select [(value)]="apiSelected" (selectionChange)="changeApiSelected($event.value)">
+                @for (item of api.categories; track $index) {
+                  <mat-option value="{{ item }}">{{ item | titlecase }}</mat-option>
+                } @empty {
+                  <mat-option value="">No items</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
       
             <!-- Static inputs for adding a new ingredient -->
             <div [formGroup]="ingredientForm" class="add-ingredient-content">

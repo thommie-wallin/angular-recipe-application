@@ -6,5 +6,5 @@ import { FilterState } from "./api-filter.interface";
 export interface RecipeApiInterface {
   getRecipesList(query: FilterState): Observable<Recipe[]>;
   getRecipeDetails(id: string): Observable<RecipeDetail>;
-  // getIngredientAutocompleteOptions(queary: string): Observable<string[]>;
+  getIngredientAutocompleteOptions(queary: string): Observable<string[]>;
 };

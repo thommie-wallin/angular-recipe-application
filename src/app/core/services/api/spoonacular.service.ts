@@ -49,4 +49,16 @@ export class SpoonacularService implements RecipeApiInterface {
       map(response => this.adapter.adaptToRecipeDetail(response))
     );
   };
+
+  getIngredientAutocompleteOptions(searchTerm: string): Observable<string[]> {
+    const searchParam = new HttpParams().set('query', searchTerm).set('number', 5).set('metaInformation', false);
+    
+    return this.apiService.get<string[]>(this.constructUrl('food/ingredients/autocomplete'), { 
+      params: searchParam
+      // .append('number', 5)
+      // .append('metaInformation', false)
+    }).pipe(
+      // map(response => this.adapter.adaptToRecipeList(response))
+    );
+  }
 };

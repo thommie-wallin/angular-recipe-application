@@ -14,11 +14,13 @@ import { Ingredients } from '../../models/user-recipe.model';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, of, switchMap } from 'rxjs';
+import { MatSelectModule } from '@angular/material/select';
+import { IngredientFilterService } from '../../services/ingredient-filter.service';
 
 @Component({
   selector: 'app-user-recipe-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDivider, FormFieldComponent, MatAutocompleteModule, MatTableModule, MatIconModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDivider, FormFieldComponent, MatAutocompleteModule, MatTableModule, MatIconModule, MatSelectModule],
   templateUrl: './user-recipe-create.component.html',
   styleUrl: './user-recipe-create.component.css'
 })
@@ -26,9 +28,20 @@ export class UserRecipeCreateComponent implements OnInit {
   private formBuilder = inject(FormBuilder);
   private userRecipesStateService = inject(UserRecipesStateService);
   private router = inject(Router);
+  private ingredientFilterService = inject(IngredientFilterService);
 
   api = API_FORM_FIELD;
   displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
+
+  // Recipe API selector
+  // categoryName: string = '';
+  // label: string = '';
+  // items: string[] = [];
+  apiSelected: string = '';
+
+  changeApiSelected(selectedValue: string) {
+    this.ingredientFilterService.updateFilter(selectedValue);
+  };
 
   // Source for updating table when ingredient is added or removed.
   dataSource = new MatTableDataSource<any>();
