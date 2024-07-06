@@ -40,7 +40,7 @@ export class UserRecipeCreateComponent implements OnInit {
   apiSelected: string = '';
 
   changeApiSelected(selectedValue: string) {
-    this.ingredientFilterService.updateFilter(selectedValue);
+    this.ingredientFilterService.changeSelectedApi(selectedValue);
   };
 
   // Source for updating table when ingredient is added or removed.
@@ -48,7 +48,7 @@ export class UserRecipeCreateComponent implements OnInit {
 
   // Create an observable for the debounced ingredient name search term value and autocomplete options
   debouncedIngredientSearch$: Observable<string | null> = of('');
-  autocompleteOptions$: Observable<string[]> = of(['']);
+  // autocompleteOptions$: Observable<string[]> = of(['']);
 
   recipeForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
@@ -69,7 +69,7 @@ export class UserRecipeCreateComponent implements OnInit {
 
   ngOnInit() {
     this.setupDebouncedSearchObservable();
-    this.setupAutocompleteOptionsObservable();
+    // this.setupAutocompleteOptionsObservable();
   };
 
   setupDebouncedSearchObservable() {
@@ -82,21 +82,27 @@ export class UserRecipeCreateComponent implements OnInit {
   };
 
   setupAutocompleteOptionsObservable() {
-    this.autocompleteOptions$ = this.debouncedIngredientSearch$.pipe(
-      switchMap(name => this.fetchAutocompleteOptions(name))
+    // this.autocompleteOptions$ = this.debouncedIngredientSearch$.pipe(
+    //   switchMap(name => this.fetchAutocompleteOptions(name))
+    // );
+    this.debouncedIngredientSearch$.pipe(
+      
+      // this.ingredientFilterService.updateFilter(data)
+      // switchMap(name => this.fetchAutocompleteOptions(name))
+      
     );
   };
 
-  fetchAutocompleteOptions(name: string | null): Observable<string[]> {
-    // Handle the case where name is null or empty
-    if (!name || !name.trim()) {
-      return of([]);
-    }
+  // fetchAutocompleteOptions(name: string | null): Observable<string[]> {
+  //   // Handle the case where name is null or empty
+  //   if (!name || !name.trim()) {
+  //     return of([]);
+  //   }
 
-    // Replace this with your actual API call
-    // return this.userRecipesStateService.getAutocompleteOptions(name);
-    return of(['test', 'test2', 'test3']);
-  };
+  //   // Replace this with your actual API call
+  //   // return this.userRecipesStateService.getAutocompleteOptions(name);
+  //   return of(['test', 'test2', 'test3']);
+  // };
 
   // Retrieve ingredients form array from parent form group.
   get ingredients(): FormArray {

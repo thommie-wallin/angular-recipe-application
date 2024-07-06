@@ -8,23 +8,28 @@ import { IngredientDataService } from './ingredient-data.service';
 })
 export class IngredientFilterService {
   private ingredientDataService = inject(IngredientDataService);
-  // private state = signal<FilterState>({});
+  private state = signal<FilterState>({});
   private selectedApi = signal<string>(SPOONACULAR_KEY_NAME);
 
   // Observables
-  // state$ = toObservable(this.state);
+  state$ = toObservable(this.state);
   selectedApi$ = toObservable(this.selectedApi);
 
   constructor() {
     this.updateFilter(SPOONACULAR_KEY_NAME );
   };
 
-  updateFilter(selected: string) {
-    // const api = selected['api'];
-    this.selectedApi.set(selected);
-
+  changeSelectedApi(selected: string) {
     // Change selected API in data service.
     this.ingredientDataService.switchApi(selected);
+    this.selectedApi.set(selected);
+  };
+
+  updateFilter(selected: string) {
+    // const api = selected['api'];
+    
+
+    
 
     
     // if ('api' in selected) {
