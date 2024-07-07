@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { RecipeApiInterface, RecipeFactoryService, SPOONACULAR_KEY_NAME } from '../../../core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +20,8 @@ export class IngredientDataService {
 
   getIngredientAutocompleteOptions(queary: string): Observable<string[]> {
     return this.apiService.getIngredientAutocompleteOptions(queary);
+    // console.log(queary);
+    
+    // return of(['testar']);
   };
 };

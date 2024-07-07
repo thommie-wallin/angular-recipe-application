@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ApiService } from '../api.service';
 import { Recipe, RecipeDetail, SpoonacularAdapter } from '../../../features/browse';
 import { environment } from '../../../../environments/environment';
@@ -52,13 +52,19 @@ export class SpoonacularService implements RecipeApiInterface {
 
   getIngredientAutocompleteOptions(searchTerm: string): Observable<string[]> {
     const searchParam = new HttpParams().set('query', searchTerm).set('number', 5).set('metaInformation', false);
+
+    
+    
     
     return this.apiService.get<string[]>(this.constructUrl('food/ingredients/autocomplete'), { 
       params: searchParam
       // .append('number', 5)
       // .append('metaInformation', false)
-    }).pipe(
-      // map(response => this.adapter.adaptToRecipeList(response))
+    })
+    
+    .pipe(
+      // tap(console.log)
+      map(response => this.adapter.adaptToAutocompleteOptions(response))
     );
-  }
+  };
 };

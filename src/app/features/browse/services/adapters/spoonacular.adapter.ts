@@ -44,4 +44,12 @@ export class SpoonacularAdapter {
       sourceUrl: apiResponse.sourceUrl,
     };
   };
+
+  adaptToOption(apiResponse: any): string {
+    return apiResponse.name
+  };
+
+  adaptToAutocompleteOptions(apiResponse: any): string[] {
+    return apiResponse.map(this.adaptToOption);
+  };
 };
