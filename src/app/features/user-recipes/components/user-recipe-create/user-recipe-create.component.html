@@ -47,10 +47,34 @@
                   <mat-label>Name</mat-label>
                   <input matInput type="text" formControlName="name" [matAutocomplete]="auto">
                   <mat-autocomplete #auto="matAutocomplete">
+                    @for (option of ingredientAutocompleteOptions(); track option) {
+                      <mat-option [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    } @empty {
+                      <mat-option>
+                          <!-- <app-loading></app-loading> -->
+                          <mat-spinner color="accent" />
+                        </mat-option>
+                      
+                      <!-- @if (error()) {
+                        <app-error></app-error>
+                      } @else if (loading()) {
+                        <mat-option>
+                          <app-loading></app-loading>
+                          <mat-spinner color="accent" />
+                        </mat-option>
+                      } @else {
+                        <mat-option>
+                          <span>No recipes.</span>
+                        </mat-option>
+                      } -->
+                    }
                     <!-- <mat-option *ngFor="let option of ingredientAutocompleteOptions()" [value]="option">
                       {{ option }}
                     </mat-option> -->
                   </mat-autocomplete>
+                  <!-- <app-loading></app-loading> -->
                 </mat-form-field>
                 <mat-form-field subscriptSizing="dynamic">
                   <mat-label>Quantity</mat-label>

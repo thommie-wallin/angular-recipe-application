@@ -26,7 +26,7 @@ export class IngredientStateService {
   searchControl: FormControl = new FormControl('');
 
   // Selectors
-  autocompleteOptions = computed(() => this.state());
+  autocompleteOptions = computed(() => this.state().autocompleteOptions);
 
   
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, OnInit, Signal, inject, signal } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserRecipesStateService } from '../../services/user-recipes-state.service';
@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDivider } from '@angular/material/divider';
-import { FormFieldComponent } from '../../../../shared';
+import { ErrorComponent, FormFieldComponent, LoadingComponent } from '../../../../shared';
 import { API_FORM_FIELD } from '../../../../core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Ingredients } from '../../models/user-recipe.model';
@@ -16,12 +16,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, of, switchMap } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { IngredientFilterService } from '../../services/ingredient-filter.service';
-import { IngredientStateService } from '../../services/ingredient-state.service';
+import { IngredientState, IngredientStateService } from '../../services/ingredient-state.service';
+import { GlobalStateService } from '../../../../state';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-user-recipe-create',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDivider, FormFieldComponent, MatAutocompleteModule, MatTableModule, MatIconModule, MatSelectModule],
+  imports: [CommonModule, ReactiveFormsModule, MatButtonModule, MatFormFieldModule, MatInputModule, MatDivider, FormFieldComponent, MatAutocompleteModule, MatTableModule, MatIconModule, MatSelectModule, LoadingComponent, ErrorComponent, MatProgressSpinnerModule],
   templateUrl: './user-recipe-create.component.html',
   styleUrl: './user-recipe-create.component.css'
 })
@@ -31,17 +33,21 @@ export class UserRecipeCreateComponent implements OnInit {
   private router = inject(Router);
   private ingredientFilterService = inject(IngredientFilterService);
   private ingredientStateService = inject(IngredientStateService);
+  private globalStateService = inject(GlobalStateService);
 
   // ingredientAutocompleteOptions = this.ingredientStateService.autocompleteOptions;
 
   api = API_FORM_FIELD;
   displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
+  loading = this.globalStateService.loading;
+  error = this.globalStateService.error;
 
   // Recipe API selector
   // categoryName: string = '';
   // label: string = '';
   // items: string[] = [];
   apiSelected: string = this.ingredientFilterService.api();
+  ingredientAutocompleteOptions = this.ingredientStateService.autocompleteOptions;
 
   changeApiSelected(selectedValue: string) {
     this.ingredientFilterService.changeSelectedApi(selectedValue);
