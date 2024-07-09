@@ -1,4 +1,4 @@
-import { Component, OnInit, Signal, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AbstractControl, FormArray, FormBuilder, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserRecipesStateService } from '../../services/user-recipes-state.service';
@@ -10,13 +10,11 @@ import { MatDivider } from '@angular/material/divider';
 import { ErrorComponent, FormFieldComponent, LoadingComponent } from '../../../../shared';
 import { API_FORM_FIELD } from '../../../../core';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { Ingredients } from '../../models/user-recipe.model';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
-import { Observable, Subscription, debounceTime, distinctUntilChanged, filter, of, switchMap } from 'rxjs';
 import { MatSelectModule } from '@angular/material/select';
 import { IngredientFilterService } from '../../services/ingredient-filter.service';
-import { IngredientState, IngredientStateService } from '../../services/ingredient-state.service';
+import { IngredientStateService } from '../../services/ingredient-state.service';
 import { GlobalStateService } from '../../../../state';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
@@ -27,7 +25,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   templateUrl: './user-recipe-create.component.html',
   styleUrl: './user-recipe-create.component.css'
 })
-export class UserRecipeCreateComponent implements OnInit {
+export class UserRecipeCreateComponent {
   private formBuilder = inject(FormBuilder);
   private userRecipesStateService = inject(UserRecipesStateService);
   private router = inject(Router);
@@ -35,30 +33,15 @@ export class UserRecipeCreateComponent implements OnInit {
   private ingredientStateService = inject(IngredientStateService);
   private globalStateService = inject(GlobalStateService);
 
-  // ingredientAutocompleteOptions = this.ingredientStateService.autocompleteOptions;
-
   api = API_FORM_FIELD;
   displayedColumns: string[] = ['name', 'quantity', 'unit', 'remove'];
   loading = this.globalStateService.loading;
   error = this.globalStateService.error;
-
-  // Recipe API selector
-  // categoryName: string = '';
-  // label: string = '';
-  // items: string[] = [];
-  apiSelected: string = this.ingredientFilterService.api();
+  apiSelected = this.ingredientFilterService.api;
   ingredientAutocompleteOptions = this.ingredientStateService.autocompleteOptions;
-
-  changeApiSelected(selectedValue: string) {
-    this.ingredientFilterService.changeSelectedApi(selectedValue);
-  };
 
   // Source for updating table when ingredient is added or removed.
   dataSource = new MatTableDataSource<any>();
-
-  // Create an observable for the debounced ingredient name search term value and autocomplete options
-  debouncedIngredientSearch$: Observable<string> = of('');
-  // autocompleteOptions$: Observable<string[]> = of(['']);
 
   recipeForm: FormGroup = this.formBuilder.group({
     title: ['', Validators.required],
@@ -72,52 +55,18 @@ export class UserRecipeCreateComponent implements OnInit {
 
   // Static form controls for adding a new ingredient. Used to collect input from the user for a single ingredient before it is added to the main ingredients array in the recipeForm.
   ingredientForm: FormGroup = this.formBuilder.group({
-    // name: ['', Validators.required],
     name: this.ingredientStateService.searchControl,
     quantity: [null, Validators.min(0)],
     unit: ['']
   });
 
-  ngOnInit() {
-    this.setupDebouncedSearchObservable();
-    // this.setupAutocompleteOptionsObservable();
-  };
-
-  setupDebouncedSearchObservable() {
-    this.debouncedIngredientSearch$ = this.ingredientForm.get('name')!.valueChanges.pipe(
-      debounceTime(300),
-      distinctUntilChanged(),
-      // Filter out null or undefined values preventing errors and redundant API requests.
-      filter((name: string) => name !== null && name !== undefined)
-    );
-  };
-
-  // setupAutocompleteOptionsObservable() {
-  //   // this.autocompleteOptions$ = this.debouncedIngredientSearch$.pipe(
-  //   //   switchMap(name => this.fetchAutocompleteOptions(name))
-  //   // );
-  //   this.debouncedIngredientSearch$.pipe(
-      
-  //     // this.ingredientFilterService.updateFilter(data)
-  //     // switchMap(name => this.fetchAutocompleteOptions(name))
-      
-  //   );
-  // };
-
-  // fetchAutocompleteOptions(name: string | null): Observable<string[]> {
-  //   // Handle the case where name is null or empty
-  //   if (!name || !name.trim()) {
-  //     return of([]);
-  //   }
-
-  //   // Replace this with your actual API call
-  //   // return this.userRecipesStateService.getAutocompleteOptions(name);
-  //   return of(['test', 'test2', 'test3']);
-  // };
-
   // Retrieve ingredients form array from parent form group.
   get ingredients(): FormArray {
     return this.recipeForm.get('ingredients') as FormArray;
+  };
+
+  changeApiSelected(selectedValue: string) {
+    this.ingredientFilterService.changeSelectedApi(selectedValue);
   };
 
   addIngredient() {

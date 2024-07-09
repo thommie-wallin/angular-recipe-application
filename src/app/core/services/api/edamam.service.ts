@@ -14,12 +14,19 @@ import { FilterState } from '../../interfaces/api-filter.interface';
 export class EdamamService implements RecipeApiInterface {
   private apiService = inject(ApiService);
   private adapter = inject(EdamamAdapter);
+
   private baseUrl: string = `${environment.edamamBaseUrl}`;
-  private apiKey: string = `${environment.edamamApiKey}`;
-  private apiId: string = `${environment.edamamApiId}`;
+  private recipeApiKey: string = `${environment.edamamRecipeApiKey}`;
+  private recipeApiId: string = `${environment.edamamRecipeApiId}`;
+  private foodApiKey: string = `${environment.edamamFoodApiKey}`;
+  private foodApiId: string = `${environment.edamamFoodApiId}`;
 
   private constructUrl(endpoint: string): string {
-    return `${this.baseUrl}${endpoint}?type=public&app_key=${this.apiKey}&app_id=${this.apiId}`;
+    return `${this.baseUrl}${endpoint}?type=public&app_key=${this.recipeApiKey}&app_id=${this.recipeApiId}`;
+  };
+
+  private constructFoodApiUrl(endpoint: string): string {
+    return `${this.baseUrl}${endpoint}?app_key=${this.foodApiKey}&app_id=${this.foodApiId}`;
   };
 
   getRecipesList(query: FilterState): Observable<Recipe[]> {
@@ -49,16 +56,9 @@ export class EdamamService implements RecipeApiInterface {
     );
   };
 
-  //! Remake for edamam queries
   getIngredientAutocompleteOptions(searchTerm: string): Observable<string[]> {
-    const searchParam = new HttpParams().set('query', searchTerm).set('number', 5).set('metaInformation', false);
+    const searchParam = new HttpParams().set('q', searchTerm).set('limit', 5);
     
-    return this.apiService.get<string[]>(this.constructUrl('food/ingredients/autocomplete'), { 
-      params: searchParam
-      // .append('number', 5)
-      // .append('metaInformation', false)
-    }).pipe(
-      // map(response => this.adapter.adaptToRecipeList(response))
-    );
+    return this.apiService.get<string[]>(this.constructFoodApiUrl('auto-complete'), { params: searchParam });
   };
 };

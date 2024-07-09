@@ -55,6 +55,14 @@
   margin-bottom: 2rem;
 }
 
+.autocomplete-progress-spinner {
+  margin-right: 4px;
+}
+
+.autocomplete-progress-spinner.hidden {
+  visibility: hidden;
+}
+
 .add-ingredient-border {
   border: 1px dotted var(--mat-divider-color);
   padding: 0.5rem;

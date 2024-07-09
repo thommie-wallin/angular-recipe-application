@@ -27,11 +27,9 @@
         <div class="inputs-ingredients-container">
           <h2 class="mat-h2">Ingredients:</h2>
           <div class="all-ingredients-inputs">
-            <!-- <app-form-field [categoryName]="api.name" label="Ingredients API" [items]="api.categories"></app-form-field> -->
-
             <mat-form-field appearance="fill">
               <mat-label>Ingredients API</mat-label>
-              <mat-select [(value)]="apiSelected" (selectionChange)="changeApiSelected($event.value)">
+              <mat-select [value]="apiSelected()" (selectionChange)="changeApiSelected($event.value)">
                 @for (item of api.categories; track $index) {
                   <mat-option value="{{ item }}">{{ item | titlecase }}</mat-option>
                 } @empty {
@@ -43,38 +41,27 @@
             <!-- Static inputs for adding a new ingredient -->
             <div [formGroup]="ingredientForm" class="add-ingredient-content">
               <div class="add-ingredient-border" [ngClass]="recipeForm.errors?.['noIngredients'] && recipeForm.touched ? 'add-ingredient-border-error' : ''">
-                <mat-form-field subscriptSizing="dynamic">
+                <mat-form-field subscriptSizing="dynamic" class="ingredient-name-form">
                   <mat-label>Name</mat-label>
                   <input matInput type="text" formControlName="name" [matAutocomplete]="auto">
+                  <mat-spinner color="accent" diameter="16" matSuffix class="autocomplete-progress-spinner" [class.hidden]="!loading()" />
                   <mat-autocomplete #auto="matAutocomplete">
                     @for (option of ingredientAutocompleteOptions(); track option) {
                       <mat-option [value]="option">
                         {{ option }}
                       </mat-option>
                     } @empty {
-                      <mat-option>
-                          <!-- <app-loading></app-loading> -->
-                          <mat-spinner color="accent" />
-                        </mat-option>
-                      
-                      <!-- @if (error()) {
-                        <app-error></app-error>
-                      } @else if (loading()) {
+                      @if (error()) {
                         <mat-option>
-                          <app-loading></app-loading>
-                          <mat-spinner color="accent" />
+                          <app-error />
                         </mat-option>
                       } @else {
                         <mat-option>
-                          <span>No recipes.</span>
+                          <span>Search ingredient</span>
                         </mat-option>
-                      } -->
+                      }
                     }
-                    <!-- <mat-option *ngFor="let option of ingredientAutocompleteOptions()" [value]="option">
-                      {{ option }}
-                    </mat-option> -->
                   </mat-autocomplete>
-                  <!-- <app-loading></app-loading> -->
                 </mat-form-field>
                 <mat-form-field subscriptSizing="dynamic">
                   <mat-label>Quantity</mat-label>
