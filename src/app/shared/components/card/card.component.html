@@ -11,7 +11,26 @@
       <img class="card-img" mat-card-image src="{{ recipe.imageUrl }}">
     </a>
     <mat-card-actions class="card-actions">
-      <app-favourite-button [recipe]="recipe" />
+      @if (recipe.api) {
+        <app-favourite-button [recipe]="recipe" />
+      } @else {
+        <div class="user-recipes-buttons">
+          <button 
+            color="primary"
+            class="card-button" mat-mini-fab 
+            aria-label="remove recipe from user-recipes"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button 
+            color="primary"
+            class="card-button" mat-mini-fab 
+            aria-label="remove recipe from user-recipes"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      }
     </mat-card-actions>
   </mat-card>
 </div>

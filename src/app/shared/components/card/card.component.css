@@ -37,3 +37,8 @@
   max-width: 100%;
   flex-grow: 1;
 }
+
+.user-recipes-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
