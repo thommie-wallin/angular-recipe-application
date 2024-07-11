@@ -15,14 +15,16 @@
         <app-favourite-button [recipe]="recipe" />
       } @else {
         <div class="user-recipes-buttons">
-          <button 
+          <button
+            (click)="onCLickEditBtn(recipe.id)"
             color="primary"
             class="card-button" mat-mini-fab 
             aria-label="remove recipe from user-recipes"
           >
             <mat-icon>edit</mat-icon>
           </button>
-          <button 
+          <button
+            (click)="onCLickDeleteBtn(recipe.id)"
             color="primary"
             class="card-button" mat-mini-fab 
             aria-label="remove recipe from user-recipes"
