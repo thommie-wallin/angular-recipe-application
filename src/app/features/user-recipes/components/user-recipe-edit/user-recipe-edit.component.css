@@ -1,0 +1,182 @@
+.form-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+
+.user-recipe-create-form-inputs {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ************NAME******* */
+
+.inputs-title-description {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.title-description-content {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.title-description-inputs {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title-description-image {
+  width: 50%;
+  object-fit: contain;
+}
+
+/* ************INGREDIENTS******* */
+
+.inputs-ingredients-container {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.ingredients-error-message {
+  color: red;
+}
+
+.add-ingredient-content {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.autocomplete-progress-spinner {
+  margin-right: 4px;
+}
+
+.autocomplete-progress-spinner.hidden {
+  visibility: hidden;
+}
+
+.add-ingredient-border {
+  border: 1px dotted var(--mat-divider-color);
+  padding: 0.5rem;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.add-ingredient-border-error {
+  border: 1px dotted red;
+}
+
+.ingredients-table {
+  width: 100%;
+}
+
+/* .mat-column-quantity {
+  width: 4rem;
+  text-align: center;
+}
+.mat-column-unit {
+  width: 4rem;
+  text-align: center;
+} */
+.mat-column-remove {
+  width: 2rem;
+  text-align: center;
+}
+
+/* ************INSTRUCTIONS******* */
+
+.inputs-instructions-container {
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* ************COOKING TIME & SERVINGS******* */
+
+.inputs-time-servings-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+  margin-bottom: 3rem;
+}
+
+.time-servings-inputs {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 1rem;
+}
+
+/* ************SUBMIT-BUTTON********* */
+
+.inputs-submit-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+/* ************MEDIA QUERIES******* */
+
+@media screen and (max-width: 428px) {
+  .user-recipe-create-container {
+    margin: 0.5rem;
+  }
+
+  .all-ingredients-inputs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .inputs-time-servings {
+    flex-direction: column;
+  }
+
+  .user-recipe-create-form {
+    width: 100%;
+  }
+}
+
+
+@media screen and (max-width: 800px) {
+  .add-ingredient-border {
+    flex-direction: column;
+  }
+
+  .time-servings-inputs {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .title-description-inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .title-description-image {
+    display: none;
+  }
+}
+
+@media screen and (min-width: 1000px) {
+  .user-recipe-create-form {
+    width: 80%;
+  }
+}

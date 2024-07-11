@@ -1,1 +1,165 @@
-<p>user-recipe-edit works!</p>
+<div class="user-recipe-create-container">
+  <h1 class="mat-h1">Edit recipe</h1>
+  <mat-divider />
+  @if (error()) {
+    <app-error />
+  } @else if (loading()) {
+    <app-loading />
+  } @else if (recipe) {
+    <div class="form-container">
+      <form class="user-recipe-create-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <div class="user-recipe-create-form-inputs">
+          
+          <div class="inputs-title-description">
+            <h2 class="mat-h2">Name:</h2>
+            <div class="title-description-content">
+              <div class="title-description-inputs">
+                <mat-form-field>
+                  <mat-label for="title">Title</mat-label>
+                  <input matInput id="title" type="text" placeholder="Ex. Pizza" formControlName="title">
+                </mat-form-field>
+                <mat-form-field>
+                  <mat-label for="description">Description: </mat-label>
+                  <textarea matInput id="description" type="text" placeholder="Ex. How did you learn about the recipe?" formControlName="description"></textarea>
+                </mat-form-field>
+              </div>
+              <img class="title-description-image" src="assets/images/lemon.jpg">
+            </div>
+          </div>
+      
+          <mat-divider />
+    
+          <div class="inputs-ingredients-container">
+            <h2 class="mat-h2">Ingredients:</h2>
+            <div class="all-ingredients-inputs">
+              <mat-form-field appearance="fill">
+                <mat-label>Ingredients API</mat-label>
+                <mat-select [value]="apiSelected()" (selectionChange)="changeApiSelected($event.value)">
+                  @for (item of api.categories; track $index) {
+                    <mat-option value="{{ item }}">{{ item | titlecase }}</mat-option>
+                  } @empty {
+                    <mat-option value="">No items</mat-option>
+                  }
+                </mat-select>
+              </mat-form-field>
+        
+              <!-- Static inputs for adding a new ingredient -->
+              <div [formGroup]="ingredientForm" class="add-ingredient-content">
+                <div class="add-ingredient-border" [ngClass]="recipeForm.errors?.['noIngredients'] && recipeForm.touched ? 'add-ingredient-border-error' : ''">
+                  <mat-form-field subscriptSizing="dynamic" class="ingredient-name-form">
+                    <mat-label>Name</mat-label>
+                    <input matInput type="text" formControlName="name" [matAutocomplete]="auto">
+                    <mat-spinner color="accent" diameter="16" matSuffix class="autocomplete-progress-spinner" [class.hidden]="!loading()" />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      @for (option of ingredientAutocompleteOptions(); track option) {
+                        <mat-option [value]="option">
+                          {{ option }}
+                        </mat-option>
+                      } @empty {
+                        @if (error()) {
+                          <mat-option>
+                            <app-error />
+                          </mat-option>
+                        } @else {
+                          <mat-option>
+                            <span>Search ingredient</span>
+                          </mat-option>
+                        }
+                      }
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <mat-form-field subscriptSizing="dynamic">
+                    <mat-label>Quantity</mat-label>
+                    <input matInput type="number" formControlName="quantity">
+                  </mat-form-field>
+                  <mat-form-field subscriptSizing="dynamic">
+                    <mat-label>Unit</mat-label>
+                    <input matInput type="text" formControlName="unit">
+                  </mat-form-field>
+                  <button class="add-ingredient-button" mat-raised-button color="primary" type="button" (click)="addIngredient()">Add</button>
+                </div>
+                <div *ngIf="recipeForm.errors?.['noIngredients'] && recipeForm.touched" class="ingredients-error-message">
+                  <span>You must add at least one ingredient.</span>
+                </div>
+              </div>
+            </div>
+      
+            <!-- Table of added ingredients -->
+            <table mat-table [dataSource]="dataSource" class="mat-elevation-z1 ingredients-table">
+    
+              <!-- Name Column -->
+              <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let ingredient">{{ ingredient.value.name }}</td>
+              </ng-container>
+    
+              <!-- Quantity Column -->
+              <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef> Quantity </th>
+                <td mat-cell *matCellDef="let ingredient">{{ ingredient.value.quantity }}</td>
+              </ng-container>
+    
+              <!-- Unit Column -->
+              <ng-container matColumnDef="unit">
+                <th mat-header-cell *matHeaderCellDef> Unit </th>
+                <td mat-cell *matCellDef="let ingredient">{{ ingredient.value.unit }}</td>
+              </ng-container>
+    
+              <!-- Remove Button Column -->
+              <ng-container matColumnDef="remove">
+                <th mat-header-cell *matHeaderCellDef> Action </th>
+                <td mat-cell *matCellDef="let ingredient; let i = index">
+                  <button mat-mini-fab aria-label="Remove ingredient button" color="warn" type="button" (click)="removeIngredient(i)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </td>
+              </ng-container>
+    
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+          </div>
+      
+          <mat-divider />
+        
+          <div class="inputs-instructions-container">
+            <h2 class="mat-h2">Instructions:</h2>
+            <mat-form-field>
+              <mat-label for="instructions">Instructions: </mat-label>
+              <textarea matInput id="instructions" type="text" formControlName="instructions"></textarea>
+            </mat-form-field>
+          </div>
+      
+          <mat-divider />
+        
+          <div class="inputs-time-servings-container">
+            <h2 class="mat-h2">Cooking time & Servings:</h2>
+            <div class="time-servings-inputs">
+              <mat-form-field>
+                <mat-label for="totalTime">Cooking time: </mat-label>
+                <input matInput id="totalTime" type="number" placeholder="Minutes"formControlName="totalTime">
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label for="servings">Servings: </mat-label>
+                <input matInput id="servings" type="number" placeholder="Number of potions"formControlName="servings">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-divider />
+        
+          <div class="inputs-submit-btn">
+            <p>*required to complete the recipe.</p>
+            <button 
+              mat-raised-button color="accent" 
+              type="submit" 
+              [disabled]="recipeForm.invalid" 
+            >
+              Create recipe
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  }
+</div>
