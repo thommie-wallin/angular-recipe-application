@@ -19,8 +19,6 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 
-//TODO Fill form with data from user-recipes-state.service for the recipe.
-
 @Component({
   selector: 'app-user-recipe-edit',
   standalone: true,
@@ -74,6 +72,37 @@ export class UserRecipeEditComponent {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.recipe = this.userRecipesStateService.getUserRecipe(id);
+      this.populateForm(this.recipe);
+      
+    };
+  };
+
+  populateForm(recipe: UserRecipe | undefined) {
+    if (recipe) {
+      this.recipeForm.patchValue({
+        title: recipe.title,
+        instructions: recipe.instructions,
+        totalTime: recipe.totalTime,
+        servings: recipe.servings,
+        description: recipe.description,
+        imageUrl: recipe.imageUrl,
+      });
+
+      // Clear the current ingredients FormArray
+      this.ingredients.clear();
+
+      // Add each ingredient from the recipe to the ingredients FormArray
+      recipe.ingredients.forEach(ingredient => {
+        const ingredientGroup = this.formBuilder.group({
+          name: [ingredient.name],
+          quantity: [ingredient.quantity],
+          unit: [ingredient.unit]
+        });
+        this.ingredients.push(ingredientGroup);
+      });
+
+      // Update the data source for the table
+      this.dataSource.data = this.ingredients.controls;
     };
   };
 
@@ -106,8 +135,8 @@ export class UserRecipeEditComponent {
 
   onSubmit() {
     if (this.recipeForm.valid) {
-      const newRecipe = { id: crypto.randomUUID(), ...this.recipeForm.value };
-      this.userRecipesStateService.createUserRecipe(newRecipe);
+      const updatedRecipe = { id: this.recipe?.id, ...this.recipeForm.value };
+      this.userRecipesStateService.updateUserRecipe(updatedRecipe);
       this.router.navigate(['/user-recipes']);
     } else {
       // Mark all controls as touched to show validation messages.
