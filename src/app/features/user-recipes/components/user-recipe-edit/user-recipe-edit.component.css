@@ -7,7 +7,7 @@
 
 
 
-.user-recipe-create-form-inputs {
+.user-recipe-edit-form-inputs {
   display: flex;
   flex-direction: column;
 }
@@ -132,7 +132,7 @@
 /* ************MEDIA QUERIES******* */
 
 @media screen and (max-width: 428px) {
-  .user-recipe-create-container {
+  .user-recipe-edit-container {
     margin: 0.5rem;
   }
 
@@ -148,7 +148,7 @@
     flex-direction: column;
   }
 
-  .user-recipe-create-form {
+  .user-recipe-edit-form {
     width: 100%;
   }
 }
@@ -176,7 +176,7 @@
 }
 
 @media screen and (min-width: 1000px) {
-  .user-recipe-create-form {
+  .user-recipe-edit-form {
     width: 80%;
   }
 }

@@ -1,12 +1,12 @@
-<div class="user-recipe-create-container">
+<div class="user-recipe-edit-container">
   <h1 class="mat-h1">Edit recipe</h1>
   <mat-divider />
   @if (error()) {
     <app-error />
   } @else if (recipe) {
     <div class="form-container">
-      <form class="user-recipe-create-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-        <div class="user-recipe-create-form-inputs">
+      <form class="user-recipe-edit-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+        <div class="user-recipe-edit-form-inputs">
           
           <div class="inputs-title-description">
             <h2 class="mat-h2">Name:</h2>
