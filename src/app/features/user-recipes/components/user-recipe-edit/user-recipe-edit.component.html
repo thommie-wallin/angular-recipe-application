@@ -3,8 +3,6 @@
   <mat-divider />
   @if (error()) {
     <app-error />
-  } @else if (loading()) {
-    <app-loading />
   } @else if (recipe) {
     <div class="form-container">
       <form class="user-recipe-create-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
@@ -155,7 +153,7 @@
               type="submit" 
               [disabled]="recipeForm.invalid" 
             >
-              Create recipe
+              Update recipe
             </button>
           </div>
         </div>
