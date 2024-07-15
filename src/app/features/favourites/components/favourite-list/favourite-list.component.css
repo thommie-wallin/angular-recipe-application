@@ -1,17 +1,6 @@
-.fav-container {
-  /* margin: 20px; */
-}
 
 .fav-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-
-
-@media screen and (max-width: 425px) {
-  .fav-container {
-    /* margin: 0px; */
-  }
 }

@@ -1,6 +1,3 @@
-.user-recipes-list-container {
-  /* margin: 20px; */
-}
 
 .user-recipes-list-header {
   display: flex;
@@ -12,17 +9,9 @@
   margin-right: 0.5rem;
 }
 
-@media screen and (max-width: 425px) {
-  .user-recipes-list-container {
-    /* margin: 0px; */
-  }
-}
-
 @media screen and (max-width: 670px) {
   .user-recipes-list-header {
     display: flex;
-    /* flex-direction: column; */
     align-items: flex-start;
-    /* margin-bottom: 0.5rem; */
   }
 }
