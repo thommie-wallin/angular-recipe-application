@@ -25,3 +25,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+
+<div align="center" style="display: flex; justify-content: center; align-items: center; width: 100%">
+  <img align="left" src="./src/assets/images/frontpage-browse.png" width="30%">
+  <img src="./src/assets/images/frontpage-favourites.png" width="30%">
+  <img align="right" src="./src/assets/images/frontpage-create.png" width="30%">
+</div>
