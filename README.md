@@ -23,9 +23,10 @@ Browse for recipes from different food categories. Save your favourite recipes t
 
 - Clone/download repository.
 - Modify the template file .env.example with your own API keys and rename the file to .env
-- Install dependencies:
+- Install dependencies in root folder:
 
 ```
+cd [PROJECT NAME]
 npm install
 ```
 
