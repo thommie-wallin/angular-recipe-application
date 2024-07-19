@@ -1,8 +1,11 @@
-# NewProject
+# Angular Recipe Application ![Static Badge](https://img.shields.io/badge/v18.1.1-blue?logo=angular&logoColor=%23de3641&label=Angular) [![Netlify Status](https://api.netlify.com/api/v1/badges/482773ac-8862-49a4-98a1-24ad250a75e4/deploy-status)](https://app.netlify.com/sites/angular-recipes-application/deploys)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.3.
+This application present a collection of recipes gathered from an external API.
 
-## Development server
+## Description
+
+![Static Badge](https://img.shields.io/badge/v18.1.1-blue?logo=angular&logoColor=%23ffab2e&label=Angular%20Material)
+![Static Badge](https://img.shields.io/badge/v18.1.1-blue?logo=reactivex&logoColor=B7178C&label=RxJS)
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 
