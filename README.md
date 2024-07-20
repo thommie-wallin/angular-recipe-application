@@ -1,6 +1,6 @@
 # Angular Recipe Application ![Static Badge](https://img.shields.io/badge/v18.1.1-blue?logo=angular&logoColor=%23de3641&label=Angular) [![Netlify Status](https://api.netlify.com/api/v1/badges/482773ac-8862-49a4-98a1-24ad250a75e4/deploy-status)](https://app.netlify.com/sites/angular-recipes-application/deploys)
 
-Browse for recipes from different food categories. Save your favourite recipes to a list. Create your own recipes.
+Search for recipes by browsing different food categories. Organize your favourite recipes and store them in a list. Create your own recipes and store them in your own list.
 
 ## Description
 
