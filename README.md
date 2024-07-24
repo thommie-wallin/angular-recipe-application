@@ -11,9 +11,8 @@
 7. [Configuration](#configuration)
 8. [Testing](#testing)
 9. [Deployment](#deployment)
-10. [Contributing](#contributing)
-11. [License](#license)
-12. [Contact](#contact)
+10. [Launch](#launch)
+11. [Acknowledgments](#acknowledgments)
 
 ## Overview
 
@@ -83,6 +82,12 @@ npm install
 ng serve
 ```
 
+or
+
+```bash
+npm start
+```
+
 2. Open your browser and navigate to http://localhost:4200/.
 
 ## Configuration
@@ -101,6 +106,12 @@ API_KEY=your_api_key_here
 ng test
 ```
 
+### Running End-to-End Tests
+
+```bash
+ng e2e
+```
+
 ## Deployment
 
 ### Build for Production
@@ -109,33 +120,7 @@ ng test
 ng build
 ```
 
-<!-- - Modify the template file .env.example with your own API keys and rename the file to .env
-- Install dependencies in root folder:
-
-```
-cd [PROJECT NAME]
-npm install
-```
-
-- Install the Angular CLI globally:
-
-```
-npm install -g @angular/cli
-``` -->
-
-### Executing program
-
-- In project root folder
-
-```
-npm start
-```
-
-or
-
-```
-ng serve
-```
+The build artifacts will be stored in the dist/ directory. You can then deploy the contents of this directory to a web server.
 
 ## Launch
 
