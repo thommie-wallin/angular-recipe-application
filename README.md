@@ -106,12 +106,6 @@ API_KEY=your_api_key_here
 ng test
 ```
 
-### Running End-to-End Tests
-
-```bash
-ng e2e
-```
-
 ## Deployment
 
 ### Build for Production

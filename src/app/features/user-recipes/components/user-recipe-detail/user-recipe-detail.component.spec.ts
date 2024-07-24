@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserRecipeDetailComponent } from './user-recipe-detail.component';
+import { HttpClient, HttpHandler } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideRouter } from '@angular/router';
 
 describe('UserRecipeDetailComponent', () => {
   let component: UserRecipeDetailComponent;
@@ -8,7 +11,12 @@ describe('UserRecipeDetailComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UserRecipeDetailComponent]
+      imports: [UserRecipeDetailComponent, BrowserAnimationsModule],
+      providers: [
+        HttpClient,
+        HttpHandler,
+        provideRouter([]),
+      ],
     })
     .compileComponents();
 
